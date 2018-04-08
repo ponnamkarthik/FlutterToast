@@ -1,5 +1,6 @@
 import Flutter
 import UIKit
+import Toast_Swift
     
 public class SwiftFluttertoastPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
@@ -9,6 +10,11 @@ public class SwiftFluttertoastPlugin: NSObject, FlutterPlugin {
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    result("iOS " + UIDevice.current.systemVersion)
+    switch call.method {
+        case "showToast":
+          result(FlutterMethodNotImplemented)
+        default:
+          result(FlutterMethodNotImplemented)
+    }
   }
 }

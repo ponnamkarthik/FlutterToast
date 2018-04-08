@@ -1,8 +1,8 @@
 name: fluttertoast
 description: Toast Library for FLutter
-version: 1.0.0
-author:
-homepage:
+version: 1.0.1
+author: Karthik Ponnam <ponnamkarthik3@gmail.com>
+homepage: https://github.com/PonnamKarthik/FlutterToast
 
 dependencies:
   flutter:
@@ -47,3 +47,7 @@ flutter:
   #
   # For details regarding fonts in packages, see
   # https://flutter.io/custom-fonts/#from-packages
+
+environment:
+  sdk: ">=2.0.0-dev.28.0 <3.0.0"
+  flutter: ">=0.1.4 <2.0.0"

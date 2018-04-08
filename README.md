@@ -1,8 +1,13 @@
 # fluttertoast
 
-Android Toast Library for FLutter
+Android Toast Library for Flutter
 
 ## How to Use
+
+```yaml
+# add this line to your dependencies
+fluttertoast: ^1.0.1
+```
 
 ```dart
 Fluttertoast.showToast("Toast Text", <Toast Length>);
