@@ -16,11 +16,31 @@ class _MyAppState extends State<MyApp> {
   }
 
   void showLongToast() {
-    Fluttertoast.showToast("This is Long Toast", Toast.LENGTH_LONG);
+    Fluttertoast.showToast(
+        msg: "This is Long Toast",
+        toastLength: Toast.LENGTH_LONG,
+    );
   }
 
   void showShortToast() {
-    Fluttertoast.showToast("This is Short Toast", Toast.LENGTH_SHORT);
+    Fluttertoast.showToast(
+      msg: "This is Long Toast",
+      toastLength: Toast.LENGTH_SHORT,
+    );
+  }
+  void showTopShortToast() {
+    Fluttertoast.showToast(
+      msg: "This is Top Long Toast",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.TOP
+    );
+  }
+  void showCenterShortToast() {
+    Fluttertoast.showToast(
+      msg: "This is Center Short Toast",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER
+    );
   }
 
   @override
@@ -45,6 +65,20 @@ class _MyAppState extends State<MyApp> {
                 child: new RaisedButton(
                     child: new Text('Show Short Toast'),
                     onPressed: showShortToast
+                ),
+              ),
+              new Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: new RaisedButton(
+                    child: new Text('Show Center Short Toast'),
+                    onPressed: showCenterShortToast
+                ),
+              ),
+              new Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: new RaisedButton(
+                    child: new Text('Show Top Short Toast'),
+                    onPressed: showTopShortToast
                 ),
               ),
             ],
