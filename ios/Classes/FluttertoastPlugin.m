@@ -26,22 +26,28 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
         NSString *gravity = call.arguments[@"gravity"];
         NSString *durationTime = call.arguments[@"time"];
 
-        if([gravity isEqualToString:@"top"]) {
+
+        if((durationTime == (id)[NSNull null] || durationTime.length == 0 )) {
             [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
-            duration: [durationTime intValue]
-            position:CSToastPositionTop];
-        } else if([gravity isEqualToString:@"center"]) {
-            [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
-            duration: [durationTime intValue]
-            position:CSToastPositionCenter];
+                                                                                        duration: 3
+                                                                                        position:CSToastPositionBottom];
         } else {
-            [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
-            duration: [durationTime intValue]
-            position:CSToastPositionBottom];
+            if([gravity isEqualToString:@"top"]) {
+                [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
+                                                                                            duration: [durationTime intValue]
+                                                                                            position:CSToastPositionTop];
+            } else if([gravity isEqualToString:@"center"]) {
+                [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
+                                                                                            duration: [durationTime intValue]
+                                                                                            position:CSToastPositionCenter];
+            } else {
+                [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
+                                                                                            duration: [durationTime intValue]
+                                                                                            position:CSToastPositionBottom];
+            }
         }
 
-
-        _result = result;
+        result(@"done");
     } else {
         result(FlutterMethodNotImplemented);
     }

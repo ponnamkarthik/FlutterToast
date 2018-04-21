@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
@@ -17,14 +19,14 @@ enum ToastGravity {
 class Fluttertoast {
 
   static const MethodChannel _channel =
-      const MethodChannel('PonnamKarthik/fluttertoast');
+  const MethodChannel('PonnamKarthik/fluttertoast');
 
-  static void showToast({
+  static Future<String> showToast ({
     @required String msg,
     Toast toastLength,
     int timeInSecForIos,
     ToastGravity gravity
-  }) {
+  }) async {
     String toast = "short";
     if(toastLength == Toast.LENGTH_LONG) {
       toast = "long";
@@ -45,8 +47,8 @@ class Fluttertoast {
       'time': timeInSecForIos,
       'gravity': gravityToast
     };
-    _channel.invokeMethod('showToast', params);
+    String res = await _channel.invokeMethod('showToast', params);
+    return res;
   }
 
 }
-

@@ -13,33 +13,37 @@ class _MyAppState extends State<MyApp> {
   @override
   initState() {
     super.initState();
+
   }
 
   void showLongToast() {
     Fluttertoast.showToast(
-        msg: "This is Long Toast",
-        toastLength: Toast.LENGTH_LONG,
+      msg: "This is Long Toast",
+      toastLength: Toast.LENGTH_LONG,
     );
   }
 
   void showShortToast() {
     Fluttertoast.showToast(
-      msg: "This is Long Toast",
-      toastLength: Toast.LENGTH_SHORT,
+        msg: "This is Long Toast",
+        toastLength: Toast.LENGTH_SHORT,
+        timeInSecForIos: 1
     );
   }
   void showTopShortToast() {
     Fluttertoast.showToast(
-      msg: "This is Top Long Toast",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.TOP
+        msg: "This is Top Long Toast",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        timeInSecForIos: 1
     );
   }
   void showCenterShortToast() {
     Fluttertoast.showToast(
-      msg: "This is Center Short Toast",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER
+        msg: "This is Center Short Toast",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 1
     );
   }
 
