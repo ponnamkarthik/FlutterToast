@@ -1,3 +1,7 @@
+## [2.0.3]
+
+* iOs run time error fixed
+
 ## [2.0.2]
 
 * iOs build error fixed
