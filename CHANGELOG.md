@@ -1,3 +1,7 @@
+## [2.0.2]
+
+* iOs build error fixed
+
 ## [2.0.1]
 
 * Ios Support added 

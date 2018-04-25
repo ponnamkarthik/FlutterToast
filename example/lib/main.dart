@@ -25,14 +25,14 @@ class _MyAppState extends State<MyApp> {
 
   void showShortToast() {
     Fluttertoast.showToast(
-        msg: "This is Long Toast",
+        msg: "This is Short Toast",
         toastLength: Toast.LENGTH_SHORT,
         timeInSecForIos: 1
     );
   }
   void showTopShortToast() {
     Fluttertoast.showToast(
-        msg: "This is Top Long Toast",
+        msg: "This is Top Short Toast",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.TOP,
         timeInSecForIos: 1
