@@ -3,8 +3,8 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'fluttertoast'
-  s.version          = '0.0.1'
-  s.summary          = 'Toast Library for FLutter'
+  s.version          = '0.0.2'
+  s.summary          = 'Toast Library for Flutter'
   s.description      = <<-DESC
 Toast Library for FLutter
                        DESC

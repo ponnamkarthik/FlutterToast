@@ -24,7 +24,7 @@ class Fluttertoast {
   static Future<String> showToast ({
     @required String msg,
     Toast toastLength,
-    int timeInSecForIos,
+    int timeInSecForIos = 1,
     ToastGravity gravity
   }) async {
     String toast = "short";
