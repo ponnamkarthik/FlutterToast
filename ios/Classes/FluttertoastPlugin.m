@@ -17,7 +17,7 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
     [UIApplication sharedApplication].delegate.window.rootViewController;
     FluttertoastPlugin* instance = [[FluttertoastPlugin alloc] init];
     [registrar addMethodCallDelegate:instance channel:channel];
-
+    
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
@@ -25,28 +25,31 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
         NSString *msg = call.arguments[@"msg"];
         NSString *gravity = call.arguments[@"gravity"];
         NSString *durationTime = call.arguments[@"time"];
-
-
-        if((durationTime == (id)[NSNull null] || durationTime.length == 0 )) {
-            [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
-                                                                                        duration: 3
-                                                                                        position:CSToastPositionBottom];
-        } else {
-            if([gravity isEqualToString:@"top"]) {
-                [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
-                                                                                            duration: [durationTime intValue]
-                                                                                            position:CSToastPositionTop];
-            } else if([gravity isEqualToString:@"center"]) {
-                [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
-                                                                                            duration: [durationTime intValue]
-                                                                                            position:CSToastPositionCenter];
-            } else {
-                [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
-                                                                                            duration: [durationTime intValue]
-                                                                                            position:CSToastPositionBottom];
-            }
+        
+        int time = 1;
+        @try{
+            time = [durationTime intValue];
+        } @catch(NSException *e){
+            time = 3;
         }
-
+        
+        if(time > 10 ) time = 10;
+        else if(time < 1) time = 1;
+        
+        if([gravity isEqualToString:@"top"]) {
+            [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
+                                                                                        duration: time
+                                                                                        position:CSToastPositionTop];
+        } else if([gravity isEqualToString:@"center"]) {
+            [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
+                                                                                        duration: time
+                                                                                        position:CSToastPositionCenter];
+        } else {
+            [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
+                                                                                        duration: time
+                                                                                        position:CSToastPositionBottom];
+        }
+        
         result(@"done");
     } else {
         result(FlutterMethodNotImplemented);
