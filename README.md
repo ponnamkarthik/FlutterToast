@@ -11,7 +11,7 @@ Android Toast Library for Flutter
 
 ```yaml
 # add this line to your dependencies
-fluttertoast: ^2.0.3
+fluttertoast: ^2.1.0
 ```
 
 ```dart
@@ -19,7 +19,9 @@ Fluttertoast.showToast(
         msg: "This is Center Short Toast",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
-        timeInSecForIos: 1
+        timeInSecForIos: 1,
+        bgcolor: "#e74c3c",
+        textcolor: '#ffffff'
     );
 ```
 
@@ -29,4 +31,6 @@ msg | String (Not Null)(required)
 toastLength| Toast.LENGTH_SHORT or Toast.LENGTH_LONG (optional)
 gravity | ToastGravity.TOP (or) ToastGravity.CENTER (or) ToastGravity.BOTTOM
 timeInSecForIos | int (only for ios)
+bgcolor | string (color in hex format)
+      textcolor: '#ffffff'
 

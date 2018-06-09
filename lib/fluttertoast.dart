@@ -25,7 +25,9 @@ class Fluttertoast {
     @required String msg,
     Toast toastLength,
     int timeInSecForIos = 1,
-    ToastGravity gravity
+    ToastGravity gravity,
+    String bgcolor = "null",
+    String textcolor = "null"
   }) async {
     String toast = "short";
     if(toastLength == Toast.LENGTH_LONG) {
@@ -45,7 +47,9 @@ class Fluttertoast {
       'msg': msg,
       'length': toast,
       'time': timeInSecForIos,
-      'gravity': gravityToast
+      'gravity': gravityToast,
+      'bgcolor': bgcolor,
+      'textcolor': textcolor
     };
     String res = await _channel.invokeMethod('showToast', params);
     return res;

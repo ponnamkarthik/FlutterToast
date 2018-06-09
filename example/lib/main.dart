@@ -23,6 +23,15 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  void showColoredToast() {
+    Fluttertoast.showToast(
+        msg: "This is Colored Toast",
+        toastLength: Toast.LENGTH_SHORT,
+        bgcolor: "#e74c3c",
+        textcolor: '#ffffff'
+    );
+  }
+
   void showShortToast() {
     Fluttertoast.showToast(
         msg: "This is Short Toast",
@@ -83,6 +92,13 @@ class _MyAppState extends State<MyApp> {
                 child: new RaisedButton(
                     child: new Text('Show Top Short Toast'),
                     onPressed: showTopShortToast
+                ),
+              ),
+              new Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: new RaisedButton(
+                    child: new Text('Show Colored Toast'),
+                    onPressed: showColoredToast
                 ),
               ),
             ],
