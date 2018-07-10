@@ -32,5 +32,5 @@ toastLength| Toast.LENGTH_SHORT or Toast.LENGTH_LONG (optional)
 gravity | ToastGravity.TOP (or) ToastGravity.CENTER (or) ToastGravity.BOTTOM
 timeInSecForIos | int (only for ios)
 bgcolor | string (color in hex format)
-      textcolor: '#ffffff'
+textcolor| '#ffffff'
 

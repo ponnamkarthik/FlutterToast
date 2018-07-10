@@ -61,19 +61,19 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
     [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg];
 }
 
-- (UIColor *)getUIColorObjectFromHexString:(NSString *)hexStr alpha:(CGFloat)alpha
-{
+// - (UIColor *)getUIColorObjectFromHexString:(NSString *)hexStr alpha:(CGFloat)alpha
+// {
   // Convert hex string to an integer
-  unsigned int hexint = [self intFromHexString:hexStr];
+  // unsigned int hexint = [self intFromHexString:hexStr];
 
   // Create color object, specifying alpha as well
-  UIColor *color =
-    [UIColor colorWithRed:((CGFloat) ((hexint & 0xFF0000) >> 16))/255
-    green:((CGFloat) ((hexint & 0xFF00) >> 8))/255
-    blue:((CGFloat) (hexint & 0xFF))/255
-    alpha:alpha];
+  // UIColor *color =
+    // [UIColor colorWithRed:((CGFloat) ((hexint & 0xFF0000) >> 16))/255
+    // green:((CGFloat) ((hexint & 0xFF00) >> 8))/255
+    // blue:((CGFloat) (hexint & 0xFF))/255
+    // alpha:alpha];
 
-  return color;
-}
+  // return color;
+// }
 
 @end

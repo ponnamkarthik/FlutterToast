@@ -1,3 +1,7 @@
+## [2.0.5]
+
+* iOS Release build error fixed
+
 ## [2.0.3]
 
 * iOs run time error fixed
