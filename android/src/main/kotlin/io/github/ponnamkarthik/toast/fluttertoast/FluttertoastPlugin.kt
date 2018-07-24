@@ -73,7 +73,7 @@ class FluttertoastPlugin(context: Context) : MethodCallHandler {
                     shapeDrawable.paint.isAntiAlias = true
                     shapeDrawable.paint.flags = Paint.ANTI_ALIAS_FLAG
 
-                    text.setBackgroundDrawable(shapeDrawable)
+                    toast.view.setBackgroundDrawable(shapeDrawable)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
