@@ -24,7 +24,7 @@ import android.graphics.drawable.shapes.RoundRectShape
 class FluttertoastPlugin(context: Context): MethodCallHandler {
 
   var ctx: Context? = context
-
+    var toast: Toast? = null
   companion object {
     @JvmStatic
     fun registerWith(registrar: Registrar): Unit {
@@ -44,8 +44,8 @@ class FluttertoastPlugin(context: Context): MethodCallHandler {
         val bgcolor: String = call.argument("bgcolor")
         val textcolor: String = call.argument("textcolor")
 
-        var toast: Toast = Toast.makeText(ctx, msg, Toast.LENGTH_SHORT);
-
+        val toast: Toast = this.toast?:Toast.makeText(ctx, msg, Toast.LENGTH_SHORT);
+        this.toast = toast
       if(length.equals("long")) {
           toast.duration = Toast.LENGTH_LONG
       } else {
