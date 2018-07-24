@@ -1,3 +1,7 @@
+## [2.0.7]
+
+* Text background fix for android
+
 ## [2.0.6]
 
 * iOS Release build error fixed
