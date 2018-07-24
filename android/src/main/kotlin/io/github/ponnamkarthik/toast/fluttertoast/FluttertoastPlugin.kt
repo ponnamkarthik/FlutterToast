@@ -46,6 +46,7 @@ class FluttertoastPlugin(context: Context): MethodCallHandler {
 
         val toast: Toast = this.toast?:Toast.makeText(ctx, msg, Toast.LENGTH_SHORT);
         this.toast = toast
+        toast.text = msg;
       if(length.equals("long")) {
           toast.duration = Toast.LENGTH_LONG
       } else {
