@@ -11,7 +11,7 @@ Android Toast Library for Flutter
 
 ```yaml
 # add this line to your dependencies
-fluttertoast: ^2.0.7
+fluttertoast: ^2.0.8
 ```
 
 ```dart
@@ -34,3 +34,10 @@ timeInSecForIos | int (only for ios)
 bgcolor | string (color in hex format)
 textcolor| '#ffffff'
 
+
+## Preview Images
+
+<img src="https://raw.githubusercontent.com/PonnamKarthik/FlutterToast/master/screenshot/1.png" width="320px" />
+<img src="https://raw.githubusercontent.com/PonnamKarthik/FlutterToast/master/screenshot/2.png" width="320px" />
+<img src="https://raw.githubusercontent.com/PonnamKarthik/FlutterToast/master/screenshot/3.png" width="320px" />
+<img src="https://raw.githubusercontent.com/PonnamKarthik/FlutterToast/master/screenshot/4.png" width="320px" />
