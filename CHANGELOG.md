@@ -1,3 +1,9 @@
+## [2.0.8]
+
+* Build failed with an exception fixed
+* The plugin calls the build of the previous widget fixed
+* Screenshots added
+
 ## [2.0.7]
 
 * Text background fix for android

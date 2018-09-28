@@ -14,6 +14,7 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import android.util.Log
 
 
 class FluttertoastPlugin(context: Context) : MethodCallHandler {
@@ -22,7 +23,6 @@ class FluttertoastPlugin(context: Context) : MethodCallHandler {
 
 
     companion object {
-        var toast: Toast? = null
         @JvmStatic
         fun registerWith(registrar: Registrar): Unit {
             val channel = MethodChannel(registrar.messenger(), "PonnamKarthik/fluttertoast")
@@ -42,8 +42,7 @@ class FluttertoastPlugin(context: Context) : MethodCallHandler {
             val bgcolor: String = call.argument("bgcolor")
             val textcolor: String = call.argument("textcolor")
 
-            val toast: Toast = FluttertoastPlugin.toast ?: Toast.makeText(ctx, msg, Toast.LENGTH_SHORT);
-            FluttertoastPlugin.toast = toast
+            val toast: Toast = Toast.makeText(ctx, msg, Toast.LENGTH_SHORT);
             toast.setText(msg)
             if (length.equals("long")) {
                 toast.duration = Toast.LENGTH_LONG
