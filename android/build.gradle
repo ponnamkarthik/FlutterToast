@@ -2,7 +2,7 @@ group 'io.github.ponnamkarthik.toast.fluttertoast'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.2.51'
+    ext.kotlin_version = '1.2.71'
     repositories {
         google()
         jcenter()
@@ -26,6 +26,7 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 28
+    buildToolsVersion '28.0.3'
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
