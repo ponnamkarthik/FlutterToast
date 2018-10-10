@@ -36,11 +36,11 @@ class FluttertoastPlugin(context: Context) : MethodCallHandler {
 
         if (call.method == "showToast") {
 
-            val msg: String = call.argument("msg")
-            val length: String = call.argument("length")
-            val gravity: String = call.argument("gravity")
-            val bgcolor: String = call.argument("bgcolor")
-            val textcolor: String = call.argument("textcolor")
+            val msg = call.argument<String>("msg")
+            val length = call.argument<String>("length")
+            val gravity = call.argument<String>("gravity")
+            val bgcolor = call.argument<String>("bgcolor")
+            val textcolor = call.argument<String>("textcolor")
 
             val toast: Toast = Toast.makeText(ctx, msg, Toast.LENGTH_SHORT);
             toast.setText(msg)
