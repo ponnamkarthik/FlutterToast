@@ -1,3 +1,7 @@
+## [2.0.9]
+
+* fix error in flutter 0.9.7
+
 ## [2.0.8]
 
 * Build failed with an exception fixed
