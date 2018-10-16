@@ -15,6 +15,10 @@ fluttertoast: ^2.0.9
 ```
 
 ```dart
+import 'package:fluttertoast/fluttertoast.dart';
+```
+
+```dart
 Fluttertoast.showToast(
         msg: "This is Center Short Toast",
         toastLength: Toast.LENGTH_SHORT,
