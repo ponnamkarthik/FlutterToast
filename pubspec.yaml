@@ -4,6 +4,9 @@ version: 2.0.9
 author: Karthik Ponnam <ponnamkarthik3@gmail.com>
 homepage: https://github.com/PonnamKarthik/FlutterToast
 
+environment:
+  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+
 dependencies:
   flutter:
     sdk: flutter
@@ -47,7 +50,3 @@ flutter:
   #
   # For details regarding fonts in packages, see
   # https://flutter.io/custom-fonts/#from-packages
-
-environment:
-  sdk: ">=2.0.0-dev.28.0 <3.0.0"
-  flutter: ">=0.1.4 <2.0.0"

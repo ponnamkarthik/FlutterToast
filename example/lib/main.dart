@@ -9,11 +9,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   initState() {
     super.initState();
-
   }
 
   void showLongToast() {
@@ -28,32 +26,30 @@ class _MyAppState extends State<MyApp> {
         msg: "This is Colored Toast",
         toastLength: Toast.LENGTH_SHORT,
         bgcolor: "#e74c3c",
-        textcolor: '#ffffff'
-    );
+        textcolor: '#ffffff');
   }
 
   void showShortToast() {
     Fluttertoast.showToast(
         msg: "This is Short Toast",
         toastLength: Toast.LENGTH_SHORT,
-        timeInSecForIos: 1
-    );
+        timeInSecForIos: 1);
   }
+
   void showTopShortToast() {
     Fluttertoast.showToast(
         msg: "This is Top Short Toast",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.TOP,
-        timeInSecForIos: 1
-    );
+        timeInSecForIos: 1);
   }
+
   void showCenterShortToast() {
     Fluttertoast.showToast(
         msg: "This is Center Short Toast",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
-        timeInSecForIos: 1
-    );
+        timeInSecForIos: 1);
   }
 
   @override
@@ -70,36 +66,31 @@ class _MyAppState extends State<MyApp> {
                 padding: const EdgeInsets.all(10.0),
                 child: new RaisedButton(
                     child: new Text('Show Long Toast'),
-                    onPressed: showLongToast
-                ),
+                    onPressed: showLongToast),
               ),
               new Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: new RaisedButton(
                     child: new Text('Show Short Toast'),
-                    onPressed: showShortToast
-                ),
+                    onPressed: showShortToast),
               ),
               new Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: new RaisedButton(
                     child: new Text('Show Center Short Toast'),
-                    onPressed: showCenterShortToast
-                ),
+                    onPressed: showCenterShortToast),
               ),
               new Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: new RaisedButton(
                     child: new Text('Show Top Short Toast'),
-                    onPressed: showTopShortToast
-                ),
+                    onPressed: showTopShortToast),
               ),
               new Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: new RaisedButton(
                     child: new Text('Show Colored Toast'),
-                    onPressed: showColoredToast
-                ),
+                    onPressed: showColoredToast),
               ),
             ],
           ),
