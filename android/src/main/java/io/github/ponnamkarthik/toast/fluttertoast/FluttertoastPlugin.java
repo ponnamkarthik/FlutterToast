@@ -68,7 +68,7 @@ public class FluttertoastPlugin implements MethodCallHandler {
 
             try {
 
-                RoundRectShape rectShape = new RoundRectShape(new float[] {50f, 50f, 50f, 50f, 50f, 50f, 50f, 50f}, null, null);
+                RoundRectShape rectShape = new RoundRectShape(new float[] {100f, 100f, 100f, 100f, 100f, 100f, 100f, 100f}, null, null);
 
                 ShapeDrawable shapeDrawable = new ShapeDrawable(rectShape);
                 shapeDrawable.getPaint().setColor(Color.parseColor(bgcolor));
@@ -76,7 +76,8 @@ public class FluttertoastPlugin implements MethodCallHandler {
                 shapeDrawable.getPaint().setAntiAlias(true);
                 shapeDrawable.getPaint().setFlags(Paint.ANTI_ALIAS_FLAG);
 
-                text.setBackground(shapeDrawable);
+                toast.getView().setBackground(shapeDrawable);
+//                text.setBackground(shapeDrawable);
             } catch (Exception e) {
                 e.printStackTrace();
             }

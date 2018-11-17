@@ -1,3 +1,7 @@
+## [2.1.1]
+
+* Background color does not fill the whole Toast fixed
+
 ## [2.1.0]
 
 * build error fixed
