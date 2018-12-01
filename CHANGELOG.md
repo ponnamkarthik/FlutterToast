@@ -1,3 +1,8 @@
+## [2.1.2]
+
+*iOS Color Fix
+* Background color fix in PIE
+
 ## [2.1.1]
 
 * Background color does not fill the whole Toast fixed

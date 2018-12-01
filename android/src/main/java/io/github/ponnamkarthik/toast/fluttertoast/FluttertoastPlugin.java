@@ -11,6 +11,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
+import android.os.Build;
 import android.view.Gravity;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,8 +77,11 @@ public class FluttertoastPlugin implements MethodCallHandler {
                 shapeDrawable.getPaint().setAntiAlias(true);
                 shapeDrawable.getPaint().setFlags(Paint.ANTI_ALIAS_FLAG);
 
-                toast.getView().setBackground(shapeDrawable);
-//                text.setBackground(shapeDrawable);
+                if (android.os.Build.VERSION.SDK_INT <= 27) {
+                    toast.getView().setBackground(shapeDrawable);
+                } else {
+                    text.setBackground(shapeDrawable);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
