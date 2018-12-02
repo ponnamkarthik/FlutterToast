@@ -20,14 +20,15 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
 
 }
 
-- (UIColor *)getUIColorObjectFromInt:(unsigned int)value {
-    UIColor *color =
-            [UIColor colorWithRed:((CGFloat) ((value & 0xFF) << 16)) / 255
-                            green:((CGFloat) ((value & 0xFF) << 8)) / 255
-                             blue:((CGFloat) ((value & 0xFF) << 0)) / 255
-                            alpha:((CGFloat) ((value & 0xFF) << 24)) / 255];
+- (UIColor*) colorWithHex: (NSUInteger)hex {
+    CGFloat red, green, blue, alpha;
 
-    return color;
+    red = ((CGFloat)((hex >> 16) & 0xFF)) / ((CGFloat)0xFF);
+    green = ((CGFloat)((hex >> 8) & 0xFF)) / ((CGFloat)0xFF);
+    blue = ((CGFloat)((hex >> 0) & 0xFF)) / ((CGFloat)0xFF);
+    alpha = hex > 0xFFFFFF ? ((CGFloat)((hex >> 24) & 0xFF)) / ((CGFloat)0xFF) : 1;
+
+    return [UIColor colorWithRed: red green:green blue:blue alpha:alpha];
 }
 
 - (void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
@@ -51,8 +52,8 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
 
         CSToastStyle *style = [[CSToastStyle alloc] initWithDefaultStyle];
 
-        style.backgroundColor = [self getUIColorObjectFromInt:bgcolor.unsignedIntValue];
-        style.messageColor = [self getUIColorObjectFromInt:textcolor.unsignedIntValue];
+        style.backgroundColor = [self colorWithHex:bgcolor.unsignedIntegerValue];
+        style.messageColor = [self colorWithHex:textcolor.unsignedIntegerValue];
 
         if ([gravity isEqualToString:@"top"]) {
             [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
