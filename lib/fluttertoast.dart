@@ -12,13 +12,14 @@ class Fluttertoast {
   static const MethodChannel _channel =
       const MethodChannel('PonnamKarthik/fluttertoast');
 
-  static Future<String> showToast(
-      {@required String msg,
-      Toast toastLength,
-      int timeInSecForIos = 1,
-      ToastGravity gravity,
-      Color backgroundColor,
-      Color textColor}) async {
+  static Future<String> showToast({
+    @required String msg,
+    Toast toastLength,
+    int timeInSecForIos = 1,
+    ToastGravity gravity,
+    Color backgroundColor,
+    Color textColor,
+  }) async {
     String toast = "short";
     if (toastLength == Toast.LENGTH_LONG) {
       toast = "long";
@@ -38,8 +39,9 @@ class Fluttertoast {
       'length': toast,
       'time': timeInSecForIos,
       'gravity': gravityToast,
-      'bgcolor': backgroundColor.value.toString() ?? "null",
-      'textcolor': textColor.value.toString() ?? "null"
+      'bgcolor':
+          backgroundColor != null ? backgroundColor.value.toString() : "null",
+      'textcolor': textColor != null ? textColor.value.toString() : "null"
     };
     String res = await _channel.invokeMethod('showToast', params);
     return res;
