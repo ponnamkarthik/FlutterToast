@@ -20,24 +20,12 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
 
 }
 
-- (unsigned int)intFromHexString:(NSString *)hexStr {
-    unsigned int hexInt = 0;
-    NSScanner *scanner = [NSScanner scannerWithString:hexStr];
-    [scanner setCharactersToBeSkipped:[NSCharacterSet characterSetWithCharactersInString:@"#"]];
-    [scanner scanHexInt:&hexInt];
-    return hexInt;
-}
-
-- (UIColor *)getUIColorObjectFromHexString:(NSString *)hexStr alpha:(CGFloat)alpha {
-//   Convert hex string to an integer
-    unsigned int hexint = [self intFromHexString:hexStr];
-
-//   Create color object, specifying alpha as well
+- (UIColor *)getUIColorObjectFromInt:(unsigned int)value {
     UIColor *color =
-            [UIColor colorWithRed:((CGFloat) ((hexint & 0xFF0000) >> 16)) / 255
-                            green:((CGFloat) ((hexint & 0xFF00) >> 8)) / 255
-                             blue:((CGFloat) (hexint & 0xFF)) / 255
-                            alpha:alpha];
+            [UIColor colorWithRed:((CGFloat) ((value & 0xFF) << 16)) / 255
+                            green:((CGFloat) ((value & 0xFF) << 8)) / 255
+                             blue:((CGFloat) ((value & 0xFF) << 0)) / 255
+                            alpha:((CGFloat) ((value & 0xFF) << 24)) / 255];
 
     return color;
 }
@@ -47,8 +35,8 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
         NSString *msg = call.arguments[@"msg"];
         NSString *gravity = call.arguments[@"gravity"];
         NSString *durationTime = call.arguments[@"time"];
-        NSString *bgcolor = call.arguments[@"bgcolor"];
-        NSString *textcolor = call.arguments[@"textcolor"];
+        NSNumber *bgcolor = call.arguments[@"bgcolor"];
+        NSNumber *textcolor = call.arguments[@"textcolor"];
 
         int time = 1;
         @try {
@@ -62,13 +50,9 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
 
 
         CSToastStyle *style = [[CSToastStyle alloc] initWithDefaultStyle];
-        if (![bgcolor isEqualToString:@"null"]) {
-            style.backgroundColor = [self getUIColorObjectFromHexString:bgcolor alpha:1.0];
-        }
 
-        if (![textcolor isEqualToString:@"null"]) {
-            style.messageColor = [self getUIColorObjectFromHexString:textcolor alpha:1.0];
-        }
+        style.backgroundColor = [self getUIColorObjectFromInt:bgcolor.unsignedIntValue];
+        style.messageColor = [self getUIColorObjectFromInt:textcolor.unsignedIntValue];
 
         if ([gravity isEqualToString:@"top"]) {
             [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
@@ -92,32 +76,5 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
         result(FlutterMethodNotImplemented);
     }
 }
-
-
-// - (void)showToastView:(FlutterMethodCall*)call:(NSString*)msg {
-//     [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg];
-// }
-
-// func hexStringToUIColor (hex:String) -> UIColor {
-//     var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-
-//     if (cString.hasPrefix("#")) {
-//         cString.remove(at: cString.startIndex)
-//     }
-
-//     if ((cString.count) != 6) {
-//         return UIColor.gray
-//     }
-
-//     var rgbValue:UInt32 = 0
-//     Scanner(string: cString).scanHexInt32(&rgbValue)
-
-//     return UIColor(
-//         red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
-//         green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
-//         blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-//         alpha: CGFloat(1.0)
-//     )
-// }
 
 @end
