@@ -50,7 +50,6 @@ public class FluttertoastPlugin implements MethodCallHandler {
         toast.setDuration(Toast.LENGTH_SHORT);
       }
 
-
       switch (gravity) {
           case "top":
               toast.setGravity(Gravity.TOP, 0, 100);
