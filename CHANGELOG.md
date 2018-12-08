@@ -1,3 +1,7 @@
+## [2.1.3]
+
+* Merged PR #32 
+
 ## [2.1.2]
 
 *iOS Color Fix
