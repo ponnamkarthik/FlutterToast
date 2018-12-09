@@ -24,8 +24,8 @@ Fluttertoast.showToast(
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIos: 1,
-        bgcolor: "#e74c3c",
-        textcolor: '#ffffff'
+        backgroundColor: Colors.red,
+        textColor: Colors.white
     );
 ```
 
