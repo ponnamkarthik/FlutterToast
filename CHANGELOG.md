@@ -1,3 +1,7 @@
+## [2.1.5]
+
+* Merged PR #36 - Fix Number Cast Error for issue #35
+
 ## [2.1.4]
 
 * Merged PR #32 
