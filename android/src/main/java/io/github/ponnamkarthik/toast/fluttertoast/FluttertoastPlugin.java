@@ -37,8 +37,8 @@ public class FluttertoastPlugin implements MethodCallHandler {
       String msg  = call.argument("msg").toString();
       String length = call.argument("length").toString();
       String gravity = call.argument("gravity").toString();
-      Long bgcolor = call.argument("bgcolor");
-      Long textcolor = call.argument("textcolor");
+      Number bgcolor = call.argument("bgcolor");
+      Number textcolor = call.argument("textcolor");
 
       Toast toast = Toast.makeText(ctx, msg, Toast.LENGTH_SHORT);
 
