@@ -11,7 +11,7 @@ Android Toast Library for Flutter
 
 ```yaml
 # add this line to your dependencies
-fluttertoast: ^2.1.5
+fluttertoast: ^2.2.0
 ```
 
 ```dart

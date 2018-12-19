@@ -1,3 +1,7 @@
+## [2.2.0]
+
+* Background color fixed #29
+
 ## [2.1.5]
 
 * Merged PR #36 - Fix Number Cast Error for issue #35
@@ -8,7 +12,7 @@
 
 ## [2.1.2]
 
-*iOS Color Fix
+* iOS Color Fix
 * Background color fix in PIE
 
 ## [2.1.1]
