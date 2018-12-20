@@ -7,6 +7,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,8 +22,6 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 public class FluttertoastPlugin implements MethodCallHandler {
 
   Context ctx;
-
-  int defaultTextColor = Color.TRANSPARENT;
 
   FluttertoastPlugin(Context context) {
     ctx = context;
@@ -42,6 +41,7 @@ public class FluttertoastPlugin implements MethodCallHandler {
       String gravity = call.argument("gravity").toString();
       Number bgcolor = call.argument("bgcolor");
       Number textcolor = call.argument("textcolor");
+
 
       Toast toast = Toast.makeText(ctx, msg, Toast.LENGTH_SHORT);
 
@@ -66,10 +66,6 @@ public class FluttertoastPlugin implements MethodCallHandler {
 
       TextView text = toast.getView().findViewById(android.R.id.message);
 
-      if (defaultTextColor == 0) {
-          defaultTextColor = text.getCurrentTextColor();
-      }
-
       if(bgcolor != null) {
           Drawable shapeDrawable = ContextCompat.getDrawable(ctx, R.drawable.toast_bg);
 
@@ -84,10 +80,8 @@ public class FluttertoastPlugin implements MethodCallHandler {
 
       }
 
-      try {
-          text.setTextColor(textcolor != null ? textcolor.intValue() : defaultTextColor);
-      } catch (Exception e) {
-          e.printStackTrace();
+      if(textcolor != null) {
+          text.setTextColor(textcolor.intValue());
       }
 
       toast.show();

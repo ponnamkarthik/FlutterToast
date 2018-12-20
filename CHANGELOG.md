@@ -1,3 +1,7 @@
+## [2.2.1]
+
+* default toast style fix #38
+
 ## [2.2.0]
 
 * Background color fixed #29
