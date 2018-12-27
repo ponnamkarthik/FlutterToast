@@ -1,3 +1,24 @@
+## [2.2.1]
+
+* default toast style fix #38
+
+## [2.2.0]
+
+* Background color fixed #29
+
+## [2.1.5]
+
+* Merged PR #36 - Fix Number Cast Error for issue #35
+
+## [2.1.4]
+
+* Merged PR #32 
+
+## [2.1.2]
+
+* iOS Color Fix
+* Background color fix in PIE
+
 ## [2.1.1]
 
 * Background color does not fill the whole Toast fixed
