@@ -4,10 +4,10 @@
 
 static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
 
+
 @implementation FluttertoastPlugin {
     FlutterResult _result;
 }
-
 
 + (void)registerWithRegistrar:(NSObject <FlutterPluginRegistrar> *)registrar {
     FlutterMethodChannel *channel = [FlutterMethodChannel
@@ -38,7 +38,7 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
         NSString *durationTime = call.arguments[@"time"];
         NSNumber *bgcolor = call.arguments[@"bgcolor"];
         NSNumber *textcolor = call.arguments[@"textcolor"];
-
+        
         int time = 1;
         @try {
             time = [durationTime intValue];
@@ -54,7 +54,7 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
 
         style.backgroundColor = [self colorWithHex:bgcolor.unsignedIntegerValue];
         style.messageColor = [self colorWithHex:textcolor.unsignedIntegerValue];
-
+        
         if ([gravity isEqualToString:@"top"]) {
             [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
                                                                                         duration:time
