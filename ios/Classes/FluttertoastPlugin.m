@@ -38,11 +38,7 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
         NSString *durationTime = call.arguments[@"time"];
         NSNumber *bgcolor = call.arguments[@"bgcolor"];
         NSNumber *textcolor = call.arguments[@"textcolor"];
-
-        NSLog(@"BG %d", bgcolor);
-        NSLog(@"TC %d", textcolor);
         
-
         int time = 1;
         @try {
             time = [durationTime intValue];

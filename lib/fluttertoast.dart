@@ -35,9 +35,6 @@ class Fluttertoast {
       gravityToast = "bottom";
     }
 
-    print(backgroundColor);
-    print(textColor);
-
     if(backgroundColor == null && defaultTargetPlatform == TargetPlatform.iOS) {
       backgroundColor = Colors.black;
     }
