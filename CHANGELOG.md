@@ -1,3 +1,7 @@
+## [2.2.3]
+
+* iOS Crash fix #41 & #39
+
 ## [2.2.1]
 
 * default toast style fix #38
