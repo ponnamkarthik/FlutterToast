@@ -1,3 +1,7 @@
+## [2.2.4]
+
+* androidX crash fix #45
+
 ## [2.2.3]
 
 * iOS Crash fix #41 & #39
