@@ -46,6 +46,7 @@ android {
         resolutionStrategy.force "androidx.drawerlayout:drawerlayout:1.0.0-rc01"
         resolutionStrategy.force "androidx.legacy:legacy-support-core-ui:1.0.0-rc01"
         resolutionStrategy.force "androidx.cursoradapter:cursoradapter:1.0.0-rc01"
+        resolutionStrategy.force "androidx.loader:loader:1.0.0-rc01"
     }
 }
 
