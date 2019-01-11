@@ -22,7 +22,7 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 27
 
     defaultConfig {
         minSdkVersion 16
@@ -31,8 +31,26 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
+    configurations.all {
+        resolutionStrategy.force "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0-rc01"
+        resolutionStrategy.force "androidx.arch.core:core-runtime:2.0.0-rc01"
+        resolutionStrategy.force "androidx.lifecycle:lifecycle-viewmodel:2.0.0-rc01"
+        resolutionStrategy.force "androidx.documentfile:documentfile:1.0.0-rc01"
+        resolutionStrategy.force "androidx.fragment:fragment:1.0.0-rc01"
+        resolutionStrategy.force "androidx.customview:customview:1.0.0-rc01"
+        resolutionStrategy.force "androidx.asynclayoutinflater:asynclayoutinflater:1.0.0-rc01"
+        resolutionStrategy.force "androidx.legacy:legacy-support-core-utils:1.0.0-rc01"
+        resolutionStrategy.force "androidx.interpolator:interpolator:1.0.0-rc01"
+        resolutionStrategy.force "androidx.core:core:1.0.0-rc01"
+        resolutionStrategy.force "androidx.viewpager:viewpager:1.0.0-rc01"
+        resolutionStrategy.force "androidx.drawerlayout:drawerlayout:1.0.0-rc01"
+        resolutionStrategy.force "androidx.legacy:legacy-support-core-ui:1.0.0-rc01"
+        resolutionStrategy.force "androidx.cursoradapter:cursoradapter:1.0.0-rc01"
+        resolutionStrategy.force "androidx.loader:loader:1.0.0-rc01"
+    }
 }
 
 dependencies {
     implementation  'androidx.appcompat:appcompat:1.0.2'
+    
 }
