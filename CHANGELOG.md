@@ -1,3 +1,11 @@
+## [2.2.6]
+
+* removed androidx
+
+## [2.2.5]
+
+* Cannot build because of dependency w/ v28 #47
+
 ## [2.2.4]
 
 * androidX crash fix #45
