@@ -45,7 +45,7 @@ public class FluttertoastPlugin implements MethodCallHandler {
 
 
       final Toast toast = Toast.makeText(ctx, msg, Toast.LENGTH_SHORT);
-
+      //Added to see if new
 
 
       toast.setText(msg);
