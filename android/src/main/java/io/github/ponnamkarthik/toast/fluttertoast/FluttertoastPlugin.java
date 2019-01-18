@@ -99,8 +99,8 @@ public class FluttertoastPlugin implements MethodCallHandler {
         toastView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                result.success(true);
                 handler.removeCallbacks(run);
+                result.success(true);
                 return false;
             }
         });
@@ -124,7 +124,7 @@ public class FluttertoastPlugin implements MethodCallHandler {
 //        };
 
       toast.show();
-      handler.postDelayed(run,toast.getDuration()*1000 );
+      handler.postDelayed(run,3500);
 //      thread.run();
 
 
