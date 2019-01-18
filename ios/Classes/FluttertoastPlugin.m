@@ -4,9 +4,13 @@
 
 static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
 
+@interface FluttertoastPlugin ()
+@property(nonatomic, retain) FluttertoastPlugin *channel;
+@end
 
 @implementation FluttertoastPlugin {
     FlutterResult _result;
+
 }
 
 + (void)registerWithRegistrar:(NSObject <FlutterPluginRegistrar> *)registrar {
@@ -16,6 +20,7 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
     UIViewController *viewController =
             [UIApplication sharedApplication].delegate.window.rootViewController;
     FluttertoastPlugin *instance = [[FluttertoastPlugin alloc] init];
+    instance.channel = channel;
     [registrar addMethodCallDelegate:instance channel:channel];
 
 }
@@ -38,7 +43,8 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
         NSString *durationTime = call.arguments[@"time"];
         NSNumber *bgcolor = call.arguments[@"bgcolor"];
         NSNumber *textcolor = call.arguments[@"textcolor"];
-        
+        NSNumber *size = call.arguments[@"size"];
+
         int time = 1;
         @try {
             time = [durationTime intValue];
@@ -64,7 +70,15 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
             [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
                                                                                         duration:time
                                                                                         position:CSToastPositionCenter
-                                                                                           style:style];
+                                                                                           style:style
+                                                                                           completion:^(BOOL didTap){
+
+                                                                                               [self.channel invokeMethod:@"onTap" arguments:@{
+                                                                                                   @"didTao" : didTap
+                                                                                                   }];
+                                                                                               
+
+                                                                                           }];
         } else {
             [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
                                                                                         duration:time

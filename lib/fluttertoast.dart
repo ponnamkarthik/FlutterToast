@@ -13,14 +13,33 @@ class Fluttertoast {
   static const MethodChannel _channel =
       const MethodChannel('PonnamKarthik/fluttertoast');
 
-  static Future<String> showToast({
+  Fluttertoast _instance;
+
+  Fluttertoast get instance {
+    if (_instance == null) {
+
+    }
+  }
+
+
+
+  Fluttertoast(){
+    _channel.setMethodCallHandler(_handleMethod);
+  }
+
+
+  Function(bool) didTap;
+
+  Future<String> showToast({
     @required String msg,
     Toast toastLength,
     int timeInSecForIos = 1,
     ToastGravity gravity,
     Color backgroundColor,
     Color textColor,
+    Function(bool) didTap,
   }) async {
+    this.didTap = didTap;
     String toast = "short";
     if (toastLength == Toast.LENGTH_LONG) {
       toast = "long";
@@ -53,4 +72,14 @@ class Fluttertoast {
     String res = await _channel.invokeMethod('showToast', params);
     return res;
   }
+
+  Future<dynamic> _handleMethod(MethodCall call) async {
+  switch(call.method) {
+    case "onTap":
+
+      didTap(true);
+      
+      return new Future.value("");
+  }
+}
 }
