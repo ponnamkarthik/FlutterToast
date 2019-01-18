@@ -4,7 +4,10 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Handler;
 import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,16 +34,19 @@ public class FluttertoastPlugin implements MethodCallHandler {
   }
 
   @Override
-  public void onMethodCall(MethodCall call, Result result) {
+  public void onMethodCall(MethodCall call, final Result result) {
     if (call.method.equals("showToast")) {
       String msg  = call.argument("msg").toString();
       String length = call.argument("length").toString();
       String gravity = call.argument("gravity").toString();
       Number bgcolor = call.argument("bgcolor");
       Number textcolor = call.argument("textcolor");
+      Number textSize = call.argument("fontSize");
 
 
-      Toast toast = Toast.makeText(ctx, msg, Toast.LENGTH_SHORT);
+      final Toast toast = Toast.makeText(ctx, msg, Toast.LENGTH_SHORT);
+
+
 
       toast.setText(msg);
 
@@ -49,6 +55,16 @@ public class FluttertoastPlugin implements MethodCallHandler {
       } else {
         toast.setDuration(Toast.LENGTH_SHORT);
       }
+
+      final Handler handler = new Handler();
+
+      final Runnable run = new Runnable() {
+
+          @Override
+          public void run() {
+              result.success(false);
+          }
+      };
 
       switch (gravity) {
           case "top":
@@ -62,8 +78,11 @@ public class FluttertoastPlugin implements MethodCallHandler {
         }
 
       TextView text = toast.getView().findViewById(android.R.id.message);
+      text.setTextSize(textSize.floatValue());
+      final View toastView = toast.getView();
 
-      if(bgcolor != null) {
+
+        if(bgcolor != null) {
           Drawable shapeDrawable = ContextCompat.getDrawable(ctx, R.drawable.toast_bg);
 
           if (shapeDrawable != null) {
@@ -77,13 +96,40 @@ public class FluttertoastPlugin implements MethodCallHandler {
 
       }
 
+        toastView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                result.success(true);
+                handler.removeCallbacks(run);
+                return false;
+            }
+        });
+
       if(textcolor != null) {
           text.setTextColor(textcolor.intValue());
       }
 
-      toast.show();
+//        Thread thread = new Thread(){
+//            @Override
+//            public void run(){
+//                try {
+//                    Thread.sleep(toast.getDuration());
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//                    result
+//
+//            }
+//        };
 
-      result.success("Success");
+      toast.show();
+      handler.postDelayed(run,toast.getDuration()*1000 );
+//      thread.run();
+
+
+
+//      result.success("Success");
 
     } else {
       result.notImplemented();
