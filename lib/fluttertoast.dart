@@ -13,18 +13,18 @@ class Fluttertoast {
   static const MethodChannel _channel =
       const MethodChannel('PonnamKarthik/fluttertoast');
 
-  Fluttertoast _instance;
+  static Fluttertoast _instance;
 
-  Fluttertoast get instance {
+  static Fluttertoast get instance {
     if (_instance == null) {
-      _instance =Fluttertoast();
+      _instance =Fluttertoast._create();
     }
     return _instance;
   }
 
 
 
-  Fluttertoast(){
+  Fluttertoast._create(){
     _channel.setMethodCallHandler(_handleMethod);
   }
 
