@@ -5,7 +5,7 @@
 static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
 
 @interface FluttertoastPlugin ()
-@property(nonatomic, retain) FluttertoastPlugin *channel;
+@property(nonatomic, retain) FlutterMethodChannel *channel;
 @end
 
 @implementation FluttertoastPlugin {
