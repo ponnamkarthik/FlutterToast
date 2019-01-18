@@ -25,11 +25,8 @@ class Fluttertoast {
 
 
   Fluttertoast._create(){
-    // _channel.setMethodCallHandler(_handleMethod);
   }
 
-
-  // Function(bool) didTap;
 
   Future<bool> showToast({
     @required String msg,
@@ -76,13 +73,4 @@ class Fluttertoast {
     return res;
   }
 
-//   Future<dynamic> _handleMethod(MethodCall call) async {
-//   switch(call.method) {
-//     case "onTap":
-
-//       didTap(true);
-      
-//       return new Future.value("");
-//   }
-// }
 }
