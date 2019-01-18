@@ -58,13 +58,7 @@ public class FluttertoastPlugin implements MethodCallHandler {
 
       final Handler handler = new Handler();
 
-      final Runnable run = new Runnable() {
-
-          @Override
-          public void run() {
-              result.success(false);
-          }
-      };
+      
 
       switch (gravity) {
           case "top":
@@ -99,7 +93,7 @@ public class FluttertoastPlugin implements MethodCallHandler {
         toastView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                handler.removeCallbacks(run);
+//                handler.removeCallbacks(run);
                 result.success(true);
                 return false;
             }
@@ -124,7 +118,13 @@ public class FluttertoastPlugin implements MethodCallHandler {
 //        };
 
       toast.show();
-      handler.postDelayed(run,35000);
+      handler.postDelayed(new Runnable() {
+
+        @Override
+        public void run() {
+            result.success(true);
+        }
+    },35000);
 //      thread.run();
 
 
