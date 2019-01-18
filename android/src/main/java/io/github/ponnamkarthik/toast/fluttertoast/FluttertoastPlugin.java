@@ -56,6 +56,7 @@ public class FluttertoastPlugin implements MethodCallHandler {
         toast.setDuration(Toast.LENGTH_SHORT);
       }
 
+      Boolean sent = false;
       final Handler handler = new Handler();
       final Runnable run = new Runnable() {
 
@@ -100,12 +101,11 @@ public class FluttertoastPlugin implements MethodCallHandler {
           }
 
       }
-
         toastView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 handler.removeCallbacks(run);
-
+                toastView.setOnTouchListener(null);
                 try {
                     result.success(true);
 
