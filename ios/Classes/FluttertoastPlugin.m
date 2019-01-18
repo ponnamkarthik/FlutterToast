@@ -74,7 +74,7 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
                                                                                            completion:^(BOOL didTap){
                                                                                             
                                                                                             NSNumber *boolNumber = [NSNumber numberWithBool:didTap];                                                                                                                                                                                     
-                                                                                            result(boolNumber)
+                                                                                            result(boolNumber);
 
                                                                                                
 

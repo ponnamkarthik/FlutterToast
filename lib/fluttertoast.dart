@@ -25,7 +25,7 @@ class Fluttertoast {
 
 
   Fluttertoast._create(){
-    _channel.setMethodCallHandler(_handleMethod);
+    // _channel.setMethodCallHandler(_handleMethod);
   }
 
 
