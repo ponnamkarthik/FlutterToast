@@ -72,9 +72,10 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
                                                                                         position:CSToastPositionCenter
                                                                                            style:style
                                                                                            completion:^(BOOL didTap){
+                                                                                                NSNumber *boolNumber = [NSNumber numberWithBool:didTap];
 
                                                                                                [self.channel invokeMethod:@"onTap" arguments:@{
-                                                                                                   @"didTao" : didTap
+                                                                                                   @"didTap" : boolNumber
                                                                                                    }];
                                                                                                
 
