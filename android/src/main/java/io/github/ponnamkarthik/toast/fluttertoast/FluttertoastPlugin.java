@@ -124,7 +124,7 @@ public class FluttertoastPlugin implements MethodCallHandler {
 //        };
 
       toast.show();
-      handler.postDelayed(run,3500);
+      handler.postDelayed(run,35000);
 //      thread.run();
 
 
