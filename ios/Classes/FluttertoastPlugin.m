@@ -59,7 +59,7 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
 
 
         CSToastStyle *style = [[CSToastStyle alloc] initWithDefaultStyle];
-        style.messageFont = [UIFont systemFontOfSize:fontSizeDouble];
+        style.messageFont = [UIFont systemFontOfSize:fontSize];
         style.backgroundColor = [self colorWithHex:bgcolor.unsignedIntegerValue];
         style.messageColor = [self colorWithHex:textcolor.unsignedIntegerValue];
         
