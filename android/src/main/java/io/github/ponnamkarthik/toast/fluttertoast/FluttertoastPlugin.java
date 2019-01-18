@@ -83,10 +83,9 @@ public class FluttertoastPlugin implements MethodCallHandler {
               toast.setGravity(Gravity.BOTTOM, 0, 100);
         }
 
-      TextView text = toast.getView().findViewById(android.R.id.message);
+      final TextView text = toast.getView().findViewById(android.R.id.message);
       text.setTextSize(textSize.floatValue());
       text.setMaxLines(1);
-      final View toastView = toast.getView();
 
 
         if(bgcolor != null) {
@@ -102,11 +101,11 @@ public class FluttertoastPlugin implements MethodCallHandler {
           }
 
       }
-        toastView.setOnTouchListener(new View.OnTouchListener() {
+        text.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 handler.removeCallbacks(run);
-                toastView.setOnTouchListener(null);
+                text.setOnTouchListener(null);
                 toast.cancel();
                 try {
 
