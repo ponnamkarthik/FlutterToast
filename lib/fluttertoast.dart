@@ -17,8 +17,9 @@ class Fluttertoast {
 
   Fluttertoast get instance {
     if (_instance == null) {
-
+      _instance =Fluttertoast();
     }
+    return _instance;
   }
 
 
