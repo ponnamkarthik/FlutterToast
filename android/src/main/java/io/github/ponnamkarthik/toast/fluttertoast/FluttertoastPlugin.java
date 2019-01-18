@@ -45,7 +45,7 @@ public class FluttertoastPlugin implements MethodCallHandler {
 
 
       final Toast toast = Toast.makeText(ctx, msg, Toast.LENGTH_SHORT);
-      //Added to see if new
+      //Added to see if
 
 
       toast.setText(msg);
@@ -57,7 +57,18 @@ public class FluttertoastPlugin implements MethodCallHandler {
       }
 
       final Handler handler = new Handler();
+      final Runnable run = new Runnable() {
 
+          @Override
+          public void run() {
+              try {
+                  result.success(false);
+
+              } catch (Exception e){
+                  e.printStackTrace();
+              }
+          }
+      };
       
 
       switch (gravity) {
@@ -93,8 +104,15 @@ public class FluttertoastPlugin implements MethodCallHandler {
         toastView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-//                handler.removeCallbacks(run);
-                result.success(true);
+                handler.removeCallbacks(run);
+
+                try {
+                    result.success(true);
+
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+
                 return false;
             }
         });
@@ -103,34 +121,9 @@ public class FluttertoastPlugin implements MethodCallHandler {
           text.setTextColor(textcolor.intValue());
       }
 
-//        Thread thread = new Thread(){
-//            @Override
-//            public void run(){
-//                try {
-//                    Thread.sleep(toast.getDuration());
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//
-//                    result
-//
-//            }
-//        };
-
       toast.show();
-      handler.postDelayed(new Runnable() {
-
-        @Override
-        public void run() {
-            result.success(true);
-        }
-    },35000);
-//      thread.run();
-
-
-
-//      result.success("Success");
-
+      handler.postDelayed(run,4000);
+      
     } else {
       result.notImplemented();
     }
