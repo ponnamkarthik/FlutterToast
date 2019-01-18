@@ -46,6 +46,7 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
         NSNumber *size = call.arguments[@"size"];
         NSNumber *fontSize = call.arguments[@"fontSize"];
 
+        CGFloat cgf = [fontSize doubleValue];
         int time = 1;
         @try {
             time = [durationTime intValue];
@@ -58,7 +59,7 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
 
 
         CSToastStyle *style = [[CSToastStyle alloc] initWithDefaultStyle];
-        style.messageFont = [UIFont systemFontOfSize:fontSize];
+        style.messageFont = [UIFont systemFontOfSize:cgf];
         style.backgroundColor = [self colorWithHex:bgcolor.unsignedIntegerValue];
         style.messageColor = [self colorWithHex:textcolor.unsignedIntegerValue];
         
