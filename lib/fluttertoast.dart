@@ -35,6 +35,7 @@ class Fluttertoast {
     @required String msg,
     Toast toastLength,
     int timeInSecForIos = 1,
+    double fontSize = 16.0,
     ToastGravity gravity,
     Color backgroundColor,
     Color textColor,
@@ -68,6 +69,7 @@ class Fluttertoast {
       'gravity': gravityToast,
       'bgcolor': backgroundColor != null ? backgroundColor.value : null,
       'textcolor': textColor != null ? textColor.value: null,
+      'fontSize': fontSize,
     };
 
     bool res = await _channel.invokeMethod('showToast', params);

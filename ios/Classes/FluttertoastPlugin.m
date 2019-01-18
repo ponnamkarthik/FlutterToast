@@ -44,6 +44,8 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
         NSNumber *bgcolor = call.arguments[@"bgcolor"];
         NSNumber *textcolor = call.arguments[@"textcolor"];
         NSNumber *size = call.arguments[@"size"];
+        NSNumber *fontSize = call.arguments[@"fontSize"];
+        double fontSizeDouble = [fontSize doubleValue];
 
         int time = 1;
         @try {
@@ -57,7 +59,7 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
 
 
         CSToastStyle *style = [[CSToastStyle alloc] initWithDefaultStyle];
-
+        style.messageFont = [UIFont systemFontOfSize:fontSizeDouble];
         style.backgroundColor = [self colorWithHex:bgcolor.unsignedIntegerValue];
         style.messageColor = [self colorWithHex:textcolor.unsignedIntegerValue];
         
@@ -65,7 +67,13 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
             [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
                                                                                         duration:time
                                                                                         position:CSToastPositionTop
-                                                                                           style:style];
+                                                                                           style:style
+                                                                                           completion:^(BOOL didTap){
+                                                                                            
+                                                                                            NSNumber *boolNumber = [NSNumber numberWithBool:didTap];                                                                                                                                                                                     
+                                                                                            result(boolNumber);
+
+                                                                                           }];
         } else if ([gravity isEqualToString:@"center"]) {
             [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
                                                                                         duration:time
@@ -76,14 +84,18 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
                                                                                             NSNumber *boolNumber = [NSNumber numberWithBool:didTap];                                                                                                                                                                                     
                                                                                             result(boolNumber);
 
-                                                                                               
-
                                                                                            }];
         } else {
             [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
                                                                                         duration:time
                                                                                         position:CSToastPositionBottom
-                                                                                           style:style];
+                                                                                           style:style
+                                                                                           completion:^(BOOL didTap){
+                                                                                            
+                                                                                            NSNumber *boolNumber = [NSNumber numberWithBool:didTap];                                                                                                                                                                                     
+                                                                                            result(boolNumber);
+
+                                                                                           }];
         }
 
     } else {
