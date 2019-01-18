@@ -55,6 +55,7 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
         if (time > 10) time = 10;
         else if (time < 1) time = 1;
 
+        printf("It showToast");
 
         CSToastStyle *style = [[CSToastStyle alloc] initWithDefaultStyle];
 
@@ -73,7 +74,7 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
                                                                                            style:style
                                                                                            completion:^(BOOL didTap){
                                                                                                 NSNumber *boolNumber = [NSNumber numberWithBool:didTap];
-
+                                                                                                printf("It came Here");
                                                                                                [self.channel invokeMethod:@"onTap" arguments:@{
                                                                                                    @"didTap" : boolNumber
                                                                                                    }];
