@@ -29,18 +29,18 @@ class Fluttertoast {
   }
 
 
-  Function(bool) didTap;
+  // Function(bool) didTap;
 
-  Future<String> showToast({
+  Future<bool> showToast({
     @required String msg,
     Toast toastLength,
     int timeInSecForIos = 1,
     ToastGravity gravity,
     Color backgroundColor,
     Color textColor,
-    Function(bool) didTap,
+    // Function(bool) didTap,
   }) async {
-    this.didTap = didTap;
+    // this.didTap = didTap;
     String toast = "short";
     if (toastLength == Toast.LENGTH_LONG) {
       toast = "long";
@@ -70,17 +70,17 @@ class Fluttertoast {
       'textcolor': textColor != null ? textColor.value: null,
     };
 
-    String res = await _channel.invokeMethod('showToast', params);
+    bool res = await _channel.invokeMethod('showToast', params);
     return res;
   }
 
-  Future<dynamic> _handleMethod(MethodCall call) async {
-  switch(call.method) {
-    case "onTap":
+//   Future<dynamic> _handleMethod(MethodCall call) async {
+//   switch(call.method) {
+//     case "onTap":
 
-      didTap(true);
+//       didTap(true);
       
-      return new Future.value("");
-  }
-}
+//       return new Future.value("");
+//   }
+// }
 }

@@ -55,7 +55,6 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
         if (time > 10) time = 10;
         else if (time < 1) time = 1;
 
-        NSLog(@"The code runs through here!");
 
         CSToastStyle *style = [[CSToastStyle alloc] initWithDefaultStyle];
 
@@ -73,11 +72,10 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
                                                                                         position:CSToastPositionCenter
                                                                                            style:style
                                                                                            completion:^(BOOL didTap){
-                                                                                                NSNumber *boolNumber = [NSNumber numberWithBool:didTap];
-                                                                                                NSLog(@"The code runs through here! 2");
-                                                                                               [self.channel invokeMethod:@"onTap" arguments:@{
-                                                                                                   @"didTap" : boolNumber
-                                                                                                   }];
+                                                                                            
+                                                                                            NSNumber *boolNumber = [NSNumber numberWithBool:didTap];                                                                                                                                                                                     
+                                                                                            result(boolNumber)
+
                                                                                                
 
                                                                                            }];
@@ -88,7 +86,6 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
                                                                                            style:style];
         }
 
-        result(@"done");
     } else {
         result(FlutterMethodNotImplemented);
     }
