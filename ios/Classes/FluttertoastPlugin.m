@@ -4,9 +4,13 @@
 
 static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
 
+@interface FluttertoastPlugin ()
+@property(nonatomic, retain) FlutterMethodChannel *channel;
+@end
 
 @implementation FluttertoastPlugin {
     FlutterResult _result;
+
 }
 
 + (void)registerWithRegistrar:(NSObject <FlutterPluginRegistrar> *)registrar {
@@ -16,6 +20,7 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
     UIViewController *viewController =
             [UIApplication sharedApplication].delegate.window.rootViewController;
     FluttertoastPlugin *instance = [[FluttertoastPlugin alloc] init];
+    instance.channel = channel;
     [registrar addMethodCallDelegate:instance channel:channel];
 
 }
@@ -38,7 +43,10 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
         NSString *durationTime = call.arguments[@"time"];
         NSNumber *bgcolor = call.arguments[@"bgcolor"];
         NSNumber *textcolor = call.arguments[@"textcolor"];
-        
+        NSNumber *size = call.arguments[@"size"];
+        NSNumber *fontSize = call.arguments[@"fontSize"];
+
+        CGFloat cgf = [fontSize doubleValue];
         int time = 1;
         @try {
             time = [durationTime intValue];
@@ -51,7 +59,7 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
 
 
         CSToastStyle *style = [[CSToastStyle alloc] initWithDefaultStyle];
-
+        style.messageFont = [UIFont systemFontOfSize:cgf];
         style.backgroundColor = [self colorWithHex:bgcolor.unsignedIntegerValue];
         style.messageColor = [self colorWithHex:textcolor.unsignedIntegerValue];
         
@@ -59,20 +67,37 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
             [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
                                                                                         duration:time
                                                                                         position:CSToastPositionTop
-                                                                                           style:style];
+                                                                                           style:style
+                                                                                           completion:^(BOOL didTap){
+                                                                                            
+                                                                                            NSNumber *boolNumber = [NSNumber numberWithBool:didTap];                                                                                                                                                                                     
+                                                                                            result(boolNumber);
+
+                                                                                           }];
         } else if ([gravity isEqualToString:@"center"]) {
             [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
                                                                                         duration:time
                                                                                         position:CSToastPositionCenter
-                                                                                           style:style];
+                                                                                           style:style
+                                                                                           completion:^(BOOL didTap){
+                                                                                            
+                                                                                            NSNumber *boolNumber = [NSNumber numberWithBool:didTap];                                                                                                                                                                                     
+                                                                                            result(boolNumber);
+
+                                                                                           }];
         } else {
             [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
                                                                                         duration:time
                                                                                         position:CSToastPositionBottom
-                                                                                           style:style];
+                                                                                           style:style
+                                                                                           completion:^(BOOL didTap){
+                                                                                            
+                                                                                            NSNumber *boolNumber = [NSNumber numberWithBool:didTap];                                                                                                                                                                                     
+                                                                                            result(boolNumber);
+
+                                                                                           }];
         }
 
-        result(@"done");
     } else {
         result(FlutterMethodNotImplemented);
     }

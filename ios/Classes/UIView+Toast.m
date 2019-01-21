@@ -80,6 +80,11 @@ static const NSString * CSToastQueueKey             = @"CSToastQueueKey";
     [self showToast:toast duration:duration position:position completion:nil];
 }
 
+- (void)makeToast:(NSString *)message duration:(NSTimeInterval)duration position:(id)position style:(CSToastStyle *)style completion:(void(^)(BOOL didTap))completion {
+    UIView *toast = [self toastViewForMessage:message title:nil image:nil style:style];
+    [self showToast:toast duration:duration position:position completion:completion];
+}
+
 - (void)makeToast:(NSString *)message duration:(NSTimeInterval)duration position:(id)position title:(NSString *)title image:(UIImage *)image style:(CSToastStyle *)style completion:(void(^)(BOOL didTap))completion {
     UIView *toast = [self toastViewForMessage:message title:title image:image style:style];
     [self showToast:toast duration:duration position:position completion:completion];
@@ -470,14 +475,14 @@ static const NSString * CSToastQueueKey             = @"CSToastQueueKey";
         self.maxWidthPercentage = 0.8;
         self.maxHeightPercentage = 0.8;
         self.horizontalPadding = 10.0;
-        self.verticalPadding = 10.0;
+        self.verticalPadding = 8.0;
         self.cornerRadius = 10.0;
         self.titleFont = [UIFont boldSystemFontOfSize:16.0];
         self.messageFont = [UIFont systemFontOfSize:16.0];
         self.titleAlignment = NSTextAlignmentLeft;
         self.messageAlignment = NSTextAlignmentLeft;
         self.titleNumberOfLines = 0;
-        self.messageNumberOfLines = 0;
+        self.messageNumberOfLines = 1;
         self.displayShadow = NO;
         self.shadowOpacity = 0.8;
         self.shadowRadius = 6.0;

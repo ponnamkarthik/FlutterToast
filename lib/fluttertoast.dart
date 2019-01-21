@@ -13,14 +13,32 @@ class Fluttertoast {
   static const MethodChannel _channel =
       const MethodChannel('PonnamKarthik/fluttertoast');
 
-  static Future<String> showToast({
+  static Fluttertoast _instance;
+
+  static Fluttertoast get instance {
+    if (_instance == null) {
+      _instance =Fluttertoast._create();
+    }
+    return _instance;
+  }
+
+
+
+  Fluttertoast._create(){
+  }
+
+
+  Future<bool> showToast({
     @required String msg,
     Toast toastLength,
     int timeInSecForIos = 1,
+    double fontSize = 16.0,
     ToastGravity gravity,
     Color backgroundColor,
     Color textColor,
+    // Function(bool) didTap,
   }) async {
+    // this.didTap = didTap;
     String toast = "short";
     if (toastLength == Toast.LENGTH_LONG) {
       toast = "long";
@@ -48,9 +66,11 @@ class Fluttertoast {
       'gravity': gravityToast,
       'bgcolor': backgroundColor != null ? backgroundColor.value : null,
       'textcolor': textColor != null ? textColor.value: null,
+      'fontSize': fontSize,
     };
 
-    String res = await _channel.invokeMethod('showToast', params);
+    bool res = await _channel.invokeMethod('showToast', params);
     return res;
   }
+
 }

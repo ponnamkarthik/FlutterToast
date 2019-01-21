@@ -7,8 +7,8 @@
         android:color="#000000">
     </solid>
     <padding
-        android:left="24dp"
-        android:top="15dp"
-        android:right="24dp"
-        android:bottom="15dp" />
+        android:left="10dp"
+        android:top="8dp"
+        android:right="10dp"
+        android:bottom="8dp" />
 </shape>
