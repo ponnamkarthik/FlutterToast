@@ -1,3 +1,8 @@
+## [2.2.7]
+
+* FontSize Can be changed
+* FlutterToast Implementation Changed to `FlutterToast.instance`
+
 ## [2.2.6]
 
 * removed androidx

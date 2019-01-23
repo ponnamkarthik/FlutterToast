@@ -15,14 +15,14 @@ class _MyAppState extends State<MyApp> {
   }
 
   void showLongToast() {
-    Fluttertoast.showToast(
+    Fluttertoast.instance.showToast(
       msg: "This is Long Toast",
       toastLength: Toast.LENGTH_LONG,
     );
   }
 
   void showColoredToast() {
-    Fluttertoast.showToast(
+    Fluttertoast.instance.showToast(
         msg: "This is Colored Toast",
         toastLength: Toast.LENGTH_SHORT,
         backgroundColor: Colors.red,
@@ -30,14 +30,14 @@ class _MyAppState extends State<MyApp> {
   }
 
   void showShortToast() {
-    Fluttertoast.showToast(
+    Fluttertoast.instance.showToast(
         msg: "This is Short Toast",
         toastLength: Toast.LENGTH_SHORT,
         timeInSecForIos: 1);
   }
 
   void showTopShortToast() {
-    Fluttertoast.showToast(
+    Fluttertoast.instance.showToast(
         msg: "This is Top Short Toast",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.TOP,
@@ -45,7 +45,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void showCenterShortToast() {
-    Fluttertoast.showToast(
+    Fluttertoast.instance.showToast(
         msg: "This is Center Short Toast",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
