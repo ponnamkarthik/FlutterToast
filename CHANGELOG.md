@@ -1,3 +1,7 @@
+## [2.2.9]
+
+* iOS build Failed fix
+
 ## [2.2.8]
 
 * `Fluttertoast.cancel()` added

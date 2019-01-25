@@ -38,6 +38,7 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
 - (void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
     if([@"cancel" isEqualToString:call.method]) {
         [[UIApplication sharedApplication].delegate.window.rootViewController.view hideAllToasts];
+        result(true);
     } else if ([@"showToast" isEqualToString:call.method]) {
         NSString *msg = call.arguments[@"msg"];
         NSString *gravity = call.arguments[@"gravity"];
@@ -83,7 +84,7 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
                                                                                            style:style
                                                                                            ];
         }
-        result(true)
+        result(true);
 
     } else {
         result(FlutterMethodNotImplemented);
