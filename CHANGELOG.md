@@ -1,3 +1,7 @@
+## [2.2.10]
+
+* iOS build Failed fix
+
 ## [2.2.9]
 
 * iOS build Failed fix
