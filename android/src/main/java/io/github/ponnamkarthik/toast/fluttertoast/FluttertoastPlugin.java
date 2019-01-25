@@ -21,9 +21,10 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 /** FluttertoastPlugin */
 public class FluttertoastPlugin implements MethodCallHandler {
 
-  Context ctx;
+  private Context ctx;
+  private Toast toast = null;
 
-  FluttertoastPlugin(Context context) {
+  private FluttertoastPlugin(Context context) {
     ctx = context;
   }
 
@@ -35,7 +36,23 @@ public class FluttertoastPlugin implements MethodCallHandler {
 
   @Override
   public void onMethodCall(MethodCall call, final Result result) {
-    if (call.method.equals("showToast")) {
+      switch (call.method) {
+          case "showToast":
+              showToast(call, result);
+              break;
+          case "cancel":
+              if(toast != null) {
+                  toast.cancel();
+              }
+              result.success(true);
+              break;
+          default:
+              result.notImplemented();
+              break;
+      }
+  }
+
+  private void showToast(MethodCall call, Result result) {
       String msg  = call.argument("msg").toString();
       String length = call.argument("length").toString();
       String gravity = call.argument("gravity").toString();
@@ -44,33 +61,32 @@ public class FluttertoastPlugin implements MethodCallHandler {
       Number textSize = call.argument("fontSize");
 
 
-      final Toast toast = Toast.makeText(ctx, msg, Toast.LENGTH_SHORT);
-      //Added to see if
-
+      toast = Toast.makeText(ctx, msg, Toast.LENGTH_SHORT);
 
       toast.setText(msg);
 
       if(length.equals("long")) {
-        toast.setDuration(Toast.LENGTH_LONG);
+          toast.setDuration(Toast.LENGTH_LONG);
       } else {
-        toast.setDuration(Toast.LENGTH_SHORT);
+          toast.setDuration(Toast.LENGTH_SHORT);
       }
 
-      Boolean sent = false;
-      final Handler handler = new Handler();
-      final Runnable run = new Runnable() {
+      // later
+//      Boolean sent = false;
+//      final Handler handler = new Handler();
+//      final Runnable run = new Runnable() {
+//
+//          @Override
+//          public void run() {
+//              try {
+//                  result.success(false);
+//
+//              } catch (Exception e){
+//                  e.printStackTrace();
+//              }
+//          }
+//      };
 
-          @Override
-          public void run() {
-              try {
-                  result.success(false);
-
-              } catch (Exception e){
-                  e.printStackTrace();
-              }
-          }
-      };
-      
 
       switch (gravity) {
           case "top":
@@ -81,14 +97,14 @@ public class FluttertoastPlugin implements MethodCallHandler {
               break;
           default:
               toast.setGravity(Gravity.BOTTOM, 0, 100);
-        }
+      }
 
       final TextView text = toast.getView().findViewById(android.R.id.message);
       text.setTextSize(textSize.floatValue());
       text.setMaxLines(1);
 
 
-        if(bgcolor != null) {
+      if(bgcolor != null) {
           Drawable shapeDrawable = ContextCompat.getDrawable(ctx, R.drawable.toast_bg);
 
           if (shapeDrawable != null) {
@@ -101,33 +117,31 @@ public class FluttertoastPlugin implements MethodCallHandler {
           }
 
       }
-        text.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                handler.removeCallbacks(run);
-                text.setOnTouchListener(null);
-                toast.cancel();
-                try {
-
-                    result.success(true);
-
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-
-                return false;
-            }
-        });
+      //later
+//        text.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                handler.removeCallbacks(run);
+//                text.setOnTouchListener(null);
+//                toast.cancel();
+//                try {
+//
+//                    result.success(true);
+//
+//                } catch (Exception e){
+//                    e.printStackTrace();
+//                }
+//
+//                return false;
+//            }
+//        });
 
       if(textcolor != null) {
           text.setTextColor(textcolor.intValue());
       }
 
       toast.show();
-      handler.postDelayed(run,toast.getDuration()*1000);
-      
-    } else {
-      result.notImplemented();
-    }
+      result.success(true);
+//      handler.postDelayed(run,toast.getDuration()*1000);
   }
 }

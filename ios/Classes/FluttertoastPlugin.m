@@ -1,6 +1,5 @@
 #import "FluttertoastPlugin.h"
 #import "UIView+Toast.h"
-// #import <fluttertoast/fluttertoast-Swift.h>
 
 static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
 
@@ -37,7 +36,9 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
 }
 
 - (void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
-    if ([@"showToast" isEqualToString:call.method]) {
+    if([@"cancel" isEqualToString:call.method]) {
+        [[UIApplication sharedApplication].delegate.window.rootViewController.view hideAllToasts];
+    } else if ([@"showToast" isEqualToString:call.method]) {
         NSString *msg = call.arguments[@"msg"];
         NSString *gravity = call.arguments[@"gravity"];
         NSString *durationTime = call.arguments[@"time"];
@@ -68,35 +69,21 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
                                                                                         duration:time
                                                                                         position:CSToastPositionTop
                                                                                            style:style
-                                                                                           completion:^(BOOL didTap){
-                                                                                            
-                                                                                            NSNumber *boolNumber = [NSNumber numberWithBool:didTap];                                                                                                                                                                                     
-                                                                                            result(boolNumber);
-
-                                                                                           }];
+                                                                                           ];
         } else if ([gravity isEqualToString:@"center"]) {
             [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
                                                                                         duration:time
                                                                                         position:CSToastPositionCenter
                                                                                            style:style
-                                                                                           completion:^(BOOL didTap){
-                                                                                            
-                                                                                            NSNumber *boolNumber = [NSNumber numberWithBool:didTap];                                                                                                                                                                                     
-                                                                                            result(boolNumber);
-
-                                                                                           }];
+                                                                                          ];
         } else {
             [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
                                                                                         duration:time
                                                                                         position:CSToastPositionBottom
                                                                                            style:style
-                                                                                           completion:^(BOOL didTap){
-                                                                                            
-                                                                                            NSNumber *boolNumber = [NSNumber numberWithBool:didTap];                                                                                                                                                                                     
-                                                                                            result(boolNumber);
-
-                                                                                           }];
+                                                                                           ];
         }
+        result(true)
 
     } else {
         result(FlutterMethodNotImplemented);

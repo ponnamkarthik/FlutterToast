@@ -13,7 +13,7 @@ If your project uses androidx then use `fluttertoast` version `2.2.4` or `2.2.5`
 
 ```yaml
 # add this line to your dependencies
-fluttertoast: ^2.2.7
+fluttertoast: ^2.2.8
 ```
 
 ```dart
@@ -21,7 +21,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 ```
 
 ```dart
-Fluttertoast.instance.showToast(
+Fluttertoast.showToast(
         msg: "This is Center Short Toast",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
@@ -42,6 +42,12 @@ bgcolor | Colors.red
 textcolor| Colors.white
 fontSize | 16.0 (float)
 
+
+### To cancel all the toasts call
+
+```dart
+Fluttertoast.cancel()
+```
 
 ## Preview Images
 

@@ -15,14 +15,14 @@ class _MyAppState extends State<MyApp> {
   }
 
   void showLongToast() {
-    Fluttertoast.instance.showToast(
+    Fluttertoast.showToast(
       msg: "This is Long Toast",
       toastLength: Toast.LENGTH_LONG,
     );
   }
 
   void showColoredToast() {
-    Fluttertoast.instance.showToast(
+    Fluttertoast.showToast(
         msg: "This is Colored Toast",
         toastLength: Toast.LENGTH_SHORT,
         backgroundColor: Colors.red,
@@ -30,14 +30,14 @@ class _MyAppState extends State<MyApp> {
   }
 
   void showShortToast() {
-    Fluttertoast.instance.showToast(
+    Fluttertoast.showToast(
         msg: "This is Short Toast",
         toastLength: Toast.LENGTH_SHORT,
         timeInSecForIos: 1);
   }
 
   void showTopShortToast() {
-    Fluttertoast.instance.showToast(
+    Fluttertoast.showToast(
         msg: "This is Top Short Toast",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.TOP,
@@ -45,11 +45,15 @@ class _MyAppState extends State<MyApp> {
   }
 
   void showCenterShortToast() {
-    Fluttertoast.instance.showToast(
+    Fluttertoast.showToast(
         msg: "This is Center Short Toast",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIos: 1);
+  }
+
+  void cancelToast() {
+    Fluttertoast.cancel();
   }
 
   @override
@@ -91,6 +95,13 @@ class _MyAppState extends State<MyApp> {
                 child: new RaisedButton(
                     child: new Text('Show Colored Toast'),
                     onPressed: showColoredToast),
+              ),
+              new Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: new RaisedButton(
+                    child: new Text('Cancel Toasts'),
+                    onPressed: cancelToast,
+                ),
               ),
             ],
           ),

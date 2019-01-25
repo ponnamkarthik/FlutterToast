@@ -1,3 +1,8 @@
+## [2.2.8]
+
+* `Fluttertoast.cancel()` added
+* FlutterToast Implementation revert back to previous
+
 ## [2.2.7]
 
 * FontSize Can be changed

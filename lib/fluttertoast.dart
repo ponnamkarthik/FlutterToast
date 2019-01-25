@@ -13,22 +13,27 @@ class Fluttertoast {
   static const MethodChannel _channel =
       const MethodChannel('PonnamKarthik/fluttertoast');
 
-  static Fluttertoast _instance;
+  // for Version 3.x.x
 
-  static Fluttertoast get instance {
-    if (_instance == null) {
-      _instance =Fluttertoast._create();
-    }
-    return _instance;
+  // static Fluttertoast _instance;
+
+  // static Fluttertoast get instance {
+  //   if (_instance == null) {
+  //     _instance =Fluttertoast._create();
+  //   }
+  //   return _instance;
+  // }
+
+  // Fluttertoast._create(){
+  // }
+
+  static Future<bool> cancel() async {
+    bool res = await _channel.invokeMethod("cancel");
+    return res;
   }
 
 
-
-  Fluttertoast._create(){
-  }
-
-
-  Future<bool> showToast({
+  static Future<bool> showToast({
     @required String msg,
     Toast toastLength,
     int timeInSecForIos = 1,
