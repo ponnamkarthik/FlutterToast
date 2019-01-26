@@ -1,3 +1,7 @@
+## [2.2.11]
+
+* Incomplete Text Fix
+
 ## [2.2.10]
 
 * iOS build Failed fix
