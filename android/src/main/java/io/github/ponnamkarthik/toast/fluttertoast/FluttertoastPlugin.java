@@ -101,7 +101,6 @@ public class FluttertoastPlugin implements MethodCallHandler {
 
       final TextView text = toast.getView().findViewById(android.R.id.message);
       text.setTextSize(textSize.floatValue());
-      text.setMaxLines(1);
 
 
       if(bgcolor != null) {
