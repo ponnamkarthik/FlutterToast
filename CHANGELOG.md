@@ -1,3 +1,7 @@
+## [2.2.12]
+
+* Incomplete Text Fix
+
 ## [2.2.11]
 
 * Incomplete Text Fix

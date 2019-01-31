@@ -13,7 +13,7 @@ If your project uses androidx then use `fluttertoast` version `2.2.4` or `2.2.5`
 
 ```yaml
 # add this line to your dependencies
-fluttertoast: ^2.2.11
+fluttertoast: ^2.2.12
 ```
 
 ```dart
