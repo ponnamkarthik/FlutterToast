@@ -2,7 +2,7 @@
 //  UIView+Toast.h
 //  Toast
 //
-//  Copyright (c) 2011-2017 Charles Scalesse.
+//  Copyright (c) 2011-2015 Charles Scalesse.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
 //  copy of this software and associated documentation files (the
@@ -89,26 +89,6 @@ extern const NSString * CSToastPositionBottom;
  @param duration The toast duration
  @param position The toast's center point. Can be one of the predefined CSToastPosition
                  constants or a `CGPoint` wrapped in an `NSValue` object.
- @param style The style. The shared style will be used when nil
- @param completion The completion block, executed after the toast view disappears.
-                   didTap will be `YES` if the toast view was dismissed from a tap.
- */
-- (void)makeToast:(NSString *)message
-         duration:(NSTimeInterval)duration
-         position:(id)position
-            style:(CSToastStyle *)style
-       completion:(void(^)(BOOL didTap))completion;
-
-/**
- Creates and presents a new toast view with a message, title, and image. Duration,
- position, and style can be set explicitly. The completion block executes when the
- toast view completes. `didTap` will be `YES` if the toast view was dismissed from 
- a tap.
- 
- @param message The message to be displayed
- @param duration The toast duration
- @param position The toast's center point. Can be one of the predefined CSToastPosition
-                 constants or a `CGPoint` wrapped in an `NSValue` object.
  @param title The title
  @param image The image
  @param style The style. The shared style will be used when nil
@@ -141,46 +121,6 @@ extern const NSString * CSToastPositionBottom;
                           title:(NSString *)title
                           image:(UIImage *)image
                           style:(CSToastStyle *)style;
-
-/**
- Hides the active toast. If there are multiple toasts active in a view, this method
- hides the oldest toast (the first of the toasts to have been presented).
- 
- @see `hideAllToasts` to remove all active toasts from a view.
- 
- @warning This method has no effect on activity toasts. Use `hideToastActivity` to
- hide activity toasts.
- */
-- (void)hideToast;
-
-/**
- Hides an active toast.
- 
- @param toast The active toast view to dismiss. Any toast that is currently being displayed
- on the screen is considered active.
- 
- @warning this does not clear a toast view that is currently waiting in the queue.
- */
-- (void)hideToast:(UIView *)toast;
-
-/**
- Hides all active toast views and clears the queue.
- */
-- (void)hideAllToasts;
-
-/**
- Hides all active toast views, with options to hide activity and clear the queue.
- 
- @param includeActivity If `true`, toast activity will also be hidden. Default is `false`.
- @param clearQueue If `true`, removes all toast views from the queue. Default is `true`.
- */
-- (void)hideAllToasts:(BOOL)includeActivity clearQueue:(BOOL)clearQueue;
-
-/**
- Removes all toast views from the queue. This has no effect on toast views that are
- active. Use `hideAllToasts` to hide the active toasts views and clear the queue.
- */
-- (void)clearToastQueue;
 
 /**
  Creates and displays a new toast activity indicator view at a specified position.
@@ -225,6 +165,8 @@ extern const NSString * CSToastPositionBottom;
          duration:(NSTimeInterval)duration
          position:(id)position
        completion:(void(^)(BOOL didTap))completion;
+
+- (void)hideAllToasts;
 
 @end
 
@@ -383,7 +325,7 @@ extern const NSString * CSToastPositionBottom;
  with with a nil style. By default, this is set to `CSToastStyle`'s default
  style.
  
- @param sharedStyle the shared style
+ @param sharedStyle
  */
 + (void)setSharedStyle:(CSToastStyle *)sharedStyle;
 
@@ -398,7 +340,7 @@ extern const NSString * CSToastPositionBottom;
 /**
  Enables or disables tap to dismiss on toast views. Default is `YES`.
  
- @param tapToDismissEnabled YES or NO
+ @param allowTapToDismiss
  */
 + (void)setTapToDismissEnabled:(BOOL)tapToDismissEnabled;
 
@@ -406,7 +348,7 @@ extern const NSString * CSToastPositionBottom;
  Returns `YES` if tap to dismiss is enabled, otherwise `NO`.
  Default is `YES`.
  
- @return BOOL YES or NO
+ @return BOOL
  */
 + (BOOL)isTapToDismissEnabled;
 
@@ -415,15 +357,15 @@ extern const NSString * CSToastPositionBottom;
  toast views will appear one after the other. When `NO`, multiple Toast
  views will appear at the same time (potentially overlapping depending
  on their positions). This has no effect on the toast activity view,
- which operates independently of normal toast views. Default is `NO`.
+ which operates independently of normal toast views. Default is `YES`.
  
- @param queueEnabled YES or NO
+ @param queueEnabled
  */
 + (void)setQueueEnabled:(BOOL)queueEnabled;
 
 /**
  Returns `YES` if the queue is enabled, otherwise `NO`.
- Default is `NO`.
+ Default is `YES`.
  
  @return BOOL
  */
@@ -462,5 +404,6 @@ extern const NSString * CSToastPositionBottom;
  CSToastPosition constants or a `CGPoint` wrapped in an `NSValue` object.
  */
 + (id)defaultPosition;
+
 
 @end
