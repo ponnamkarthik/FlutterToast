@@ -26,7 +26,7 @@ android {
 
     defaultConfig {
         minSdkVersion 16
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     lintOptions {
         disable 'InvalidPackage'
@@ -34,6 +34,6 @@ android {
 }
 
 dependencies {
-    implementation  'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:support-compat:27.1.1'
+    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
+    implementation 'androidx.core:core:1.0.0-beta01'
 }

@@ -1,3 +1,7 @@
+## [3.0.0]
+
+* Migrated to AndroidX
+
 ## [2.2.12]
 
 * Incomplete Text Fix

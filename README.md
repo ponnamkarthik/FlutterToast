@@ -7,13 +7,13 @@ Android and iOS Toast Library for Flutter
 > * Android
 > * IOS
 
-If your project uses androidx then use `fluttertoast` version `2.2.4` or `2.2.5`
+If you dont want to use androidx then use `fluttertoast` version `2.2.12`
 
 ## How to Use
 
 ```yaml
 # add this line to your dependencies
-fluttertoast: ^2.2.12
+fluttertoast: ^3.0.0
 ```
 
 ```dart
