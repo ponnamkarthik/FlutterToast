@@ -64,7 +64,13 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
         style.messageFont = [UIFont systemFontOfSize:cgf];
         style.backgroundColor = [self colorWithHex:bgcolor.unsignedIntegerValue];
         style.messageColor = [self colorWithHex:textcolor.unsignedIntegerValue];
-        
+
+        if (@available(iOS 11.0, *)) {
+            UIWindow *window = UIApplication.sharedApplication.keyWindow;
+            CGFloat topPadding = window.safeAreaInsets.top;
+            CGFloat bottomPadding = window.safeAreaInsets.bottom;
+        }
+
         if ([gravity isEqualToString:@"top"]) {
             [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
                                                                                         duration:time
