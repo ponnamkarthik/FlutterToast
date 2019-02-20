@@ -13,7 +13,7 @@ If you dont want to use androidx then use `fluttertoast` version `2.2.12`
 
 ```yaml
 # add this line to your dependencies
-fluttertoast: ^3.0.0
+fluttertoast: ^3.0.1
 ```
 
 ```dart

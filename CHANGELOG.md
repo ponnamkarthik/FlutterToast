@@ -1,3 +1,8 @@
+## [3.0.1]
+
+* Release build failed fix
+* Multiline text android fix
+
 ## [3.0.0]
 
 * Migrated to AndroidX
