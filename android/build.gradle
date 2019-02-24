@@ -32,8 +32,3 @@ android {
         disable 'InvalidPackage'
     }
 }
-
-dependencies {
-    implementation 'androidx.appcompat:appcompat:1.1.0-alpha02'
-    implementation 'androidx.core:core:1.1.0-alpha04'
-}
