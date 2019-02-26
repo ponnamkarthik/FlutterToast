@@ -7,7 +7,7 @@ Android and iOS Toast Library for Flutter
 > * Android
 > * IOS
 
-If you dont want to use androidx then use `fluttertoast` version `2.2.12`
+If you dont want to use androidx then use `fluttertoast` version `2.2.11`
 
 ## How to Use
 
