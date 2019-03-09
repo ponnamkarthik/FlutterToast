@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.core.content.ContextCompat;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -88,8 +87,13 @@ public class FluttertoastPlugin implements MethodCallHandler {
 
 
             if(bgcolor != null) {
-                Drawable shapeDrawable = ContextCompat.getDrawable(ctx, R.drawable.toast_bg);
-
+                Drawable shapeDrawable; 
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    shapeDrawable = ctx.getResources().getDrawable(R.drawable.toast_bg,ctx.getTheme());
+                } else {
+                    shapeDrawable = ctx.getResources().getDrawable(R.drawable.toast_bg);
+                }
+                
                 if (shapeDrawable != null) {
                     shapeDrawable.setColorFilter(bgcolor.intValue(), PorterDuff.Mode.SRC_IN);
                     if (Build.VERSION.SDK_INT <= 27) {
