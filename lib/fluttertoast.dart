@@ -13,7 +13,7 @@ class Fluttertoast {
   static const MethodChannel _channel =
       const MethodChannel('PonnamKarthik/fluttertoast');
 
-  // for Version 3.x.x
+  // for Version 4.x.x
 
   // static Fluttertoast _instance;
 

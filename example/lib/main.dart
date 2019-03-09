@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
 
   void showColoredToast() {
     Fluttertoast.showToast(
-        msg: "This is Colored Toast",
+        msg: "This is Colored Toast with android duration of 5 Sec",
         toastLength: Toast.LENGTH_SHORT,
         backgroundColor: Colors.red,
         textColor: Colors.white);

@@ -1,3 +1,11 @@
+## [3.0.3]
+
+* fixed Android Toast.LENGTH_*
+
+## [3.0.2]
+
+* fixed #70 #71
+
 ## [3.0.1]
 
 * Release build failed fix

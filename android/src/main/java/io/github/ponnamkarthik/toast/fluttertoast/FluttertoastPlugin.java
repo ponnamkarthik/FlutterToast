@@ -5,6 +5,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -43,16 +44,13 @@ public class FluttertoastPlugin implements MethodCallHandler {
             Number textcolor = call.argument("textcolor");
             Number textSize = call.argument("fontSize");
 
-
-           toast = Toast.makeText(ctx, msg, Toast.LENGTH_SHORT);
+            if(length.equals("long")) {
+                toast = Toast.makeText(ctx, msg, Toast.LENGTH_LONG);
+            } else {
+                toast = Toast.makeText(ctx, msg, Toast.LENGTH_SHORT);
+            }
 
             toast.setText(msg);
-
-            if(length.equals("long")) {
-                toast.setDuration(Toast.LENGTH_LONG);
-            } else {
-                toast.setDuration(Toast.LENGTH_SHORT);
-            }
 
             Boolean sent = false;
 //      final Handler handler = new Handler();
