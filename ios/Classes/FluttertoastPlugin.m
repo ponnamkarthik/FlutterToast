@@ -72,19 +72,19 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
         }
 
         if ([gravity isEqualToString:@"top"]) {
-            [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
+            [[[UIApplication sharedApplication].windows lastObject] makeToast:msg
                                                                                         duration:time
                                                                                         position:CSToastPositionTop
                                                                                            style:style
                                                                                            ];
         } else if ([gravity isEqualToString:@"center"]) {
-            [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
+            [[[UIApplication sharedApplication].windows lastObject] makeToast:msg
                                                                                         duration:time
                                                                                         position:CSToastPositionCenter
                                                                                            style:style
                                                                                           ];
         } else {
-            [[UIApplication sharedApplication].delegate.window.rootViewController.view makeToast:msg
+            [[[UIApplication sharedApplication].windows lastObject] makeToast:msg
                                                                                         duration:time
                                                                                         position:CSToastPositionBottom
                                                                                            style:style
