@@ -99,8 +99,8 @@ class _MyAppState extends State<MyApp> {
               new Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: new RaisedButton(
-                    child: new Text('Cancel Toasts'),
-                    onPressed: cancelToast,
+                  child: new Text('Cancel Toasts'),
+                  onPressed: cancelToast,
                 ),
               ),
             ],
