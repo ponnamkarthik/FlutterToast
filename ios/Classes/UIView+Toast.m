@@ -423,7 +423,7 @@ static const NSString * CSToastQueueKey             = @"CSToastQueueKey";
         if([point caseInsensitiveCompare:CSToastPositionTop] == NSOrderedSame) {
             return CGPointMake(self.bounds.size.width/2, (toast.frame.size.height / 2) + style.verticalPadding);
         } else if([point caseInsensitiveCompare:CSToastPositionCenter] == NSOrderedSame) {
-            return CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
+            return CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2) + style.verticalPadding;
         }
     } else if ([point isKindOfClass:[NSValue class]]) {
         return [point CGPointValue];
@@ -448,7 +448,7 @@ static const NSString * CSToastQueueKey             = @"CSToastQueueKey";
         self.maxWidthPercentage = 0.8;
         self.maxHeightPercentage = 0.8;
         self.horizontalPadding = 10.0;
-        self.verticalPadding = 10.0;
+        self.verticalPadding = 20.0;
         self.cornerRadius = 10.0;
         self.titleFont = [UIFont boldSystemFontOfSize:16.0];
         self.messageFont = [UIFont systemFontOfSize:16.0];
