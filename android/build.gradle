@@ -17,6 +17,12 @@ rootProject.allprojects {
         google()
         jcenter()
     }
+
+    // gradle.projectsEvaluated {
+    //     tasks.withType(JavaCompile) {
+    //         options.compilerArgs << "-Xlint:deprecation"
+    //     }
+    // }  
 }
 
 apply plugin: 'com.android.library'
@@ -34,4 +40,5 @@ android {
 }
 dependencies {
 //    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:support-compat:28.0.0'
 }

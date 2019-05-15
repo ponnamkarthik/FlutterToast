@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,13 +79,10 @@ public class FluttertoastPlugin implements MethodCallHandler {
 
 
                 Drawable shapeDrawable;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    shapeDrawable = ctx.getResources().getDrawable(R.drawable.toast_bg, ctx.getTheme());
-                } else {
-                    shapeDrawable = ctx.getResources().getDrawable(R.drawable.toast_bg);
-                }
 
-                if (bgcolor != null) {
+                shapeDrawable = ResourcesCompat.getDrawable(ctx.getResources(), R.drawable.toast_bg, null);
+
+                if (bgcolor != null && shapeDrawable != null) {
                     shapeDrawable.setColorFilter(bgcolor.intValue(), PorterDuff.Mode.SRC_IN);
                 }
 
