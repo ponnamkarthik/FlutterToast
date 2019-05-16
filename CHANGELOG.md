@@ -1,3 +1,7 @@
+## [3.1.0]
+
+- Migrated to AndroidX
+
 ##[3.0.6]
 
 - iOS build failed fixed
