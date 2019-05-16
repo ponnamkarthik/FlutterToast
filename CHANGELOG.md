@@ -1,3 +1,12 @@
+##[3.0.6]
+
+- iOS build failed fixed
+
+## [3.0.5]
+
+- deprecation fixed
+- hope ios notch fixed
+
 ## [3.0.4]
 
 - Android Color fix
