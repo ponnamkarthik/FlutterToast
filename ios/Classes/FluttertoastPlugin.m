@@ -72,29 +72,34 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
         }
 
         if ([gravity isEqualToString:@"top"]) {
-            [[[UIApplication sharedApplication].windows lastObject] makeToast:msg
-                                                                                        duration:time
-                                                                                        position:CSToastPositionTop
-                                                                                           style:style
-                                                                                           ];
+            
+            [[self _readKeyWindow] makeToast:msg duration:time position:CSToastPositionTop style:style];
+            
         } else if ([gravity isEqualToString:@"center"]) {
-            [[[UIApplication sharedApplication].windows lastObject] makeToast:msg
-                                                                                        duration:time
-                                                                                        position:CSToastPositionCenter
-                                                                                           style:style
-                                                                                          ];
+            
+            [[self _readKeyWindow] makeToast:msg duration:time position:CSToastPositionCenter style:style];
+            
         } else {
-            [[[UIApplication sharedApplication].windows lastObject] makeToast:msg
-                                                                                        duration:time
-                                                                                        position:CSToastPositionBottom
-                                                                                           style:style
-                                                                                           ];
+            
+            [[self _readKeyWindow] makeToast:msg duration:time position:CSToastPositionBottom style:style];
+            
         }
         result([NSNumber numberWithBool:true]);
 
     } else {
         result(FlutterMethodNotImplemented);
     }
+}
+
+#pragma mark - read the key window
+
+- (UIWindow *)_readKeyWindow {
+    for (UIWindow *window in UIApplication.sharedApplication.windows) {
+        if ([window isKindOfClass:UIWindow.class] && window.isKeyWindow && window.windowLevel == UIWindowLevelNormal) {
+            return window;
+        }
+    }
+    return nil;
 }
 
 @end
