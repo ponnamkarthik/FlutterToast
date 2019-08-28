@@ -40,5 +40,5 @@ android {
 }
 dependencies {
 //    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.core:core:1.0.2'
+//    implementation 'androidx.core:core:1.0.2'
 }

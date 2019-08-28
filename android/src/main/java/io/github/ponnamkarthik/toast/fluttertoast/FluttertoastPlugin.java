@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 
-import androidx.core.content.res.ResourcesCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,49 +43,51 @@ public class FluttertoastPlugin implements MethodCallHandler {
                 Number textcolor = call.argument("textcolor");
                 Number textSize = call.argument("fontSize");
 
+                if(bgcolor != null && textcolor != null && textSize != null) {
+                    LayoutInflater inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View layout = inflater.inflate(R.layout.toast_custom, null);
 
-                LayoutInflater inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                View layout = inflater.inflate(R.layout.toast_custom, null);
+                    TextView text = layout.findViewById(R.id.text);
 
-                TextView text = layout.findViewById(R.id.text);
-
-                toast = new Toast(ctx);
-
-
-                if (length.equals("long")) {
-                    toast.setDuration(Toast.LENGTH_LONG);
-                } else {
-                    toast.setDuration(Toast.LENGTH_SHORT);
-                }
-
-                text.setText(msg);
-
-                toast.setView(layout);
-
-                switch (gravity) {
-                    case "top":
-                        toast.setGravity(Gravity.TOP, 0, 100);
-                        break;
-                    case "center":
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        break;
-                    default:
-                        toast.setGravity(Gravity.BOTTOM, 0, 100);
-                }
-
-                if (textSize != null)
-                    text.setTextSize(textSize.floatValue());
+                    toast = new Toast(ctx);
 
 
-                Drawable shapeDrawable;
+                    if (length.equals("long")) {
+                        toast.setDuration(Toast.LENGTH_LONG);
+                    } else {
+                        toast.setDuration(Toast.LENGTH_SHORT);
+                    }
 
-                shapeDrawable = ResourcesCompat.getDrawable(ctx.getResources(), R.drawable.toast_bg, null);
+                    text.setText(msg);
 
-                if (bgcolor != null && shapeDrawable != null) {
-                    shapeDrawable.setColorFilter(bgcolor.intValue(), PorterDuff.Mode.SRC_IN);
-                }
+                    toast.setView(layout);
 
-                layout.setBackground(shapeDrawable);
+                    switch (gravity) {
+                        case "top":
+                            toast.setGravity(Gravity.TOP, 0, 100);
+                            break;
+                        case "center":
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            break;
+                        default:
+                            toast.setGravity(Gravity.BOTTOM, 0, 100);
+                    }
+
+                    if (textSize != null)
+                        text.setTextSize(textSize.floatValue());
+
+
+                    Drawable shapeDrawable;
+
+//                shapeDrawable = ctx.getDrawable(ctx.getResources(), R.drawable.toast_bg, null);
+
+                    shapeDrawable  = ctx.getResources().getDrawable(R.drawable.toast_bg);
+
+                    if (bgcolor != null && shapeDrawable != null) {
+                        shapeDrawable.setColorFilter(bgcolor.intValue(), PorterDuff.Mode.SRC_IN);
+                    }
+
+                    layout.setBackground(shapeDrawable);
 
 //            if(bgcolor != null) {
 //                Drawable shapeDrawable;
@@ -107,11 +108,24 @@ public class FluttertoastPlugin implements MethodCallHandler {
 //                }
 //            }
 
-                if (textcolor != null) {
-                    text.setTextColor(textcolor.intValue());
+                    if (textcolor != null) {
+                        text.setTextColor(textcolor.intValue());
+                    }
+
+                    toast.show();
+                } else {
+                    int toastLength;
+                    if (length.equals("long")) {
+                        toastLength = Toast.LENGTH_LONG;
+                    } else {
+                        toastLength = Toast.LENGTH_SHORT;
+                    }
+                    Toast toast = Toast.makeText(ctx, msg, toastLength);
+                    toast.show();
                 }
 
-                toast.show();
+
+
                 result.success(true);
 
                 break;
