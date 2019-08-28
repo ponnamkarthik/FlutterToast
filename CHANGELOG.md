@@ -1,3 +1,7 @@
+## [3.1.1]
+
+- Not Compiling in android (issue with AndroidX)
+
 ## [3.1.0]
 
 - Migrated to AndroidX
