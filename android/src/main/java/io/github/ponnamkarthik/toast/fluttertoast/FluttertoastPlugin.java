@@ -43,6 +43,18 @@ public class FluttertoastPlugin implements MethodCallHandler {
                 Number textcolor = call.argument("textcolor");
                 Number textSize = call.argument("fontSize");
 
+                Integer realGravity;
+                switch (gravity) {
+                    case "top":
+                        realGravity = Gravity.TOP;
+                        break;
+                    case "center":
+                        realGravity = Gravity.CENTER;
+                        break;
+                    default:
+                        realGravity = Gravity.BOTTOM;
+                }
+
                 if(bgcolor != null && textcolor != null && textSize != null) {
                     LayoutInflater inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     View layout = inflater.inflate(R.layout.toast_custom, null);
@@ -61,17 +73,6 @@ public class FluttertoastPlugin implements MethodCallHandler {
                     text.setText(msg);
 
                     toast.setView(layout);
-
-                    switch (gravity) {
-                        case "top":
-                            toast.setGravity(Gravity.TOP, 0, 100);
-                            break;
-                        case "center":
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            break;
-                        default:
-                            toast.setGravity(Gravity.BOTTOM, 0, 100);
-                    }
 
                     if (textSize != null)
                         text.setTextSize(textSize.floatValue());
@@ -112,6 +113,7 @@ public class FluttertoastPlugin implements MethodCallHandler {
                         text.setTextColor(textcolor.intValue());
                     }
 
+                    toast.setGravity(realGravity,0,0);
                     toast.show();
                 } else {
                     int toastLength;
@@ -121,9 +123,9 @@ public class FluttertoastPlugin implements MethodCallHandler {
                         toastLength = Toast.LENGTH_SHORT;
                     }
                     Toast toast = Toast.makeText(ctx, msg, toastLength);
+                    toast.setGravity(realGravity,0,0);
                     toast.show();
                 }
-
 
 
                 result.success(true);
