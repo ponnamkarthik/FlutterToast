@@ -1,3 +1,7 @@
+## [3.1.2]
+
+- Flutter analysis failed fixed
+
 ## [3.1.1]
 
 - Not Compiling in android (issue with AndroidX)

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:meta/meta.dart';
 import 'package:flutter/foundation.dart';
 
 enum Toast { LENGTH_SHORT, LENGTH_LONG }
@@ -32,7 +31,6 @@ class Fluttertoast {
     return res;
   }
 
-
   static Future<bool> showToast({
     @required String msg,
     Toast toastLength,
@@ -58,10 +56,11 @@ class Fluttertoast {
       gravityToast = "bottom";
     }
 
-    if(backgroundColor == null && defaultTargetPlatform == TargetPlatform.iOS) {
+    if (backgroundColor == null &&
+        defaultTargetPlatform == TargetPlatform.iOS) {
       backgroundColor = Colors.black;
     }
-    if(textColor == null && defaultTargetPlatform == TargetPlatform.iOS) {
+    if (textColor == null && defaultTargetPlatform == TargetPlatform.iOS) {
       textColor = Colors.white;
     }
     final Map<String, dynamic> params = <String, dynamic>{
@@ -70,12 +69,11 @@ class Fluttertoast {
       'time': timeInSecForIos,
       'gravity': gravityToast,
       'bgcolor': backgroundColor != null ? backgroundColor.value : null,
-      'textcolor': textColor != null ? textColor.value: null,
+      'textcolor': textColor != null ? textColor.value : null,
       'fontSize': fontSize,
     };
 
     bool res = await _channel.invokeMethod('showToast', params);
     return res;
   }
-
 }
