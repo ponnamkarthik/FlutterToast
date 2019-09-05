@@ -1,3 +1,7 @@
+## [3.1.3]
+
+- Toast optimized for Android
+
 ## [3.1.2]
 
 - Flutter analysis failed fixed
