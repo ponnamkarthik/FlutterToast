@@ -12,20 +12,6 @@ class Fluttertoast {
   static const MethodChannel _channel =
       const MethodChannel('PonnamKarthik/fluttertoast');
 
-  // for Version 4.x.x
-
-  // static Fluttertoast _instance;
-
-  // static Fluttertoast get instance {
-  //   if (_instance == null) {
-  //     _instance =Fluttertoast._create();
-  //   }
-  //   return _instance;
-  // }
-
-  // Fluttertoast._create(){
-  // }
-
   static Future<bool> cancel() async {
     bool res = await _channel.invokeMethod("cancel");
     return res;
@@ -34,11 +20,14 @@ class Fluttertoast {
   static Future<bool> showToast({
     @required String msg,
     Toast toastLength,
-    int timeInSecForIos = 1,
+    int timeInSecForIosWeb = 1,
     double fontSize = 16.0,
     ToastGravity gravity,
     Color backgroundColor,
     Color textColor,
+    bool webShowClose = false,
+    webBgColor: "linear-gradient(to right, #00b09b, #96c93d)",
+    webPosition: "right"
     // Function(bool) didTap,
   }) async {
     // this.didTap = didTap;
@@ -66,11 +55,14 @@ class Fluttertoast {
     final Map<String, dynamic> params = <String, dynamic>{
       'msg': msg,
       'length': toast,
-      'time': timeInSecForIos,
+      'time': timeInSecForIosWeb,
       'gravity': gravityToast,
       'bgcolor': backgroundColor != null ? backgroundColor.value : null,
       'textcolor': textColor != null ? textColor.value : null,
       'fontSize': fontSize,
+      'webShowClose': webShowClose,
+      'webBgColor':   webBgColor,
+      'webPosition': webPosition
     };
 
     bool res = await _channel.invokeMethod('showToast', params);

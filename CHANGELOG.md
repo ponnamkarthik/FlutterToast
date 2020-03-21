@@ -1,3 +1,7 @@
+## [4.0.0]
+
+- Added Web Support
+
 ## [3.1.3]
 
 - Toast optimized for Android

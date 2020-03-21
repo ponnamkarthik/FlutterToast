@@ -21,6 +21,16 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  void showWebColoredToast() {
+    
+    Fluttertoast.showToast(
+        msg: "This is Colored Toast with android duration of 5 Sec",
+        toastLength: Toast.LENGTH_SHORT,
+        webBgColor: "#e74c3c",
+        timeInSecForIosWeb: 5,
+        );
+  }
+
   void showColoredToast() {
     Fluttertoast.showToast(
         msg: "This is Colored Toast with android duration of 5 Sec",
@@ -33,7 +43,7 @@ class _MyAppState extends State<MyApp> {
     Fluttertoast.showToast(
         msg: "This is Short Toast",
         toastLength: Toast.LENGTH_SHORT,
-        timeInSecForIos: 1);
+        timeInSecForIosWeb: 1);
   }
 
   void showTopShortToast() {
@@ -41,7 +51,7 @@ class _MyAppState extends State<MyApp> {
         msg: "This is Top Short Toast",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.TOP,
-        timeInSecForIos: 1);
+        timeInSecForIosWeb: 1);
   }
 
   void showCenterShortToast() {
@@ -49,7 +59,7 @@ class _MyAppState extends State<MyApp> {
         msg: "This is Center Short Toast",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
-        timeInSecForIos: 1);
+        timeInSecForIosWeb: 1);
   }
 
   void cancelToast() {
@@ -95,6 +105,12 @@ class _MyAppState extends State<MyApp> {
                 child: new RaisedButton(
                     child: new Text('Show Colored Toast'),
                     onPressed: showColoredToast),
+              ),
+              new Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: new RaisedButton(
+                    child: new Text('Show  Web Colored Toast'),
+                    onPressed: showWebColoredToast),
               ),
               new Padding(
                 padding: const EdgeInsets.all(10.0),

@@ -6,6 +6,7 @@ Android and iOS Toast Library for Flutter
 >
 > - Android
 > - IOS
+> - Web (Uses [Toastify-JS](https://github.com/apvarun/toastify-js))
 
 If you dont want to use androidx then use `fluttertoast` version `2.2.11`
 
@@ -36,11 +37,14 @@ Fluttertoast.showToast(
 | --------------- | ------------------------------------------------------------------ |
 | msg             | String (Not Null)(required)                                        |
 | toastLength     | Toast.LENGTH_SHORT or Toast.LENGTH_LONG (optional)                 |
-| gravity         | ToastGravity.TOP (or) ToastGravity.CENTER (or) ToastGravity.BOTTOM |
-| timeInSecForIos | int (only for ios)                                                 |
+| gravity         | ToastGravity.TOP (or) ToastGravity.CENTER (or) ToastGravity.BOTTOM (Web Only supports top, bottom) |
+| timeInSecForIosWeb | int (only for ios)                                                 |
 | bgcolor         | Colors.red                                                         |
 | textcolor       | Colors.white                                                       |
 | fontSize        | 16.0 (float)                                                       |
+| webShowClose    | false (bool)                                                       |
+| webBgColor      | String (hex Color) Default(linear-gradient(to right, #00b09b, #96c93d)) |
+| webPosition     | String (`left`, `center` or `right`)                                |
 
 ### To cancel all the toasts call
 
