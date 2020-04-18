@@ -59,4 +59,8 @@ Fluttertoast.cancel()
 <img src="https://raw.githubusercontent.com/PonnamKarthik/FlutterToast/master/screenshot/3.png" width="320px" />
 <img src="https://raw.githubusercontent.com/PonnamKarthik/FlutterToast/master/screenshot/4.png" width="320px" />
 
+## Articles
+
+[Epic Toasts with FlutterToast](https://developer.school/epic-toasts-with-fluttertoast/)
+
 ## If you need any features suggest
