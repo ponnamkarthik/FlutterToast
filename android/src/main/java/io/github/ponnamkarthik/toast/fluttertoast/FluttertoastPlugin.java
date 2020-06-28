@@ -92,7 +92,16 @@ public class FluttertoastPlugin implements MethodCallHandler {
                 } else {
                     mToast.setGravity(mGravity, 0, 100);
                 }
-                mToast.show();
+                if (mContext instanceof Activity) {
+                    ((Activity) mContext).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mToast.show();
+                        }
+                    });
+                } else {
+                    mToast.show();
+                }
 
                 result.success(true);
                 break;
