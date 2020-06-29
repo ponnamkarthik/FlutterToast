@@ -1,3 +1,7 @@
+## [4.0.2]
+
+- Delete print on fluttertoast_web
+
 ## [4.0.1]
 
 - ReadMe Fixes
