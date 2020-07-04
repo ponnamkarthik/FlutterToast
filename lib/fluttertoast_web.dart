@@ -21,8 +21,6 @@ class FluttertoastWebPlugin {
   Future<dynamic> handleMethodCall(MethodCall call) async {
     switch (call.method) {
       case 'showToast':
-        print("showToast");
-        print(call.arguments);
         showToast(call.arguments);
         return true;
       default:
