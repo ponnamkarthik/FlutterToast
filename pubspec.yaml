@@ -1,11 +1,11 @@
 name: fluttertoast
 description: Toast Library for Flutter, Easily create toast messages in single line of code
-version: 4.0.2
+version: 5.0.1
 homepage: https://github.com/PonnamKarthik/FlutterToast
 
 environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
-  flutter: ">=1.12.8 <2.0.0"
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.10.0"
 
 dependencies:
   flutter:
@@ -18,7 +18,7 @@ flutter:
     platforms:
       android:
         package: io.github.ponnamkarthik.toast.fluttertoast
-        pluginClass: FluttertoastPlugin
+        pluginClass: FlutterToastPlugin
       ios:
         pluginClass: FluttertoastPlugin
       web:

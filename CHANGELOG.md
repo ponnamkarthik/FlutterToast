@@ -1,3 +1,9 @@
+## [5.0.1]
+
+- Many things changes on android side (this will break your current implementation)
+- `Fluttertoast.` to `FlutterToast.`
+- many fixes
+
 ## [4.0.2]
 
 - Delete print on fluttertoast_web

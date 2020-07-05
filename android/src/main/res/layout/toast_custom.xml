@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:layout_marginStart="50dp"
+    android:background="@drawable/corner"
     android:layout_marginEnd="50dp">
 
     <TextView
@@ -14,6 +15,7 @@
         android:background="#CC000000"
         android:paddingStart="16dp"
         android:paddingTop="10dp"
+        android:gravity="center"
         android:paddingEnd="16dp"
         android:paddingBottom="10dp"
         android:textColor="#FFFFFF"
