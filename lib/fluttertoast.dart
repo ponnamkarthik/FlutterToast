@@ -51,7 +51,7 @@ class FlutterToast {
       textColor = Colors.white;
     }
     final Map<String, dynamic> params = <String, dynamic>{
-      'msg': msg,
+      'msg': msg ?? "",
       'length': toast,
       'time': timeInSecForIosWeb,
       'gravity': gravityToast,
