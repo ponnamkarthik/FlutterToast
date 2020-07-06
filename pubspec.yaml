@@ -22,5 +22,5 @@ flutter:
       ios:
         pluginClass: FluttertoastPlugin
       web:
-        pluginClass: FluttertoastWebPlugin
+        pluginClass: FlutterToastWebPlugin
         fileName: fluttertoast_web.dart
