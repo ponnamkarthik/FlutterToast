@@ -1,6 +1,6 @@
 name: fluttertoast
 description: Toast Library for Flutter, Easily create toast messages in single line of code
-version: 5.0.1
+version: 5.0.2
 homepage: https://github.com/PonnamKarthik/FlutterToast
 
 environment:
