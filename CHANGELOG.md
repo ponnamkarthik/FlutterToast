@@ -1,3 +1,8 @@
+## [5.0.2]
+
+- Web Fix after name change
+
+
 ## [5.0.1]
 
 - Many things changes on android side (this will break your current implementation)
