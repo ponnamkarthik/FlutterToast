@@ -6,6 +6,31 @@ enum Toast { LENGTH_SHORT, LENGTH_LONG }
 
 enum ToastGravity { TOP, BOTTOM, CENTER, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, CENTER_LEFT, CENTER_RIGHT }
 
+@Deprecated("Will be removed in further release")
+class Fluttertoast {
+  @Deprecated("Will be removed in further release")
+  static void showToast(BuildContext context, {ToastGravity gravity = ToastGravity.BOTTOM, String msg, int toastDuration = 3}) {
+    FlutterToast flutterToast = FlutterToast(context);
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Color.fromRGBO(61, 61, 61, .7),
+      ),
+      child: Text(
+        msg,
+        style: TextStyle(color: Colors.white),
+      ),
+    );
+
+    flutterToast.showToast(
+      child: toast,
+      gravity: gravity,
+      toastDuration: Duration(seconds: toastDuration),
+    );
+  }
+}
+
 class FlutterToast {
   BuildContext context;
 
