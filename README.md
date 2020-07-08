@@ -17,10 +17,10 @@ Previously this plugin used to interact with native platform which now removed.
 
 ## Features
 
-1 - Full Controll of the Toast
-2 - Toasts will be queued
-3 - Remove a toast
-4 - Clear the queue
+1. Full Controll of the Toast
+2. Toasts will be queued
+3. Remove a toast
+4. Clear the queue
   
 ## How to Use  
   
