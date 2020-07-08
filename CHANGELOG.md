@@ -1,3 +1,7 @@
+## [6.0.1]
+
+- Support for old `Fluttertoast.showToast`
+
 ## [6.0.0]
 
 - Complete new package
