@@ -1,3 +1,8 @@
+## [6.0.0]
+
+- Complete new package
+- Now plugin dont use any native code
+
 ## [5.0.2]
 
 - Web Fix after name change

@@ -1,13 +1,15 @@
 
 # [fluttertoast](https://pub.dartlang.org/packages/fluttertoast)  
   
-Flutter Toast Library for Flutter  
+Toast Library for Flutter  
   
 > Supported Platforms  
 >  
 > - ALL
   
 ## Notice
+
+Please check readme before you update your package
 
 This update has changes complete plugin to new one
 
