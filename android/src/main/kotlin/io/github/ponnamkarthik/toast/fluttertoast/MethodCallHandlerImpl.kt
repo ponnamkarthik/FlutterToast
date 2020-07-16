@@ -1,6 +1,7 @@
 package io.github.ponnamkarthik.toast.fluttertoast
 
 import android.app.Activity
+import android.app.Application
 import android.content.Context
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
