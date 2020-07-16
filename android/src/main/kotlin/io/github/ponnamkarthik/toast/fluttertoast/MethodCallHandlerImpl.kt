@@ -17,8 +17,12 @@ import com.hjq.toast.ToastUtils
 internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
 
     private lateinit var mToast: Toast
+
     init {
-        ToastUtils.init(context)
+        ToastUtils.init(when (context) {
+            is Activity -> (context as Activity).application
+            else -> context as Application
+        })
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
@@ -52,14 +56,14 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                     } else {
                         context.resources.getDrawable(R.drawable.corner)
                     }
-                    if(bgcolor != null && gradientDrawable != null) {
+                    if (bgcolor != null && gradientDrawable != null) {
                         gradientDrawable.setColorFilter(bgcolor.toInt(), PorterDuff.Mode.SRC_ATOP)
                     }
                     text.background = gradientDrawable
-                    if(textSize != null) {
+                    if (textSize != null) {
                         text.textSize = textSize.toFloat()
                     }
-                    if(textcolor != null) {
+                    if (textcolor != null) {
                         text.setTextColor(textcolor.toInt())
                     }
 //                    mToast = Toast(context)
