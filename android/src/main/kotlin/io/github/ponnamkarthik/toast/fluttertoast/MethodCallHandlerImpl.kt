@@ -17,6 +17,9 @@ import com.hjq.toast.ToastUtils
 internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
 
     private lateinit var mToast: Toast
+    init {
+        ToastUtils.init(context)
+    }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         when (call.method) {
