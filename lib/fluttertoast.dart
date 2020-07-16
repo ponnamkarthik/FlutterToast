@@ -1,47 +1,83 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 
 enum Toast { LENGTH_SHORT, LENGTH_LONG }
 
 enum ToastGravity { TOP, BOTTOM, CENTER, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, CENTER_LEFT, CENTER_RIGHT }
 
-@Deprecated("Will be removed in further release")
 class Fluttertoast {
-  @Deprecated("Will be removed in further release")
-  static void showToast(BuildContext context, {ToastGravity gravity = ToastGravity.BOTTOM, String msg, int toastDuration = 3}) {
-    FlutterToast flutterToast = FlutterToast(context);
-    Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Color.fromRGBO(61, 61, 61, .7),
-      ),
-      child: Text(
-        msg,
-        style: TextStyle(color: Colors.white),
-      ),
-    );
+  static const MethodChannel _channel = const MethodChannel('PonnamKarthik/fluttertoast');
 
-    flutterToast.showToast(
-      child: toast,
-      gravity: gravity,
-      toastDuration: Duration(seconds: toastDuration),
-    );
+  static Future<bool> cancel() async {
+    bool res = await _channel.invokeMethod("cancel");
+    return res;
+  }
+
+  static Future<bool> showToast(
+      {@required String msg,
+      Toast toastLength,
+      int timeInSecForIosWeb = 1,
+      double fontSize,
+      ToastGravity gravity,
+      Color backgroundColor,
+      Color textColor,
+      bool webShowClose = false,
+      webBgColor: "linear-gradient(to right, #00b09b, #96c93d)",
+      webPosition: "right"
+      // Function(bool) didTap,
+      }) async {
+    // this.didTap = didTap;
+    String toast = "short";
+    if (toastLength == Toast.LENGTH_LONG) {
+      toast = "long";
+    }
+
+    String gravityToast = "bottom";
+    if (gravity == ToastGravity.TOP) {
+      gravityToast = "top";
+    } else if (gravity == ToastGravity.CENTER) {
+      gravityToast = "center";
+    } else {
+      gravityToast = "bottom";
+    }
+
+    if (backgroundColor == null && defaultTargetPlatform == TargetPlatform.iOS) {
+      backgroundColor = Colors.black;
+    }
+    if (textColor == null && defaultTargetPlatform == TargetPlatform.iOS) {
+      textColor = Colors.white;
+    }
+    final Map<String, dynamic> params = <String, dynamic>{
+      'msg': msg,
+      'length': toast,
+      'time': timeInSecForIosWeb,
+      'gravity': gravityToast,
+      'bgcolor': backgroundColor != null ? backgroundColor.value : null,
+      'textcolor': textColor != null ? textColor.value : null,
+      'fontSize': fontSize,
+      'webShowClose': webShowClose,
+      'webBgColor': webBgColor,
+      'webPosition': webPosition
+    };
+
+    bool res = await _channel.invokeMethod('showToast', params);
+    return res;
   }
 }
 
-class FlutterToast {
+class FToast {
   BuildContext context;
 
-  static final FlutterToast _instance = FlutterToast._internal();
+  static final FToast _instance = FToast._internal();
 
-  factory FlutterToast(BuildContext context) {
+  factory FToast(BuildContext context) {
     _instance.context = context;
     return _instance;
   }
 
-  FlutterToast._internal();
+  FToast._internal();
 
   OverlayEntry _entry;
   List<_ToastEntry> _overlayQueue = List();
