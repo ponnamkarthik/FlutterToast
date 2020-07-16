@@ -12,6 +12,7 @@ import android.widget.Toast
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
+import com.hjq.toast.ToastUtils
 
 internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
 
@@ -58,11 +59,17 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                     if(textcolor != null) {
                         text.setTextColor(textcolor.toInt())
                     }
-                    mToast = Toast(context)
-                    mToast.setDuration(mDuration)
-                    mToast.setView(layout)
+//                    mToast = Toast(context)
+//                    mToast.setDuration(mDuration)
+//                    mToast.setView(layout)
+                    mToast = ToastUtils.getToast()
+                    mToast.duration = mDuration
+                    mToast.view = layout
                 } else {
-                    mToast = Toast.makeText(context, mMessage, mDuration)
+//                    mToast = Toast.makeText(context, mMessage, mDuration)
+                    mToast = ToastUtils.getToast()
+                    mToast.setText(mMessage)
+                    mToast.duration = mDuration
                 }
                 if (mGravity == Gravity.CENTER) {
                     mToast.setGravity(mGravity, 0, 0)
