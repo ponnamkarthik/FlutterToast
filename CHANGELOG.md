@@ -1,3 +1,13 @@
+## [7.0.0]
+
+- Android Build failed fix
+- iOS Crash Fix
+
+## [7.0.0]
+
+- Reverted to Old code `Fluttertoast`
+- Also contains new code `FToast`
+
 ## [6.0.1]
 
 - Support for old `Fluttertoast.showToast`
