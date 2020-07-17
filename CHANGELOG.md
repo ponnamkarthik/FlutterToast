@@ -1,4 +1,4 @@
-## [7.0.0]
+## [7.0.1]
 
 - Android Build failed fix
 - iOS Crash Fix
