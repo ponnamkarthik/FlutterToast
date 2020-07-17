@@ -7,7 +7,7 @@ enum Toast { LENGTH_SHORT, LENGTH_LONG }
 
 enum ToastGravity { TOP, BOTTOM, CENTER, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, CENTER_LEFT, CENTER_RIGHT }
 
-class Fluttertoast {
+class FlutterToast {
   static const MethodChannel _channel = const MethodChannel('PonnamKarthik/fluttertoast');
 
   static Future<bool> cancel() async {
