@@ -42,7 +42,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 ## Toast with No Build Context
 
 ```dart
-FlutterToast.showToast(
+Fluttertoast.showToast(
         msg: "This is Center Short Toast",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
@@ -69,7 +69,7 @@ FlutterToast.showToast(
 ### To cancel all the toasts call
 
 ```dart
-FlutterToast.cancel()
+Fluttertoast.cancel()
 ```
 
 ### Custom Toast For Android
