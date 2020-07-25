@@ -1,3 +1,7 @@
+## [7.0.1+1]
+
+- Readme Updated
+
 ## [7.0.1]
 
 - Android Build failed fix
