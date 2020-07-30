@@ -1,3 +1,7 @@
+## [7.0.2]
+
+- iOS Toast behind keyboard fixed. #203
+
 ## [7.0.1+1]
 
 - Readme Updated
