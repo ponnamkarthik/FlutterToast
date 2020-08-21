@@ -94,12 +94,7 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
 #pragma mark - read the key window
 
 - (UIWindow *)_readKeyWindow {
-    for (UIWindow *window in UIApplication.sharedApplication.windows) {
-        if ([window isKindOfClass:UIWindow.class] && window.isKeyWindow && window.windowLevel == UIWindowLevelNormal) {
-            return window;
-        }
-    }
-    return nil;
+    return [[UIApplication sharedApplication].windows lastObject];
 }
 
 @end

@@ -3,7 +3,7 @@
 # Run `pod lib lint FlutterToast.podspec' to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'FlutterToast'
+  s.name             = 'fluttertoast'
   s.version          = '0.0.1'
   s.summary          = 'Toast Library for Flutter, Easily create toast messages in single line of code'
   s.description      = <<-DESC
