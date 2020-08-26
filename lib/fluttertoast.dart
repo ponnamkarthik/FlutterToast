@@ -20,7 +20,7 @@ class FlutterToast {
       {@required String msg,
       Toast toastLength,
       int timeInSecForIosWeb = 1,
-      double fontSize,
+      double fontSize = 16,
       ToastGravity gravity,
       Color backgroundColor,
       Color textColor,
