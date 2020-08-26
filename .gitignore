@@ -5,3 +5,6 @@
 .pub/
 
 build/
+.idea
+fluttertoast.iml
+
