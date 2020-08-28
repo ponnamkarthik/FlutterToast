@@ -221,7 +221,7 @@ static const NSString * CSToastQueueKey             = @"CSToastQueueKey";
         imageRect.size.height = imageView.bounds.size.height;
     }
     
-    if (title != nil) {
+    if (title != nil && [title isKindOfClass:[NSString class]]) {
         titleLabel = [[UILabel alloc] init];
         titleLabel.numberOfLines = style.titleNumberOfLines;
         titleLabel.font = style.titleFont;
@@ -240,7 +240,7 @@ static const NSString * CSToastQueueKey             = @"CSToastQueueKey";
         titleLabel.frame = CGRectMake(0.0, 0.0, expectedSizeTitle.width, expectedSizeTitle.height);
     }
     
-    if (message != nil) {
+    if (message != nil && [message isKindOfClass:[NSString class]]) {
         messageLabel = [[UILabel alloc] init];
         messageLabel.numberOfLines = style.messageNumberOfLines;
         messageLabel.font = style.messageFont;
