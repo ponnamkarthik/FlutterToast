@@ -1,3 +1,9 @@
+## [7.0.3]
+
+- FToast now Fade when showing and hiding the toast
+- Toast backgroud now supports transparency
+- Bug fixes
+
 ## [7.0.2]
 
 - iOS Toast behind keyboard fixed. #203

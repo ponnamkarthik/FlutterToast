@@ -49,7 +49,7 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                         context.resources.getDrawable(R.drawable.corner)
                     }
                     if(bgcolor != null && gradientDrawable != null) {
-                        gradientDrawable.setColorFilter(bgcolor.toInt(), PorterDuff.Mode.SRC_ATOP)
+                        gradientDrawable.setColorFilter(bgcolor.toInt(), PorterDuff.Mode.SRC)
                     }
                     text.background = gradientDrawable
                     if(textSize != null) {

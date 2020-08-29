@@ -19,7 +19,7 @@ class Fluttertoast {
       {@required String msg,
       Toast toastLength,
       int timeInSecForIosWeb = 1,
-      double fontSize = 16.0,
+      double fontSize,
       ToastGravity gravity,
       Color backgroundColor,
       Color textColor,
@@ -94,7 +94,9 @@ class FToast {
     Overlay.of(context).insert(_entry);
 
     _timer = Timer(_toastEntry.duration, () {
-      removeCustomToast();
+      Future.delayed(Duration(milliseconds: 360), () {
+        removeCustomToast();
+      });
     });
   }
 
@@ -119,18 +121,16 @@ class FToast {
     ToastGravity gravity,
   }) {
     OverlayEntry newEntry = OverlayEntry(builder: (context) {
-      return _getPostionWidgetBasedOnGravity(child, gravity);
+      return _getPostionWidgetBasedOnGravity(child, gravity, toastDuration);
     });
     _overlayQueue.add(_ToastEntry(entry: newEntry, duration: toastDuration ?? Duration(seconds: 2)));
     if (_timer == null) _showOverlay();
   }
 
-  _getPostionWidgetBasedOnGravity(Widget child, ToastGravity gravity) {
-    Widget newChild = Center(
-      child: Material(
-        color: Colors.transparent,
-        child: child,
-      ),
+  _getPostionWidgetBasedOnGravity(Widget child, ToastGravity gravity, Duration duration) {
+    Widget newChild = _ToastStateFul(
+      child,
+      duration,
     );
     switch (gravity) {
       case ToastGravity.TOP:
@@ -169,4 +169,70 @@ class _ToastEntry {
   final Duration duration;
 
   _ToastEntry({this.entry, this.duration});
+}
+
+class _ToastStateFul extends StatefulWidget {
+  _ToastStateFul(this.child, this.duration, {Key key}) : super(key: key);
+
+  final Widget child;
+  final Duration duration;
+
+  @override
+  ToastStateFulState createState() => ToastStateFulState();
+}
+
+class ToastStateFulState extends State<_ToastStateFul> with SingleTickerProviderStateMixin {
+  bool _visible = false;
+
+  showIt() {
+    _animationController.forward();
+  }
+
+  hideIt() {
+    _animationController.reverse();
+  }
+
+  AnimationController _animationController;
+  Animation _fadeAnimation;
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 350),
+    );
+    _fadeAnimation = CurvedAnimation(parent: _animationController, curve: Curves.easeIn);
+    super.initState();
+
+    showIt();
+
+    Future.delayed(widget.duration, () {
+      hideIt();
+    });
+  }
+
+  @override
+  void deactivate() {
+    _animationController.stop();
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    _animationController?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeTransition(
+      opacity: _fadeAnimation,
+      child: Center(
+        child: Material(
+          color: Colors.transparent,
+          child: widget.child,
+        ),
+      ),
+    );
+  }
 }

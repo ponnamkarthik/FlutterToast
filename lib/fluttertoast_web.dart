@@ -65,9 +65,6 @@ class FluttertoastWebPlugin {
     html.querySelector('head').children.addAll(tags);
 
     await Future.wait(loading);
-
-    // addHtmlToast();
-    // addHtmlToast();
   }
 
   addHtmlToast(
