@@ -1,7 +1,9 @@
 
 # [fluttertoast](https://pub.dartlang.org/packages/fluttertoast)  
-  
+
 Toast Library for Flutter
+
+![Build Checks](https://github.com/ponnamkarthik/FlutterToast/workflows/Build%20Checks/badge.svg)
 
 Now this toast library supports two kinds of toast messages one which requires `BuildContext` other with No `BuildContext`
 
