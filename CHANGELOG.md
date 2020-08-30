@@ -1,3 +1,8 @@
+## [7.0.4]
+
+- iOS Build Failed Fixed #218
+- Fixed Cancel Toasts in iOS
+
 ## [7.0.3]
 
 - FToast now Fade when showing and hiding the toast

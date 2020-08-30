@@ -32,7 +32,7 @@ This one has limited features and no control over UI
 
 ```yaml
 # add this line to your dependencies
-fluttertoast: ^7.0.3
+fluttertoast: ^7.0.4
 ```
 
 ```dart

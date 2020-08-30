@@ -61,7 +61,8 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
 
 - (void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
     if([@"cancel" isEqualToString:call.method]) {
-        [[UIApplication sharedApplication].delegate.window.rootViewController.view hideAllToasts];
+        __weak typeof(self) weakSelf = self;
+        [[weakSelf _readKeyWindow] hideAllToasts];
         result([NSNumber numberWithBool:true]);
     } else if ([@"showToast" isEqualToString:call.method]) {
         NSString *msg = call.arguments[@"msg"];
@@ -71,10 +72,11 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
         NSNumber *textcolor = call.arguments[@"textcolor"];
         NSNumber *size = call.arguments[@"size"];
         NSNumber *fontSize = call.arguments[@"fontSize"];
-        
-        if(fontSize == nil) {
-            fontSize = 16.0;
+
+        if ([fontSize isKindOfClass:[NSNull class]]) {
+            fontSize = [[NSNumber alloc] initWithInt:16];
         }
+        
         CGFloat cgf = [fontSize doubleValue];
         int time = 1;
         @try {
