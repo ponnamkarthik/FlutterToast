@@ -157,9 +157,10 @@ class FToast {
       case ToastGravity.BOTTOM_RIGHT:
         return Positioned(bottom: 50.0, right: 24.0, child: newChild);
         break;
-      case ToastGravity.BOTTOM:
       case ToastGravity.SNACKBAR:
         return Positioned(bottom: MediaQuery.of(context).viewInsets.bottom, left: 0, right: 0, child: newChild);
+        break;
+      case ToastGravity.BOTTOM:
       default:
         return Positioned(bottom: 50.0, left: 24.0, right: 24.0, child: newChild);
     }
