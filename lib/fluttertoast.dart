@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 
 enum Toast { LENGTH_SHORT, LENGTH_LONG }
 
-enum ToastGravity { TOP, BOTTOM, CENTER, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, CENTER_LEFT, CENTER_RIGHT }
+enum ToastGravity { TOP, BOTTOM, CENTER, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, CENTER_LEFT, CENTER_RIGHT, SNACKBAR }
 
 class Fluttertoast {
   static const MethodChannel _channel = const MethodChannel('PonnamKarthik/fluttertoast');
@@ -15,19 +15,19 @@ class Fluttertoast {
     return res;
   }
 
-  static Future<bool> showToast(
-      {@required String msg,
-      Toast toastLength,
-      int timeInSecForIosWeb = 1,
-      double fontSize,
-      ToastGravity gravity,
-      Color backgroundColor,
-      Color textColor,
-      bool webShowClose = false,
-      webBgColor: "linear-gradient(to right, #00b09b, #96c93d)",
-      webPosition: "right"
-      // Function(bool) didTap,
-      }) async {
+  static Future<bool> showToast({
+    @required String msg,
+    Toast toastLength,
+    int timeInSecForIosWeb = 1,
+    double fontSize,
+    ToastGravity gravity,
+    Color backgroundColor,
+    Color textColor,
+    bool webShowClose = false,
+    webBgColor: "linear-gradient(to right, #00b09b, #96c93d)",
+    webPosition: "right",
+    // Function(bool) didTap,
+  }) async {
     // this.didTap = didTap;
     String toast = "short";
     if (toastLength == Toast.LENGTH_LONG) {
@@ -156,6 +156,9 @@ class FToast {
         break;
       case ToastGravity.BOTTOM_RIGHT:
         return Positioned(bottom: 50.0, right: 24.0, child: newChild);
+        break;
+      case ToastGravity.SNACKBAR:
+        return Positioned(bottom: MediaQuery.of(context).viewInsets.bottom, left: 0, right: 0, child: newChild);
         break;
       case ToastGravity.BOTTOM:
       default:
