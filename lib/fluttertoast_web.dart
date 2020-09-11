@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:html' as html;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
@@ -17,8 +18,6 @@ class FluttertoastWebPlugin {
   Future<dynamic> handleMethodCall(MethodCall call) async {
     switch (call.method) {
       case 'showToast':
-        print("showToast");
-        print(call.arguments);
         showToast(call.arguments);
         return true;
       default:
@@ -40,11 +39,13 @@ class FluttertoastWebPlugin {
 
     String bgColor = args['webBgColor'] ?? "linear-gradient(to right, #00b09b, #96c93d)";
 
+    int textColor = args['textcolor'];
+
     int time = args['time'] == null ? 3000 : (int.parse(args['time'].toString()) * 1000);
 
     bool showClose = args['webShowClose'] ?? false;
 
-    addHtmlToast(msg: msg, gravity: gravity, position: position, bgcolor: bgColor, showClose: showClose, time: time);
+    addHtmlToast(msg: msg, gravity: gravity, position: position, bgcolor: bgColor, showClose: showClose, time: time, textColor: textColor);
   }
 
   Future<void> injectCssAndJSLibraries() async {
@@ -73,8 +74,8 @@ class FluttertoastWebPlugin {
       String position = "right",
       String bgcolor = "linear-gradient(to right, #00b09b, #96c93d)",
       int time = 3000,
-      bool showClose = false}) {
-    print(html.querySelector("#toast-content"));
+      bool showClose = false,
+      int textColor}) {
     html.Element ele = html.querySelector("#toast-content");
     String content = """
           var toastElement = Toastify({
@@ -94,5 +95,11 @@ class FluttertoastWebPlugin {
       ..id = "toast-content"
       ..innerHtml = content;
     html.querySelector('head').children.add(scriptText);
+    if (textColor != null) {
+      html.Element toast = html.querySelector('.toastify');
+      String tcRadix = textColor.toRadixString(16);
+      final String tC = "${tcRadix.substring(2)}${tcRadix.substring(0, 2)}";
+      toast.style.setProperty('color', "#$tC");
+    }
   }
 }

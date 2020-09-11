@@ -1,3 +1,12 @@
+## [7.1.0]
+
+- Breaking change for FToast, Need to call `FToast.init(context)` before `showToast`
+- AnimationController fix
+- Android `NonNull` build Fix
+- FToast Added new `PositionedToastBuilder` you can define Custom Postition now for toast
+- Merged #228, Fix UIView+Toast.o duplicate symbols - Thanks @jackkang0401 and @yongshuai.kang
+- Now `textcolor` will work for web toast
+
 ## [7.0.4]
 
 - iOS Build Failed Fixed #218

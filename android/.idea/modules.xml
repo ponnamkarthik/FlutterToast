@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/FlutterToast.iml" filepath="$PROJECT_DIR$/.idea/modules/FlutterToast.iml" group="FlutterToast" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.example.FlutterToast-FlutterToast.iml" filepath="$PROJECT_DIR$/.idea/modules/com.example.FlutterToast-FlutterToast.iml" group="FlutterToast" />
     </modules>
   </component>
 </project>

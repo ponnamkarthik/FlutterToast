@@ -67,14 +67,19 @@ class Fluttertoast {
   }
 }
 
+typedef PositionedToastBuilder = Widget Function(BuildContext context, Widget child);
+
 class FToast {
   BuildContext context;
 
   static final FToast _instance = FToast._internal();
 
-  factory FToast(BuildContext context) {
-    _instance.context = context;
+  factory FToast() {
     return _instance;
+  }
+
+  init(BuildContext context) {
+    _instance.context = context;
   }
 
   FToast._internal();
@@ -90,7 +95,7 @@ class FToast {
     }
     _ToastEntry _toastEntry = _overlayQueue.removeAt(0);
     _entry = _toastEntry.entry;
-    if (context == null) throw ("Error: Context is null");
+    if (context == null) throw ("Error: Context is null, Please call init(context) before showing toast.");
     Overlay.of(context).insert(_entry);
 
     _timer = Timer(_toastEntry.duration, () {
@@ -117,52 +122,54 @@ class FToast {
 
   void showToast({
     @required Widget child,
+    PositionedToastBuilder positionedToastBuilder,
     Duration toastDuration,
     ToastGravity gravity,
   }) {
+    Widget newChild = _ToastStateFul(
+      child,
+      toastDuration ?? Duration(seconds: 2),
+    );
     OverlayEntry newEntry = OverlayEntry(builder: (context) {
-      return _getPostionWidgetBasedOnGravity(child, gravity, toastDuration);
+      if (positionedToastBuilder != null) return positionedToastBuilder(context, newChild);
+      return _getPostionWidgetBasedOnGravity(newChild, gravity);
     });
     _overlayQueue.add(_ToastEntry(entry: newEntry, duration: toastDuration ?? Duration(seconds: 2)));
     if (_timer == null) _showOverlay();
   }
 
-  _getPostionWidgetBasedOnGravity(Widget child, ToastGravity gravity, Duration duration) {
-    Widget newChild = _ToastStateFul(
-      child,
-      duration,
-    );
+  _getPostionWidgetBasedOnGravity(Widget child, ToastGravity gravity) {
     switch (gravity) {
       case ToastGravity.TOP:
-        return Positioned(top: 100.0, left: 24.0, right: 24.0, child: newChild);
+        return Positioned(top: 100.0, left: 24.0, right: 24.0, child: child);
         break;
       case ToastGravity.TOP_LEFT:
-        return Positioned(top: 100.0, left: 24.0, child: newChild);
+        return Positioned(top: 100.0, left: 24.0, child: child);
         break;
       case ToastGravity.TOP_RIGHT:
-        return Positioned(top: 100.0, right: 24.0, child: newChild);
+        return Positioned(top: 100.0, right: 24.0, child: child);
         break;
       case ToastGravity.CENTER:
-        return Positioned(top: 50.0, bottom: 50.0, left: 24.0, right: 24.0, child: newChild);
+        return Positioned(top: 50.0, bottom: 50.0, left: 24.0, right: 24.0, child: child);
         break;
       case ToastGravity.CENTER_LEFT:
-        return Positioned(top: 50.0, bottom: 50.0, left: 24.0, child: newChild);
+        return Positioned(top: 50.0, bottom: 50.0, left: 24.0, child: child);
         break;
       case ToastGravity.CENTER_RIGHT:
-        return Positioned(top: 50.0, bottom: 50.0, right: 24.0, child: newChild);
+        return Positioned(top: 50.0, bottom: 50.0, right: 24.0, child: child);
         break;
       case ToastGravity.BOTTOM_LEFT:
-        return Positioned(bottom: 50.0, left: 24.0, child: newChild);
+        return Positioned(bottom: 50.0, left: 24.0, child: child);
         break;
       case ToastGravity.BOTTOM_RIGHT:
-        return Positioned(bottom: 50.0, right: 24.0, child: newChild);
+        return Positioned(bottom: 50.0, right: 24.0, child: child);
         break;
       case ToastGravity.SNACKBAR:
-        return Positioned(bottom: MediaQuery.of(context).viewInsets.bottom, left: 0, right: 0, child: newChild);
+        return Positioned(bottom: MediaQuery.of(context).viewInsets.bottom, left: 0, right: 0, child: child);
         break;
       case ToastGravity.BOTTOM:
       default:
-        return Positioned(bottom: 50.0, left: 24.0, right: 24.0, child: newChild);
+        return Positioned(bottom: 50.0, left: 24.0, right: 24.0, child: child);
     }
   }
 }
@@ -185,18 +192,19 @@ class _ToastStateFul extends StatefulWidget {
 }
 
 class ToastStateFulState extends State<_ToastStateFul> with SingleTickerProviderStateMixin {
-  bool _visible = false;
-
   showIt() {
     _animationController.forward();
   }
 
   hideIt() {
     _animationController.reverse();
+    _timer?.cancel();
   }
 
   AnimationController _animationController;
   Animation _fadeAnimation;
+
+  Timer _timer;
 
   @override
   void initState() {
@@ -208,20 +216,21 @@ class ToastStateFulState extends State<_ToastStateFul> with SingleTickerProvider
     super.initState();
 
     showIt();
-
-    Future.delayed(widget.duration, () {
+    _timer = Timer(widget.duration, () {
       hideIt();
     });
   }
 
   @override
   void deactivate() {
+    _timer?.cancel();
     _animationController.stop();
     super.deactivate();
   }
 
   @override
   void dispose() {
+    _timer?.cancel();
     _animationController?.dispose();
     super.dispose();
   }

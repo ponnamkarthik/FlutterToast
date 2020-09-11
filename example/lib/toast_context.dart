@@ -35,6 +35,20 @@ class _ToastContextState extends State<ToastContext> {
     );
   }
 
+  _showBuilderToast() {
+    fToast.showToast(
+        child: toast,
+        gravity: ToastGravity.BOTTOM,
+        toastDuration: Duration(seconds: 2),
+        positionedToastBuilder: (context, child) {
+          return Positioned(
+            child: child,
+            top: 16.0,
+            left: 16.0,
+          );
+        });
+  }
+
   _showToastCancel() {
     Widget toastWithButton = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
@@ -112,7 +126,8 @@ class _ToastContextState extends State<ToastContext> {
   @override
   void initState() {
     super.initState();
-    fToast = FToast(context);
+    fToast = FToast();
+    fToast.init(context);
   }
 
   @override
@@ -130,6 +145,12 @@ class _ToastContextState extends State<ToastContext> {
             child: Text("Show Custom Toast"),
             onPressed: () {
               _showToast();
+            },
+          ),
+          RaisedButton(
+            child: Text("Show Custom Toast via PositionedToastBuilder"),
+            onPressed: () {
+              _showBuilderToast();
             },
           ),
           SizedBox(

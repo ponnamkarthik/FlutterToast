@@ -48,7 +48,7 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                     } else {
                         context.resources.getDrawable(R.drawable.corner)
                     }
-                    if(bgcolor != null && gradientDrawable != null) {
+                    if(bgcolor != null) {
                         gradientDrawable.setColorFilter(bgcolor.toInt(), PorterDuff.Mode.SRC)
                     }
                     text.background = gradientDrawable
@@ -59,17 +59,21 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                         text.setTextColor(textcolor.toInt())
                     }
                     mToast = Toast(context)
-                    mToast.setDuration(mDuration)
-                    mToast.setView(layout)
+                    mToast.duration = mDuration
+                    mToast.view = layout
                 } else {
                     mToast = Toast.makeText(context, mMessage, mDuration)
                 }
-                if (mGravity == Gravity.CENTER) {
-                    mToast.setGravity(mGravity, 0, 0)
-                } else if (mGravity == Gravity.TOP) {
-                    mToast.setGravity(mGravity, 0, 100)
-                } else {
-                    mToast.setGravity(mGravity, 0, 100)
+                when (mGravity) {
+                    Gravity.CENTER -> {
+                        mToast.setGravity(mGravity, 0, 0)
+                    }
+                    Gravity.TOP -> {
+                        mToast.setGravity(mGravity, 0, 100)
+                    }
+                    else -> {
+                        mToast.setGravity(mGravity, 0, 100)
+                    }
                 }
                 if (context is Activity) {
                     (context as Activity).runOnUiThread { mToast.show() }
@@ -79,9 +83,7 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                 result.success(true)
             }
             "cancel" -> {
-                if (mToast != null) {
-                    mToast.cancel()
-                }
+                mToast.cancel()
                 result.success(true)
             }
             else -> result.notImplemented()

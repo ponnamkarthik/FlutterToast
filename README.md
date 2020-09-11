@@ -34,7 +34,7 @@ This one has limited features and no control over UI
 
 ```yaml
 # add this line to your dependencies
-fluttertoast: ^7.0.4
+fluttertoast: ^7.1.0
 ```
 
 ```dart
@@ -112,7 +112,8 @@ FToast fToast;
 @override
 void initState() {
     super.initState();
-    fToast = FToast(context);
+    fToast = FToast();
+    fToast.init(context);
 }
 
 _showToast() {
@@ -140,6 +141,18 @@ _showToast() {
         gravity: ToastGravity.BOTTOM,
         toastDuration: Duration(seconds: 2),
     );
+    
+    // Custom Toast Position
+    fToast.showToast(
+        child: toast,
+        toastDuration: Duration(seconds: 2),
+        positionedToastBuilder: (context, child) {
+          return Positioned(
+            child: child,
+            top: 16.0,
+            left: 16.0,
+          );
+        });
 }
 
 ```  
@@ -179,6 +192,9 @@ fToast.removeQueuedCustomToasts();
 
 ...
 
+## Help needed for iOS 
+
+Looking for iOS Dev who can check out and fix the issues releated to iOS (I dont have a Mac and iOS)
 
 ## Buy Me a Coffee
 
