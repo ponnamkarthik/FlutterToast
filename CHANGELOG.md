@@ -1,3 +1,7 @@
+## [7.1.1]
+
+- iOS Unused variables fix
+
 ## [7.1.0]
 
 - Breaking change for FToast, Need to call `FToast.init(context)` before `showToast`
