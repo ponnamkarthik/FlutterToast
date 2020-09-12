@@ -17,8 +17,6 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
     FlutterMethodChannel *channel = [FlutterMethodChannel
             methodChannelWithName:CHANNEL_NAME
                   binaryMessenger:[registrar messenger]];
-    UIViewController *viewController =
-            [UIApplication sharedApplication].delegate.window.rootViewController;
     FluttertoastPlugin *instance = [[FluttertoastPlugin alloc] init];
     instance.channel = channel;
     [registrar addMethodCallDelegate:instance channel:channel];
@@ -70,7 +68,7 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
         NSString *durationTime = call.arguments[@"time"];
         NSNumber *bgcolor = call.arguments[@"bgcolor"];
         NSNumber *textcolor = call.arguments[@"textcolor"];
-        NSNumber *size = call.arguments[@"size"];
+//        NSNumber *size = call.arguments[@"size"];
         NSNumber *fontSize = call.arguments[@"fontSize"];
 
         if ([fontSize isKindOfClass:[NSNull class]]) {
@@ -94,11 +92,9 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
         style.backgroundColor = [self colorWithHex:bgcolor.unsignedIntegerValue];
         style.messageColor = [self colorWithHex:textcolor.unsignedIntegerValue];
 
-        if (@available(iOS 11.0, *)) {
-            UIWindow *window = UIApplication.sharedApplication.keyWindow;
-            CGFloat topPadding = window.safeAreaInsets.top;
-            CGFloat bottomPadding = window.safeAreaInsets.bottom;
-        }
+//        if (@available(iOS 11.0, *)) {
+//            UIWindow *window = UIApplication.sharedApplication.keyWindow;
+//        }
 
         if ([gravity isEqualToString:@"top"]) {
             
