@@ -83,7 +83,9 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                 result.success(true)
             }
             "cancel" -> {
-                mToast.cancel()
+                if (::mToast.isInitialized) {
+                    mToast.cancel()
+                }
                 result.success(true)
             }
             else -> result.notImplemented()
