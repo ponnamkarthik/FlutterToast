@@ -2,6 +2,8 @@ import 'package:FlutterToast_example/toast_context.dart';
 import 'package:FlutterToast_example/toast_no_context.dart';
 import 'package:flutter/material.dart';
 
+GlobalKey globalKey = GlobalKey();
+
 void main() => runApp(
       MaterialApp(
         home: MyApp(),
@@ -17,6 +19,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: globalKey,
       appBar: AppBar(
         title: Text("Toast"),
       ),

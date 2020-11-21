@@ -1,6 +1,6 @@
 name: fluttertoast
 description: Toast Library for Flutter, Easily create toast messages in single line of code
-version: 7.1.1
+version: 7.1.2
 homepage: https://github.com/PonnamKarthik/FlutterToast
 issue_tracker: https://github.com/ponnamkarthik/FlutterToast/issues
 
@@ -25,3 +25,6 @@ flutter:
       web:
         pluginClass: FluttertoastWebPlugin
         fileName: fluttertoast_web.dart
+
+  assets:
+    - packages/fluttertoast/assets/

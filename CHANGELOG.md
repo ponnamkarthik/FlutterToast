@@ -1,3 +1,10 @@
+## [7.1.2]
+
+- Android Rounded Corners fix (#238)
+- Android Crash if cancel called before init (#231)
+- Web now load js & css from assets
+- Web SyntaxError if Toast msg has `'` fixed
+
 ## [7.1.1]
 
 - iOS Unused variables fix

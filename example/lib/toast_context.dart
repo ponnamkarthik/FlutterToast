@@ -1,3 +1,4 @@
+import 'package:FlutterToast_example/main.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -127,7 +128,7 @@ class _ToastContextState extends State<ToastContext> {
   void initState() {
     super.initState();
     fToast = FToast();
-    fToast.init(context);
+    fToast.init(globalKey.currentState.context);
   }
 
   @override

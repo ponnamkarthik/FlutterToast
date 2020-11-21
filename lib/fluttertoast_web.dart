@@ -51,15 +51,18 @@ class FluttertoastWebPlugin {
     final List<Future<void>> loading = <Future<void>>[];
     final List<html.HtmlElement> tags = <html.HtmlElement>[];
 
-    final html.StyleElement css = html.StyleElement()
+    final html.LinkElement css = html.LinkElement()
       ..id = 'toast-css'
-      ..appendText("@import url('https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css');");
+      ..attributes = {
+        "rel": "stylesheet"
+      }
+      ..href = '/packages/fluttertoast/assets/toastify.css';
     tags.add(css);
 
     final html.ScriptElement script = html.ScriptElement()
       ..async = true
-      ..defer = true
-      ..src = "https://cdn.jsdelivr.net/npm/toastify-js";
+      // ..defer = true
+      ..src = "/packages/fluttertoast/assets/toastify.js";
     loading.add(script.onLoad.first);
     tags.add(script);
     html.querySelector('head').children.addAll(tags);
@@ -75,10 +78,11 @@ class FluttertoastWebPlugin {
       int time = 3000,
       bool showClose = false,
       int textColor}) {
+    String m = msg.replaceAll("'", "\\'");
     html.Element ele = html.querySelector("#toast-content");
     String content = """
           var toastElement = Toastify({
-            text: '$msg',
+            text: '$m',
             gravity: '$gravity',
             position: '$position',
             duration: $time,

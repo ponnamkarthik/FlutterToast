@@ -60,7 +60,7 @@ Fluttertoast.showToast(
 | msg             | String (Not Null)(required)                                        |required    |
 | toastLength     | Toast.LENGTH_SHORT or Toast.LENGTH_LONG (optional)                 |Toast.LENGTH_SHORT  |
 | gravity         | ToastGravity.TOP (or) ToastGravity.CENTER (or) ToastGravity.BOTTOM (Web Only supports top, bottom) | ToastGravity.BOTTOM    |
-| timeInSecForIosWeb | int (only for ios)                                                 | 1       |
+| timeInSecForIosWeb | int (for ios & web)                                                 | 1  (sec)     |
 | backgroundColor         | Colors.red                                                         |null   |
 | textcolor       | Colors.white                                                       |null    |
 | fontSize        | 16.0 (float)                                                       | null      |
