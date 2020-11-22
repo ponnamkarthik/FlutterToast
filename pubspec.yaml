@@ -27,4 +27,4 @@ flutter:
         fileName: fluttertoast_web.dart
 
   assets:
-    - packages/fluttertoast/assets/
+    - assets/
