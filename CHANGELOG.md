@@ -1,3 +1,7 @@
+## [7.1.3]
+
+- Android Default bg when fontSize or textColor set fixed
+
 ## [7.1.2]
 
 - Android Rounded Corners fix (#238)
