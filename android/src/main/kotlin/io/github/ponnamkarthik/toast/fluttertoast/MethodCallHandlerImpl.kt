@@ -63,7 +63,7 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                     mToast.view = layout
                 } else {
                     mToast = Toast.makeText(context, mMessage, mDuration)
-                    val textView: TextView = mToast.view.findViewById(android.R.id.message)
+                    val textView: TextView = mToast.view!!.findViewById(android.R.id.message)
                     if(textSize != null) {
                         textView.textSize = textSize.toFloat()
                     }

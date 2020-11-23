@@ -1,3 +1,7 @@
+## [7.1.4]
+
+- minor fixes
+
 ## [7.1.3]
 
 - Android Default bg when fontSize or textColor set fixed
