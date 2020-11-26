@@ -56,13 +56,13 @@ class FluttertoastWebPlugin {
       ..attributes = {
         "rel": "stylesheet"
       }
-      ..href = '/packages/fluttertoast/assets/toastify.css';
+      ..href = 'assets/packages/fluttertoast/assets/toastify.css';
     tags.add(css);
 
     final html.ScriptElement script = html.ScriptElement()
       ..async = true
       // ..defer = true
-      ..src = "/packages/fluttertoast/assets/toastify.js";
+      ..src = "assets/packages/fluttertoast/assets/toastify.js";
     loading.add(script.onLoad.first);
     tags.add(script);
     html.querySelector('head').children.addAll(tags);

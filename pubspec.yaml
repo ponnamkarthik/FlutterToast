@@ -25,3 +25,5 @@ flutter:
       web:
         pluginClass: FluttertoastWebPlugin
         fileName: fluttertoast_web.dart
+  assets:
+    - assets/
