@@ -29,7 +29,11 @@ jobs:
       with:
         # The Flutter build release channel
         channel: beta
+    - name: Enabel Web Support Flutter
+      run: flutter config --enable-web
     - name: Build APK
       run: flutter build apk
     - name: Build For iOS
       run: flutter build ios --release --no-codesign 
+    - name: flutter build web --release
+      run: flutter build web --release
