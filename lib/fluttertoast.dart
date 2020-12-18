@@ -28,19 +28,20 @@ class Fluttertoast {
   }
 
   static Future<bool> showToast({
-    @required String msg,
-    Toast toastLength,
+    String msg = "",
+    Toast toastLength = Toast.LENGTH_SHORT,
     int timeInSecForIosWeb = 1,
-    double fontSize,
-    ToastGravity gravity,
-    Color backgroundColor,
-    Color textColor,
+    double? fontSize,
+    ToastGravity gravity = ToastGravity.BOTTOM,
+    Color? backgroundColor,
+    Color? textColor,
     bool webShowClose = false,
     webBgColor: "linear-gradient(to right, #00b09b, #96c93d)",
     webPosition: "right",
-    // Function(bool) didTap,
   }) async {
-    // this.didTap = didTap;
+    if (msg.isEmpty) {
+      return true;
+    }
     String toast = "short";
     if (toastLength == Toast.LENGTH_LONG) {
       toast = "long";
@@ -84,7 +85,7 @@ typedef PositionedToastBuilder = Widget Function(
     BuildContext context, Widget child);
 
 class FToast {
-  BuildContext context;
+  BuildContext? context;
 
   static final FToast _instance = FToast._internal();
 
@@ -98,9 +99,9 @@ class FToast {
 
   FToast._internal();
 
-  OverlayEntry _entry;
-  List<_ToastEntry> _overlayQueue = List();
-  Timer _timer;
+  OverlayEntry? _entry;
+  List<_ToastEntry> _overlayQueue = [];
+  Timer? _timer;
 
   _showOverlay() {
     if (_overlayQueue.length == 0) {
@@ -111,9 +112,9 @@ class FToast {
     _entry = _toastEntry.entry;
     if (context == null)
       throw ("Error: Context is null, Please call init(context) before showing toast.");
-    Overlay.of(context).insert(_entry);
+    if (_entry != null) Overlay.of(context!)?.insert(_entry!);
 
-    _timer = Timer(_toastEntry.duration, () {
+    _timer = Timer(_toastEntry.duration!, () {
       Future.delayed(Duration(milliseconds: 360), () {
         removeCustomToast();
       });
@@ -123,7 +124,7 @@ class FToast {
   removeCustomToast() {
     _timer?.cancel();
     _timer = null;
-    if (_entry != null) _entry.remove();
+    if (_entry != null) _entry?.remove();
     _showOverlay();
   }
 
@@ -131,24 +132,24 @@ class FToast {
     _timer?.cancel();
     _timer = null;
     _overlayQueue.clear();
-    if (_entry != null) _entry.remove();
+    if (_entry != null) _entry?.remove();
     _entry = null;
   }
 
   void showToast({
-    @required Widget child,
-    PositionedToastBuilder positionedToastBuilder,
-    Duration toastDuration,
-    ToastGravity gravity,
+    @required Widget? child,
+    PositionedToastBuilder? positionedToastBuilder,
+    Duration? toastDuration,
+    ToastGravity? gravity,
   }) {
     Widget newChild = _ToastStateFul(
-      child,
+      child!,
       toastDuration ?? Duration(seconds: 2),
     );
     OverlayEntry newEntry = OverlayEntry(builder: (context) {
       if (positionedToastBuilder != null)
         return positionedToastBuilder(context, newChild);
-      return _getPostionWidgetBasedOnGravity(newChild, gravity);
+      return _getPostionWidgetBasedOnGravity(newChild, gravity!);
     });
     _overlayQueue.add(_ToastEntry(
         entry: newEntry, duration: toastDuration ?? Duration(seconds: 2)));
@@ -159,36 +160,27 @@ class FToast {
     switch (gravity) {
       case ToastGravity.TOP:
         return Positioned(top: 100.0, left: 24.0, right: 24.0, child: child);
-        break;
       case ToastGravity.TOP_LEFT:
         return Positioned(top: 100.0, left: 24.0, child: child);
-        break;
       case ToastGravity.TOP_RIGHT:
         return Positioned(top: 100.0, right: 24.0, child: child);
-        break;
       case ToastGravity.CENTER:
         return Positioned(
             top: 50.0, bottom: 50.0, left: 24.0, right: 24.0, child: child);
-        break;
       case ToastGravity.CENTER_LEFT:
         return Positioned(top: 50.0, bottom: 50.0, left: 24.0, child: child);
-        break;
       case ToastGravity.CENTER_RIGHT:
         return Positioned(top: 50.0, bottom: 50.0, right: 24.0, child: child);
-        break;
       case ToastGravity.BOTTOM_LEFT:
         return Positioned(bottom: 50.0, left: 24.0, child: child);
-        break;
       case ToastGravity.BOTTOM_RIGHT:
         return Positioned(bottom: 50.0, right: 24.0, child: child);
-        break;
       case ToastGravity.SNACKBAR:
         return Positioned(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
+            bottom: MediaQuery.of(context!).viewInsets.bottom,
             left: 0,
             right: 0,
             child: child);
-        break;
       case ToastGravity.BOTTOM:
       default:
         return Positioned(bottom: 50.0, left: 24.0, right: 24.0, child: child);
@@ -197,14 +189,14 @@ class FToast {
 }
 
 class _ToastEntry {
-  final OverlayEntry entry;
-  final Duration duration;
+  final OverlayEntry? entry;
+  final Duration? duration;
 
   _ToastEntry({this.entry, this.duration});
 }
 
 class _ToastStateFul extends StatefulWidget {
-  _ToastStateFul(this.child, this.duration, {Key key}) : super(key: key);
+  _ToastStateFul(this.child, this.duration, {Key? key}) : super(key: key);
 
   final Widget child;
   final Duration duration;
@@ -216,18 +208,18 @@ class _ToastStateFul extends StatefulWidget {
 class ToastStateFulState extends State<_ToastStateFul>
     with SingleTickerProviderStateMixin {
   showIt() {
-    _animationController.forward();
+    _animationController?.forward();
   }
 
   hideIt() {
-    _animationController.reverse();
+    _animationController?.reverse();
     _timer?.cancel();
   }
 
-  AnimationController _animationController;
-  Animation _fadeAnimation;
+  AnimationController? _animationController;
+  Animation<double>? _fadeAnimation;
 
-  Timer _timer;
+  Timer? _timer;
 
   @override
   void initState() {
@@ -236,7 +228,7 @@ class ToastStateFulState extends State<_ToastStateFul>
       duration: const Duration(milliseconds: 350),
     );
     _fadeAnimation =
-        CurvedAnimation(parent: _animationController, curve: Curves.easeIn);
+        CurvedAnimation(parent: _animationController!, curve: Curves.easeIn);
     super.initState();
 
     showIt();
@@ -248,7 +240,7 @@ class ToastStateFulState extends State<_ToastStateFul>
   @override
   void deactivate() {
     _timer?.cancel();
-    _animationController.stop();
+    _animationController?.stop();
     super.deactivate();
   }
 
@@ -262,7 +254,7 @@ class ToastStateFulState extends State<_ToastStateFul>
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
-      opacity: _fadeAnimation,
+      opacity: _fadeAnimation!,
       child: Center(
         child: Material(
           color: Colors.transparent,
