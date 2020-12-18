@@ -1,3 +1,7 @@
+## [8.0.0-nullsafety.0]
+
+- null-safety
+
 ## [7.1.6]
 
 - minor fixes

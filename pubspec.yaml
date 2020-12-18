@@ -1,6 +1,6 @@
 name: fluttertoast
 description: Toast Library for Flutter, Easily create toast messages in single line of code
-version: 8.0.0-nullsafety
+version: 8.0.0-nullsafety.0
 homepage: https://github.com/PonnamKarthik/FlutterToast
 issue_tracker: https://github.com/ponnamkarthik/FlutterToast/issues
 
