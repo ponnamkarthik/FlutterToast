@@ -1,3 +1,7 @@
+## [7.1.5]
+
+- minor fixes
+
 ## [7.1.4]
 
 - minor fixes
