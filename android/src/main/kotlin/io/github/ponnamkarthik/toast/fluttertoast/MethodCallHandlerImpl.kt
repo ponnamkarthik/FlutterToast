@@ -12,6 +12,7 @@ import android.widget.Toast
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
+import kotlin.Exception
 
 internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
 
@@ -63,12 +64,16 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                     mToast.view = layout
                 } else {
                     mToast = Toast.makeText(context, mMessage, mDuration)
-                    val textView: TextView = mToast.view!!.findViewById(android.R.id.message)
-                    if(textSize != null) {
-                        textView.textSize = textSize.toFloat()
-                    }
-                    if (textcolor != null) {
-                        textView.setTextColor(textcolor.toInt())
+                    try {
+                        val textView: TextView = mToast.view!!.findViewById(android.R.id.message)
+                        if(textSize != null) {
+                            textView.textSize = textSize.toFloat()
+                        }
+                        if (textcolor != null) {
+                            textView.setTextColor(textcolor.toInt())
+                        }
+                    } catch(e: Exception) {
+                        
                     }
                 }
                 when (mGravity) {
