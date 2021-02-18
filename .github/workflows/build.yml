@@ -28,7 +28,7 @@ jobs:
       uses: subosito/flutter-action@v1.4.0
       with:
         # The Flutter build release channel
-        channel: beta
+        channel: stable
     - name: Enabel Web Support Flutter
       run: flutter config --enable-web
     - name: Build APK
