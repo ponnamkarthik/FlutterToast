@@ -1,3 +1,7 @@
+## [7.1.8]
+
+- Web sourceMap Warning
+
 ## [7.1.7]
 
 - '\n' line crash on Web PR Merged
