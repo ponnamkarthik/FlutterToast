@@ -78,7 +78,7 @@ class FluttertoastWebPlugin {
       int time = 3000,
       bool showClose = false,
       int textColor}) {
-    String m = msg.replaceAll("'", "\\'");
+    String m = msg.replaceAll("'", "\\'").replaceAll("\n", "<br />");
     html.Element ele = html.querySelector("#toast-content");
     String content = """
           var toastElement = Toastify({
