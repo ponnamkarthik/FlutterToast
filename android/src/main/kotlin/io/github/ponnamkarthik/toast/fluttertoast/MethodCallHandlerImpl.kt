@@ -28,18 +28,21 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                 val textcolor = call.argument<Number>("textcolor")
                 val textSize = call.argument<Number>("fontSize")
                 val mGravity: Int
+
                 mGravity = when (gravity) {
                     "top" -> Gravity.TOP
                     "center" -> Gravity.CENTER
                     else -> Gravity.BOTTOM
                 }
+                
                 val mDuration: Int
                 mDuration = if (length == "long") {
                     Toast.LENGTH_LONG
                 } else {
                     Toast.LENGTH_SHORT
                 }
-                if (bgcolor != null) {
+
+                if (bgcolor != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
                     val layout = (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(R.layout.toast_custom, null)
                     val text = layout.findViewById<TextView>(R.id.text)
                     text.text = mMessage
@@ -64,27 +67,32 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                     mToast.view = layout
                 } else {
                     mToast = Toast.makeText(context, mMessage, mDuration)
-                    try {
-                        val textView: TextView = mToast.view!!.findViewById(android.R.id.message)
-                        if(textSize != null) {
-                            textView.textSize = textSize.toFloat()
+                    if(Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                        try {
+                            val textView: TextView = mToast.view!!.findViewById(android.R.id.message)
+                            if(textSize != null) {
+                                textView.textSize = textSize.toFloat()
+                            }
+                            if (textcolor != null) {
+                                textView.setTextColor(textcolor.toInt())
+                            }
+                        } catch(e: Exception) {
+                            
                         }
-                        if (textcolor != null) {
-                            textView.setTextColor(textcolor.toInt())
-                        }
-                    } catch(e: Exception) {
-                        
                     }
                 }
-                when (mGravity) {
-                    Gravity.CENTER -> {
-                        mToast.setGravity(mGravity, 0, 0)
-                    }
-                    Gravity.TOP -> {
-                        mToast.setGravity(mGravity, 0, 100)
-                    }
-                    else -> {
-                        mToast.setGravity(mGravity, 0, 100)
+
+                if(Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                    when (mGravity) {
+                        Gravity.CENTER -> {
+                            mToast.setGravity(mGravity, 0, 0)
+                        }
+                        Gravity.TOP -> {
+                            mToast.setGravity(mGravity, 0, 100)
+                        }
+                        else -> {
+                            mToast.setGravity(mGravity, 0, 100)
+                        }
                     }
                 }
                 if (context is Activity) {
