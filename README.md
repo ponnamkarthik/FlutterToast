@@ -41,7 +41,7 @@ fluttertoast: ^7.1.6
 import 'package:fluttertoast/fluttertoast.dart';
 ```
 
-## Toast with No Build Context
+## Toast with No Build Context (Android & iOS)
 
 ```dart
 Fluttertoast.showToast(
@@ -74,6 +74,14 @@ Fluttertoast.showToast(
 Fluttertoast.cancel()
 ```
 
+### Note Android
+
+<img src="https://raw.githubusercontent.com/ponnamkarthik/FlutterToast/master/screenshot/toast_deprecated_setview.png" height="200px" />
+
+
+> Custom Toast will not work on android 11 and above, it will only use *msg* and *toastLength* remaining all properties are ignored
+
+
 ### Custom Toast For Android
 
 Create a file named `toast_custom.xml` in your project `app/res/layout` folder and do custom styling
@@ -104,7 +112,7 @@ Create a file named `toast_custom.xml` in your project `app/res/layout` folder a
 </FrameLayout>
 ```
 
-## Toast with BuildContext
+## Toast with BuildContext (All Platforms)
   
 ```dart 
 FToast fToast;
