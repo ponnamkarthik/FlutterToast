@@ -86,9 +86,9 @@ class FluttertoastWebPlugin {
       String bgcolor = "linear-gradient(to right, #00b09b, #96c93d)",
       int time = 3000,
       bool showClose = false,
-      int textColor}) {
+      int? textColor}) {
     String m = msg.replaceAll("'", "\\'").replaceAll("\n", "<br />");
-    html.Element ele = html.querySelector("#toast-content");
+    html.Element? ele = html.querySelector("#toast-content");
     String content = """
           var toastElement = Toastify({
             text: '$m',

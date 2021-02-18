@@ -1,6 +1,15 @@
 ## [8.0.0-nullsafety.0]
 
 - null-safety
+## [7.1.8]
+
+- Web sourceMap Warning
+
+## [7.1.7]
+
+- '\n' line crash on Web PR Merged
+- Android 11 Crash fixed
+- Many bug fixes
 
 ## [7.1.6]
 
