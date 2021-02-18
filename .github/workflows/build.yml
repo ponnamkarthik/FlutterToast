@@ -35,5 +35,7 @@ jobs:
       run: flutter build apk
     - name: Build For iOS
       run: flutter build ios --release --no-codesign 
+    - name: Flutter to Beta
+      run: flutter channel beta
     - name: flutter build web --release
       run: flutter build web --release
