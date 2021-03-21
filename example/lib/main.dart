@@ -1,5 +1,5 @@
-import 'package:FlutterToast_example/toast_context.dart';
-import 'package:FlutterToast_example/toast_no_context.dart';
+import 'package:fluttertoast_example/toast_context.dart';
+import 'package:fluttertoast_example/toast_no_context.dart';
 import 'package:flutter/material.dart';
 
 GlobalKey globalKey = GlobalKey();
@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          RaisedButton(
+          ElevatedButton(
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => ToastNoContext(),
@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
           SizedBox(
             height: 24.0,
           ),
-          RaisedButton(
+          ElevatedButton(
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => ToastContext(),

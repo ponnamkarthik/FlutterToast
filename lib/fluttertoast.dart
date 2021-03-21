@@ -3,8 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
-enum Toast { LENGTH_SHORT, LENGTH_LONG }
+/// Toast Length
+/// Only for Android Platform
+enum Toast {
+  /// Show Short toast for 1 sec
+  LENGTH_SHORT,
 
+  /// Show Long toast for 5 sec
+  LENGTH_LONG
+}
+
+/// ToastGravity
+/// Used to define the position of the Toast on the screen
 enum ToastGravity {
   TOP,
   BOTTOM,
@@ -18,15 +28,27 @@ enum ToastGravity {
   SNACKBAR
 }
 
+/// Plugin to show a toast message on screen
+/// Only for android, ios and Web platforms
 class Fluttertoast {
+  /// [MethodChannel] used to communicate with the platform side.
   static const MethodChannel _channel =
       const MethodChannel('PonnamKarthik/fluttertoast');
 
+  /// Let say you have an active show
+  /// Use this method to hide the toast immediately
   static Future<bool> cancel() async {
     bool res = await _channel.invokeMethod("cancel");
     return res;
   }
 
+  /// Summons the platform's showToast which will display the message
+  ///
+  /// Wraps the platform's native Toast for android.
+  /// Wraps the Plugin https://github.com/scalessec/Toast for iOS
+  /// Wraps the https://github.com/apvarun/toastify-js for Web
+  ///
+  /// Parameter [msg] is required and remning all are options
   static Future<bool> showToast({
     @required String msg,
     Toast toastLength,
@@ -38,9 +60,7 @@ class Fluttertoast {
     bool webShowClose = false,
     webBgColor: "linear-gradient(to right, #00b09b, #96c93d)",
     webPosition: "right",
-    // Function(bool) didTap,
   }) async {
-    // this.didTap = didTap;
     String toast = "short";
     if (toastLength == Toast.LENGTH_LONG) {
       toast = "long";
@@ -80,18 +100,26 @@ class Fluttertoast {
   }
 }
 
+/// Signature for a function to buildCustom Toast
 typedef PositionedToastBuilder = Widget Function(
     BuildContext context, Widget child);
 
+/// Runs on dart side this has no interaction with the Native Side
+/// Works with all platforms just in two lines of code
+/// final fToast = FToast().init(context)
+/// fToast.showToast(child)
+///
 class FToast {
   BuildContext context;
 
   static final FToast _instance = FToast._internal();
 
+  /// Prmary Constructor for FToast
   factory FToast() {
     return _instance;
   }
 
+  /// Take users Context and saves to avariable
   init(BuildContext context) {
     _instance.context = context;
   }
@@ -99,9 +127,12 @@ class FToast {
   FToast._internal();
 
   OverlayEntry _entry;
-  List<_ToastEntry> _overlayQueue = List();
+  List<_ToastEntry> _overlayQueue = [];
   Timer _timer;
 
+  /// Internal function which handles the adding
+  /// the overlay to the screen
+  ///
   _showOverlay() {
     if (_overlayQueue.length == 0) {
       _entry = null;
@@ -120,6 +151,8 @@ class FToast {
     });
   }
 
+  /// If any active toast present
+  /// call removeCustomToast to hide the toast immediately
   removeCustomToast() {
     _timer?.cancel();
     _timer = null;
@@ -127,6 +160,11 @@ class FToast {
     _showOverlay();
   }
 
+  /// FToast maintains a queue for every toast
+  /// if we called showToast for 3 times we all to queue
+  /// and show them one after another
+  ///
+  /// call removeCustomToast to hide the toast immediately
   removeQueuedCustomToasts() {
     _timer?.cancel();
     _timer = null;
@@ -135,6 +173,11 @@ class FToast {
     _entry = null;
   }
 
+  /// showToast accepts all the required paramenters and prepares the child
+  /// calls _showOverlay to display toast
+  ///
+  /// Paramenter [child] is requried
+  ///
   void showToast({
     @required Widget child,
     PositionedToastBuilder positionedToastBuilder,
@@ -155,6 +198,9 @@ class FToast {
     if (_timer == null) _showOverlay();
   }
 
+  /// _getPostionWidgetBasedOnGravity generates [Positioned] [Widget]
+  /// based on the gravity  [ToastGravity] provided by the user in
+  /// [showToast]
   _getPostionWidgetBasedOnGravity(Widget child, ToastGravity gravity) {
     switch (gravity) {
       case ToastGravity.TOP:
@@ -196,6 +242,9 @@ class FToast {
   }
 }
 
+/// internal class [_ToastEntry] which maintains
+/// each [OverlayEntry] and [Duration] for every toast user
+/// triggered
 class _ToastEntry {
   final OverlayEntry entry;
   final Duration duration;
@@ -203,6 +252,8 @@ class _ToastEntry {
   _ToastEntry({this.entry, this.duration});
 }
 
+/// internal [StatefulWidget] which handles the show and hide
+/// animations for [FToast]
 class _ToastStateFul extends StatefulWidget {
   _ToastStateFul(this.child, this.duration, {Key key}) : super(key: key);
 
@@ -213,17 +264,21 @@ class _ToastStateFul extends StatefulWidget {
   ToastStateFulState createState() => ToastStateFulState();
 }
 
+/// State for [_ToastStateFul]
 class ToastStateFulState extends State<_ToastStateFul>
     with SingleTickerProviderStateMixin {
+  /// Start the showing animations for the toast
   showIt() {
     _animationController.forward();
   }
 
+  /// Start the hidding animations for the toast
   hideIt() {
     _animationController.reverse();
     _timer?.cancel();
   }
 
+  /// Controller to start and hide the animation
   AnimationController _animationController;
   Animation _fadeAnimation;
 

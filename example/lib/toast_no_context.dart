@@ -67,43 +67,43 @@ class ToastNoContext extends StatelessWidget {
             children: <Widget>[
               new Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: new RaisedButton(
+                child: new ElevatedButton(
                     child: new Text('Show Long Toast'),
                     onPressed: showLongToast),
               ),
               new Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: new RaisedButton(
+                child: new ElevatedButton(
                     child: new Text('Show Short Toast'),
                     onPressed: showShortToast),
               ),
               new Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: new RaisedButton(
+                child: new ElevatedButton(
                     child: new Text('Show Center Short Toast'),
                     onPressed: showCenterShortToast),
               ),
               new Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: new RaisedButton(
+                child: new ElevatedButton(
                     child: new Text('Show Top Short Toast'),
                     onPressed: showTopShortToast),
               ),
               new Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: new RaisedButton(
+                child: new ElevatedButton(
                     child: new Text('Show Colored Toast'),
                     onPressed: showColoredToast),
               ),
               new Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: new RaisedButton(
+                child: new ElevatedButton(
                     child: new Text('Show  Web Colored Toast'),
                     onPressed: showWebColoredToast),
               ),
               new Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: new RaisedButton(
+                child: new ElevatedButton(
                   child: new Text('Cancel Toasts'),
                   onPressed: cancelToast,
                 ),

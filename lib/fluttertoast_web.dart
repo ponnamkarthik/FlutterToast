@@ -3,17 +3,23 @@ import 'dart:html' as html;
 import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
+/// Plugin Class to show a toast message on screen for web
 class FluttertoastWebPlugin {
+  /// Constructor class
+  /// which calls the metohd to inject JS and CSS in to dom
   FluttertoastWebPlugin() {
     injectCssAndJSLibraries();
   }
 
+  /// Registers [MethodChannel] used to communicate with the platform side.
   static void registerWith(Registrar registrar) {
-    final MethodChannel channel = MethodChannel('PonnamKarthik/fluttertoast', const StandardMethodCodec(), registrar.messenger);
+    final MethodChannel channel = MethodChannel(
+        'PonnamKarthik/fluttertoast', const StandardMethodCodec(), registrar);
     final FluttertoastWebPlugin instance = FluttertoastWebPlugin();
     channel.setMethodCallHandler(instance.handleMethodCall);
   }
 
+  /// Handle Method Callbacks from [MethodChannel].
   Future<dynamic> handleMethodCall(MethodCall call) async {
     switch (call.method) {
       case 'showToast':
@@ -27,6 +33,8 @@ class FluttertoastWebPlugin {
     }
   }
 
+  /// showToast which parses the required arguments and pass
+  /// it to [addHtmlToast]
   showToast(args) {
     String msg = args['msg'];
     String gravity = "top";
@@ -36,26 +44,35 @@ class FluttertoastWebPlugin {
 
     String position = args['webPosition'] ?? 'right';
 
-    String bgColor = args['webBgColor'] ?? "linear-gradient(to right, #00b09b, #96c93d)";
+    String bgColor =
+        args['webBgColor'] ?? "linear-gradient(to right, #00b09b, #96c93d)";
 
     int textColor = args['textcolor'];
 
-    int time = args['time'] == null ? 3000 : (int.parse(args['time'].toString()) * 1000);
+    int time = args['time'] == null
+        ? 3000
+        : (int.parse(args['time'].toString()) * 1000);
 
     bool showClose = args['webShowClose'] ?? false;
 
-    addHtmlToast(msg: msg, gravity: gravity, position: position, bgcolor: bgColor, showClose: showClose, time: time, textColor: textColor);
+    addHtmlToast(
+        msg: msg,
+        gravity: gravity,
+        position: position,
+        bgcolor: bgColor,
+        showClose: showClose,
+        time: time,
+        textColor: textColor);
   }
 
+  /// [injectCssAndJSLibraries] which add the JS and CSS files into DOM
   Future<void> injectCssAndJSLibraries() async {
     final List<Future<void>> loading = <Future<void>>[];
     final List<html.HtmlElement> tags = <html.HtmlElement>[];
 
     final html.LinkElement css = html.LinkElement()
       ..id = 'toast-css'
-      ..attributes = {
-        "rel": "stylesheet"
-      }
+      ..attributes = {"rel": "stylesheet"}
       ..href = 'assets/packages/fluttertoast/assets/toastify.css';
     tags.add(css);
 
@@ -70,6 +87,8 @@ class FluttertoastWebPlugin {
     await Future.wait(loading);
   }
 
+  /// injects Final [Toastify] code with all the parameters to
+  /// make toast visible on web
   addHtmlToast(
       {String msg = "",
       String gravity = "top",

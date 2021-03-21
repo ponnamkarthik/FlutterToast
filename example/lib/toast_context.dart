@@ -1,4 +1,4 @@
-import 'package:FlutterToast_example/main.dart';
+import 'package:fluttertoast_example/main.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -142,13 +142,13 @@ class _ToastContextState extends State<ToastContext> {
           SizedBox(
             height: 24.0,
           ),
-          RaisedButton(
+          ElevatedButton(
             child: Text("Show Custom Toast"),
             onPressed: () {
               _showToast();
             },
           ),
-          RaisedButton(
+          ElevatedButton(
             child: Text("Show Custom Toast via PositionedToastBuilder"),
             onPressed: () {
               _showBuilderToast();
@@ -157,7 +157,7 @@ class _ToastContextState extends State<ToastContext> {
           SizedBox(
             height: 24.0,
           ),
-          RaisedButton(
+          ElevatedButton(
             child: Text("Custom Toast With Close Button"),
             onPressed: () {
               _showToastCancel();
@@ -166,7 +166,7 @@ class _ToastContextState extends State<ToastContext> {
           SizedBox(
             height: 24.0,
           ),
-          RaisedButton(
+          ElevatedButton(
             child: Text("Queue Toasts"),
             onPressed: () {
               _queueToasts();
@@ -175,7 +175,7 @@ class _ToastContextState extends State<ToastContext> {
           SizedBox(
             height: 24.0,
           ),
-          RaisedButton(
+          ElevatedButton(
             child: Text("Cancel Toast"),
             onPressed: () {
               _removeToast();
@@ -184,7 +184,7 @@ class _ToastContextState extends State<ToastContext> {
           SizedBox(
             height: 24.0,
           ),
-          RaisedButton(
+          ElevatedButton(
             child: Text("Remove Queued Toasts"),
             onPressed: () {
               _removeAllQueuedToasts();
