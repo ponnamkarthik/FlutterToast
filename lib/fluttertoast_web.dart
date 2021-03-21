@@ -37,7 +37,7 @@ class FluttertoastWebPlugin {
   /// it to [addHtmlToast]
   showToast(args) {
     String msg = args['msg'];
-    String gravity = "top";
+    String? gravity = "top";
     if (args['gravity'] == "top" || args['gravity'] == "bottom") {
       gravity = args["gravity"];
     }
@@ -47,7 +47,7 @@ class FluttertoastWebPlugin {
     String bgColor =
         args['webBgColor'] ?? "linear-gradient(to right, #00b09b, #96c93d)";
 
-    int textColor = args['textcolor'];
+    int? textColor = args['textcolor'];
 
     int time = args['time'] == null
         ? 3000
@@ -82,7 +82,7 @@ class FluttertoastWebPlugin {
       ..src = "assets/packages/fluttertoast/assets/toastify.js";
     loading.add(script.onLoad.first);
     tags.add(script);
-    html.querySelector('head').children.addAll(tags);
+    html.querySelector('head')!.children.addAll(tags);
 
     await Future.wait(loading);
   }
@@ -91,14 +91,14 @@ class FluttertoastWebPlugin {
   /// make toast visible on web
   addHtmlToast(
       {String msg = "",
-      String gravity = "top",
+      String? gravity = "top",
       String position = "right",
       String bgcolor = "linear-gradient(to right, #00b09b, #96c93d)",
       int time = 3000,
       bool showClose = false,
-      int textColor}) {
+      int? textColor}) {
     String m = msg.replaceAll("'", "\\'").replaceAll("\n", "<br />");
-    html.Element ele = html.querySelector("#toast-content");
+    html.Element? ele = html.querySelector("#toast-content");
     String content = """
           var toastElement = Toastify({
             text: '$m',
@@ -111,14 +111,14 @@ class FluttertoastWebPlugin {
           toastElement.showToast();
         """;
     if (html.querySelector("#toast-content") != null) {
-      ele.remove();
+      ele!.remove();
     }
     final html.ScriptElement scriptText = html.ScriptElement()
       ..id = "toast-content"
       ..innerHtml = content;
-    html.querySelector('head').children.add(scriptText);
+    html.querySelector('head')!.children.add(scriptText);
     if (textColor != null) {
-      html.Element toast = html.querySelector('.toastify');
+      html.Element toast = html.querySelector('.toastify')!;
       String tcRadix = textColor.toRadixString(16);
       final String tC = "${tcRadix.substring(2)}${tcRadix.substring(0, 2)}";
       toast.style.setProperty('color', "#$tC");

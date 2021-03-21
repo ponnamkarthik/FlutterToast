@@ -37,8 +37,8 @@ class Fluttertoast {
 
   /// Let say you have an active show
   /// Use this method to hide the toast immediately
-  static Future<bool> cancel() async {
-    bool res = await _channel.invokeMethod("cancel");
+  static Future<bool?> cancel() async {
+    bool? res = await _channel.invokeMethod("cancel");
     return res;
   }
 
@@ -49,14 +49,14 @@ class Fluttertoast {
   /// Wraps the https://github.com/apvarun/toastify-js for Web
   ///
   /// Parameter [msg] is required and remning all are options
-  static Future<bool> showToast({
-    @required String msg,
-    Toast toastLength,
+  static Future<bool?> showToast({
+    required String msg,
+    Toast? toastLength,
     int timeInSecForIosWeb = 1,
-    double fontSize,
-    ToastGravity gravity,
-    Color backgroundColor,
-    Color textColor,
+    double? fontSize,
+    ToastGravity? gravity,
+    Color? backgroundColor,
+    Color? textColor,
     bool webShowClose = false,
     webBgColor: "linear-gradient(to right, #00b09b, #96c93d)",
     webPosition: "right",
@@ -95,7 +95,7 @@ class Fluttertoast {
       'webPosition': webPosition
     };
 
-    bool res = await _channel.invokeMethod('showToast', params);
+    bool? res = await _channel.invokeMethod('showToast', params);
     return res;
   }
 }
@@ -110,7 +110,7 @@ typedef PositionedToastBuilder = Widget Function(
 /// fToast.showToast(child)
 ///
 class FToast {
-  BuildContext context;
+  BuildContext? context;
 
   static final FToast _instance = FToast._internal();
 
@@ -126,9 +126,9 @@ class FToast {
 
   FToast._internal();
 
-  OverlayEntry _entry;
+  OverlayEntry? _entry;
   List<_ToastEntry> _overlayQueue = [];
-  Timer _timer;
+  Timer? _timer;
 
   /// Internal function which handles the adding
   /// the overlay to the screen
@@ -142,9 +142,9 @@ class FToast {
     _entry = _toastEntry.entry;
     if (context == null)
       throw ("Error: Context is null, Please call init(context) before showing toast.");
-    Overlay.of(context).insert(_entry);
+    Overlay.of(context!)!.insert(_entry!);
 
-    _timer = Timer(_toastEntry.duration, () {
+    _timer = Timer(_toastEntry.duration!, () {
       Future.delayed(Duration(milliseconds: 360), () {
         removeCustomToast();
       });
@@ -156,7 +156,7 @@ class FToast {
   removeCustomToast() {
     _timer?.cancel();
     _timer = null;
-    if (_entry != null) _entry.remove();
+    if (_entry != null) _entry!.remove();
     _showOverlay();
   }
 
@@ -169,7 +169,7 @@ class FToast {
     _timer?.cancel();
     _timer = null;
     _overlayQueue.clear();
-    if (_entry != null) _entry.remove();
+    if (_entry != null) _entry!.remove();
     _entry = null;
   }
 
@@ -179,10 +179,10 @@ class FToast {
   /// Paramenter [child] is requried
   ///
   void showToast({
-    @required Widget child,
-    PositionedToastBuilder positionedToastBuilder,
-    Duration toastDuration,
-    ToastGravity gravity,
+    required Widget child,
+    PositionedToastBuilder? positionedToastBuilder,
+    Duration? toastDuration,
+    ToastGravity? gravity,
   }) {
     Widget newChild = _ToastStateFul(
       child,
@@ -201,7 +201,7 @@ class FToast {
   /// _getPostionWidgetBasedOnGravity generates [Positioned] [Widget]
   /// based on the gravity  [ToastGravity] provided by the user in
   /// [showToast]
-  _getPostionWidgetBasedOnGravity(Widget child, ToastGravity gravity) {
+  _getPostionWidgetBasedOnGravity(Widget child, ToastGravity? gravity) {
     switch (gravity) {
       case ToastGravity.TOP:
         return Positioned(top: 100.0, left: 24.0, right: 24.0, child: child);
@@ -230,7 +230,7 @@ class FToast {
         break;
       case ToastGravity.SNACKBAR:
         return Positioned(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
+            bottom: MediaQuery.of(context!).viewInsets.bottom,
             left: 0,
             right: 0,
             child: child);
@@ -246,8 +246,8 @@ class FToast {
 /// each [OverlayEntry] and [Duration] for every toast user
 /// triggered
 class _ToastEntry {
-  final OverlayEntry entry;
-  final Duration duration;
+  final OverlayEntry? entry;
+  final Duration? duration;
 
   _ToastEntry({this.entry, this.duration});
 }
@@ -255,7 +255,7 @@ class _ToastEntry {
 /// internal [StatefulWidget] which handles the show and hide
 /// animations for [FToast]
 class _ToastStateFul extends StatefulWidget {
-  _ToastStateFul(this.child, this.duration, {Key key}) : super(key: key);
+  _ToastStateFul(this.child, this.duration, {Key? key}) : super(key: key);
 
   final Widget child;
   final Duration duration;
@@ -269,20 +269,20 @@ class ToastStateFulState extends State<_ToastStateFul>
     with SingleTickerProviderStateMixin {
   /// Start the showing animations for the toast
   showIt() {
-    _animationController.forward();
+    _animationController!.forward();
   }
 
   /// Start the hidding animations for the toast
   hideIt() {
-    _animationController.reverse();
+    _animationController!.reverse();
     _timer?.cancel();
   }
 
   /// Controller to start and hide the animation
-  AnimationController _animationController;
-  Animation _fadeAnimation;
+  AnimationController? _animationController;
+  late Animation _fadeAnimation;
 
-  Timer _timer;
+  Timer? _timer;
 
   @override
   void initState() {
@@ -291,7 +291,7 @@ class ToastStateFulState extends State<_ToastStateFul>
       duration: const Duration(milliseconds: 350),
     );
     _fadeAnimation =
-        CurvedAnimation(parent: _animationController, curve: Curves.easeIn);
+        CurvedAnimation(parent: _animationController!, curve: Curves.easeIn);
     super.initState();
 
     showIt();
@@ -303,7 +303,7 @@ class ToastStateFulState extends State<_ToastStateFul>
   @override
   void deactivate() {
     _timer?.cancel();
-    _animationController.stop();
+    _animationController!.stop();
     super.deactivate();
   }
 
@@ -317,7 +317,7 @@ class ToastStateFulState extends State<_ToastStateFul>
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
-      opacity: _fadeAnimation,
+      opacity: _fadeAnimation as Animation<double>,
       child: Center(
         child: Material(
           color: Colors.transparent,

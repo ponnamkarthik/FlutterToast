@@ -1,3 +1,8 @@
+## [8.0.2]
+
+- Null Safety
+- Code Docs Added
+
 ## [7.1.8]
 
 - Web sourceMap Warning
