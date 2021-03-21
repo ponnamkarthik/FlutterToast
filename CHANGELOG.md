@@ -1,3 +1,7 @@
+## [8.0.3]
+
+- flutter analyze fixes
+
 ## [8.0.2]
 
 - Null Safety

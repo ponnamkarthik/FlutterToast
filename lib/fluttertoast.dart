@@ -205,36 +205,27 @@ class FToast {
     switch (gravity) {
       case ToastGravity.TOP:
         return Positioned(top: 100.0, left: 24.0, right: 24.0, child: child);
-        break;
       case ToastGravity.TOP_LEFT:
         return Positioned(top: 100.0, left: 24.0, child: child);
-        break;
       case ToastGravity.TOP_RIGHT:
         return Positioned(top: 100.0, right: 24.0, child: child);
-        break;
       case ToastGravity.CENTER:
         return Positioned(
             top: 50.0, bottom: 50.0, left: 24.0, right: 24.0, child: child);
-        break;
       case ToastGravity.CENTER_LEFT:
         return Positioned(top: 50.0, bottom: 50.0, left: 24.0, child: child);
-        break;
       case ToastGravity.CENTER_RIGHT:
         return Positioned(top: 50.0, bottom: 50.0, right: 24.0, child: child);
-        break;
       case ToastGravity.BOTTOM_LEFT:
         return Positioned(bottom: 50.0, left: 24.0, child: child);
-        break;
       case ToastGravity.BOTTOM_RIGHT:
         return Positioned(bottom: 50.0, right: 24.0, child: child);
-        break;
       case ToastGravity.SNACKBAR:
         return Positioned(
             bottom: MediaQuery.of(context!).viewInsets.bottom,
             left: 0,
             right: 0,
             child: child);
-        break;
       case ToastGravity.BOTTOM:
       default:
         return Positioned(bottom: 50.0, left: 24.0, right: 24.0, child: child);
