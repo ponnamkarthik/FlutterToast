@@ -32,7 +32,7 @@ internal class MethodCallHandlerImpl(private var context: Context) : MethodCallH
                 val bgcolor = call.argument<Number>("bgcolor")
                 val textcolor = call.argument<Number>("textcolor")
                 val fontSize = call.argument<Number>("fontSize")
-                val fontasset = call.argument<String>("fontasset")
+                val fontAsset = call.argument<String>("fontAsset")
 
                 val mGravity: Int = when (gravity) {
                     "top" -> Gravity.TOP
@@ -71,9 +71,9 @@ internal class MethodCallHandlerImpl(private var context: Context) : MethodCallH
                     mToast = Toast(context,)
                     mToast?.duration = mDuration
 
-                    if (fontasset != null) {
+                    if (fontAsset != null) {
                         val assetManager: AssetManager = context.assets
-                        val key = FlutterMain.getLookupKeyForAsset(fontasset)
+                        val key = FlutterMain.getLookupKeyForAsset(fontAsset)
                         text.typeface = Typeface.createFromAsset(assetManager, key);
                     }
                     mToast?.view = layout
@@ -87,12 +87,12 @@ internal class MethodCallHandlerImpl(private var context: Context) : MethodCallH
                         if (textcolor != null) {
                             textView.setTextColor(textcolor.toInt())
                         }
-                        if (fontasset != null) {
+                        if (fontAsset != null) {
                             val assetManager: AssetManager = context.assets
-                            val key = FlutterMain.getLookupKeyForAsset(fontasset)
+                            val key = FlutterMain.getLookupKeyForAsset(fontAsset)
                             textView.typeface = Typeface.createFromAsset(assetManager, key);
                         }
-                    } catch (e: Exception,) { }
+                    }
                 }
 
                 try {
@@ -108,7 +108,7 @@ internal class MethodCallHandlerImpl(private var context: Context) : MethodCallH
                         }
                     }
                 } catch (e: Exception,) { }
-                
+
                 if (context is Activity) {
                     (context as Activity).runOnUiThread { mToast?.show() }
                 } else {

@@ -42,18 +42,22 @@ class Fluttertoast {
     return res;
   }
 
-  /// Summons the platform's showToast which will display the message
+  /// Show the [msg] via native platform's toast.
   ///
-  /// Wraps the platform's native Toast for android.
-  /// Wraps the Plugin https://github.com/scalessec/Toast for iOS
-  /// Wraps the https://github.com/apvarun/toastify-js for Web
+  /// On Android uses Toast.
+  /// On iOS uses https://github.com/scalessec/Toast plugin.
+  /// On web uses https://github.com/apvarun/toastify-js library.
   ///
-  /// Parameter [msg] is required and all remaining are optional
+  /// Parameter [msg] is required and all remaining are optional.
+  ///
+  /// The [fontAsset] is the path to your Flutter asset to use in toast.
+  /// If not specified platform's default font will be used.
   static Future<bool?> showToast({
     required String msg,
     Toast? toastLength,
     int timeInSecForIosWeb = 1,
     double? fontSize,
+    String? fontAsset,
     ToastGravity? gravity,
     Color? backgroundColor,
     Color? textColor,
@@ -92,6 +96,7 @@ class Fluttertoast {
       'textcolor': textColor.value,
       'iosTextcolor': textColor.value,
       'fontSize': fontSize,
+      'fontAsset': fontAsset,
       'webShowClose': webShowClose,
       'webBgColor': webBgColor,
       'webPosition': webPosition
