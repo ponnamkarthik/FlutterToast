@@ -1,5 +1,5 @@
 
-# [fluttertoast](https://pub.dartlang.org/packages/fluttertoast)  
+# [fluttertoast](https://pub.dev/packages/fluttertoast)  
 
 Toast Library for Flutter
 
