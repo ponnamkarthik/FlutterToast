@@ -1,3 +1,7 @@
+## [8.0.4]
+
+- Fixed Unresolved reference: R (Issue with Android API 30)
+
 ## [8.0.3]
 
 - flutter analyze fixes
