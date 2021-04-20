@@ -126,7 +126,7 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
 
     fun resetToast() {
         if (::mToast.isInitialized && mToast != null) {
-            if (mToast.view.visibility != View.VISIBLE) {
+            if (mToast.view?.visibility != View.VISIBLE) {
                 mToast
             } else {
                 Handler().postDelayed(Runnable {
