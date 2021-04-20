@@ -1,3 +1,6 @@
+## [8.0.5]
+
+- Fixed Unresolved reference: R (Issue with Android API 30)
 ## [8.0.4]
 
 - Fixed Unresolved reference: R (Issue with Android API 30)

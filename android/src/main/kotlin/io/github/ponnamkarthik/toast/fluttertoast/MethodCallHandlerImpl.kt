@@ -5,8 +5,12 @@ import android.content.Context
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.os.Handler
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
+import android.view.WindowInsets
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import io.flutter.plugin.common.MethodCall
@@ -42,7 +46,7 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                     Toast.LENGTH_SHORT
                 }
 
-                if (bgcolor != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                if (bgcolor != null && Build.VERSION.SDK_INT < 29) {
                     val layout = (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(R.layout.toast_custom, null)
                     val text = layout.findViewById<TextView>(R.id.text)
                     text.text = mMessage
@@ -67,7 +71,7 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                     mToast.view = layout
                 } else {
                     mToast = Toast.makeText(context, mMessage, mDuration)
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                    if (Build.VERSION.SDK_INT < 29) {
                         try {
                             val textView: TextView = mToast.view!!.findViewById(android.R.id.message)
                             if (textSize != null) {
@@ -95,11 +99,19 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                     }
                 }
 //                }
+
+//                val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//                if(inputMethodManager.isAcceptingText) {
+//                    mToast.setGravity(Gravity.CENTER, 0, 0)
+//                }
+
                 if (context is Activity) {
                     (context as Activity).runOnUiThread { mToast.show() }
                 } else {
                     mToast.show()
                 }
+
+
                 result.success(true)
             }
             "cancel" -> {
@@ -109,6 +121,18 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                 result.success(true)
             }
             else -> result.notImplemented()
+        }
+    }
+
+    fun resetToast() {
+        if (::mToast.isInitialized && mToast != null) {
+            if (mToast.view.visibility != View.VISIBLE) {
+                mToast
+            } else {
+                Handler().postDelayed(Runnable {
+                    resetToast()
+                }, 1000);
+            }
         }
     }
 }
