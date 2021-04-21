@@ -1,3 +1,7 @@
+## [8.0.6]
+
+- Only safe (?.) or non-null asserted (!!.) (#300)
+
 ## [8.0.5]
 
 - Fixed Unresolved reference: R (Issue with Android API 30)
