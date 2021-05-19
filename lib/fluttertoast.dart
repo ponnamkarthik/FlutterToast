@@ -177,22 +177,32 @@ class FToast {
   /// calls _showOverlay to display toast
   ///
   /// Paramenter [child] is requried
-  ///
+  /// fadeDuration default is 350 milliseconds
   void showToast({
     required Widget child,
     PositionedToastBuilder? positionedToastBuilder,
     Duration? toastDuration,
     ToastGravity? gravity,
+    int fadeDuration = 350,
   }) {
     Widget newChild = _ToastStateFul(
-      child,
-      toastDuration ?? Duration(seconds: 2),
-    );
+        child, toastDuration ?? Duration(seconds: 2),
+        fadeDuration: fadeDuration);
+
+    /// Check for keyboard open
+    /// If open will ignore the gravity bottom and change it to center
+    if (gravity == ToastGravity.BOTTOM) {
+      if (MediaQuery.of(context!).viewInsets.bottom != 0) {
+        gravity = ToastGravity.CENTER;
+      }
+    }
+
     OverlayEntry newEntry = OverlayEntry(builder: (context) {
       if (positionedToastBuilder != null)
         return positionedToastBuilder(context, newChild);
       return _getPostionWidgetBasedOnGravity(newChild, gravity);
     });
+
     _overlayQueue.add(_ToastEntry(
         entry: newEntry, duration: toastDuration ?? Duration(seconds: 2)));
     if (_timer == null) _showOverlay();
@@ -246,10 +256,12 @@ class _ToastEntry {
 /// internal [StatefulWidget] which handles the show and hide
 /// animations for [FToast]
 class _ToastStateFul extends StatefulWidget {
-  _ToastStateFul(this.child, this.duration, {Key? key}) : super(key: key);
+  _ToastStateFul(this.child, this.duration, {Key? key, this.fadeDuration = 350})
+      : super(key: key);
 
   final Widget child;
   final Duration duration;
+  final int fadeDuration;
 
   @override
   ToastStateFulState createState() => ToastStateFulState();
@@ -279,7 +291,7 @@ class ToastStateFulState extends State<_ToastStateFul>
   void initState() {
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 350),
+      duration: Duration(milliseconds: widget.fadeDuration),
     );
     _fadeAnimation =
         CurvedAnimation(parent: _animationController!, curve: Curves.easeIn);

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class ToastNoContext extends StatelessWidget {
+class ToastNoContext extends StatefulWidget {
+  @override
+  _ToastNoContextState createState() => _ToastNoContextState();
+}
+
+class _ToastNoContextState extends State<ToastNoContext> {
   void showLongToast() {
     Fluttertoast.showToast(
       msg: "This is Long Toast",
@@ -53,6 +58,11 @@ class ToastNoContext extends StatelessWidget {
 
   void cancelToast() {
     Fluttertoast.cancel();
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override

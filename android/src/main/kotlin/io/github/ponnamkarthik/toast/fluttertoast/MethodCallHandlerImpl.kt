@@ -85,26 +85,20 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                         }
                     }
                 }
-
-//                if(Build.VERSION.SDK_INT < 30) {
-                when (mGravity) {
-                    Gravity.CENTER -> {
-                        mToast.setGravity(mGravity, 0, 0)
-                    }
-                    Gravity.TOP -> {
-                        mToast.setGravity(mGravity, 0, 100)
-                    }
-                    else -> {
-                        mToast.setGravity(mGravity, 0, 100)
+                if(Build.VERSION.SDK_INT < 30) {
+                    when (mGravity) {
+                        Gravity.CENTER -> {
+                            mToast.setGravity(mGravity, 0, 0)
+                        }
+                        Gravity.TOP -> {
+                            mToast.setGravity(mGravity, 0, 100)
+                        }
+                        else -> {
+                            mToast.setGravity(mGravity, 0, 100)
+                        }
                     }
                 }
-//                }
-
-//                val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//                if(inputMethodManager.isAcceptingText) {
-//                    mToast.setGravity(Gravity.CENTER, 0, 0)
-//                }
-
+                
                 if (context is Activity) {
                     (context as Activity).runOnUiThread { mToast.show() }
                 } else {

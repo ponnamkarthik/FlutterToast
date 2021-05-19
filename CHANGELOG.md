@@ -1,3 +1,8 @@
+## [8.0.7]
+
+- Added fadeDuration in FToast to set fade animation Duration
+- Fixed Toast behind the screen #287 , #281
+- Fixed #303
 ## [8.0.6]
 
 - Only safe (?.) or non-null asserted (!!.) (#300)
