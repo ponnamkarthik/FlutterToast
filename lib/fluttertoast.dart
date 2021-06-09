@@ -48,7 +48,7 @@ class Fluttertoast {
   /// Wraps the Plugin https://github.com/scalessec/Toast for iOS
   /// Wraps the https://github.com/apvarun/toastify-js for Web
   ///
-  /// Parameter [msg] is required and remning all are options
+  /// Parameter [msg] is required and all remaining are optional
   static Future<bool?> showToast({
     required String msg,
     Toast? toastLength,
