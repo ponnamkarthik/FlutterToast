@@ -75,11 +75,11 @@ class Fluttertoast {
       gravityToast = "bottom";
     }
 
-    if (backgroundColor == null &&
-        defaultTargetPlatform == TargetPlatform.iOS) {
+//lines from 78 to 97 have been changed in order to solve issue #328
+    if (backgroundColor == null) {
       backgroundColor = Colors.black;
     }
-    if (textColor == null && defaultTargetPlatform == TargetPlatform.iOS) {
+    if (textColor == null) {
       textColor = Colors.white;
     }
     final Map<String, dynamic> params = <String, dynamic>{
@@ -88,7 +88,9 @@ class Fluttertoast {
       'time': timeInSecForIosWeb,
       'gravity': gravityToast,
       'bgcolor': backgroundColor != null ? backgroundColor.value : null,
+      'iosBgcolor': backgroundColor != null ? backgroundColor.value : null,
       'textcolor': textColor != null ? textColor.value : null,
+      'iosTextcolor': textColor != null ? textColor.value : null,
       'fontSize': fontSize,
       'webShowClose': webShowClose,
       'webBgColor': webBgColor,
