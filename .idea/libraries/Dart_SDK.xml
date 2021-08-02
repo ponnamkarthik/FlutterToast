@@ -1,27 +1,26 @@
 <component name="libraryTable">
   <library name="Dart SDK">
     <CLASSES>
-      <root url="file:///usr/local/Caskroom/flutter/1.22.3/flutter/bin/cache/dart-sdk/lib/async" />
-      <root url="file:///usr/local/Caskroom/flutter/1.22.3/flutter/bin/cache/dart-sdk/lib/cli" />
-      <root url="file:///usr/local/Caskroom/flutter/1.22.3/flutter/bin/cache/dart-sdk/lib/collection" />
-      <root url="file:///usr/local/Caskroom/flutter/1.22.3/flutter/bin/cache/dart-sdk/lib/convert" />
-      <root url="file:///usr/local/Caskroom/flutter/1.22.3/flutter/bin/cache/dart-sdk/lib/core" />
-      <root url="file:///usr/local/Caskroom/flutter/1.22.3/flutter/bin/cache/dart-sdk/lib/developer" />
-      <root url="file:///usr/local/Caskroom/flutter/1.22.3/flutter/bin/cache/dart-sdk/lib/ffi" />
-      <root url="file:///usr/local/Caskroom/flutter/1.22.3/flutter/bin/cache/dart-sdk/lib/html" />
-      <root url="file:///usr/local/Caskroom/flutter/1.22.3/flutter/bin/cache/dart-sdk/lib/indexed_db" />
-      <root url="file:///usr/local/Caskroom/flutter/1.22.3/flutter/bin/cache/dart-sdk/lib/io" />
-      <root url="file:///usr/local/Caskroom/flutter/1.22.3/flutter/bin/cache/dart-sdk/lib/isolate" />
-      <root url="file:///usr/local/Caskroom/flutter/1.22.3/flutter/bin/cache/dart-sdk/lib/js" />
-      <root url="file:///usr/local/Caskroom/flutter/1.22.3/flutter/bin/cache/dart-sdk/lib/js_util" />
-      <root url="file:///usr/local/Caskroom/flutter/1.22.3/flutter/bin/cache/dart-sdk/lib/math" />
-      <root url="file:///usr/local/Caskroom/flutter/1.22.3/flutter/bin/cache/dart-sdk/lib/mirrors" />
-      <root url="file:///usr/local/Caskroom/flutter/1.22.3/flutter/bin/cache/dart-sdk/lib/svg" />
-      <root url="file:///usr/local/Caskroom/flutter/1.22.3/flutter/bin/cache/dart-sdk/lib/typed_data" />
-      <root url="file:///usr/local/Caskroom/flutter/1.22.3/flutter/bin/cache/dart-sdk/lib/wasm" />
-      <root url="file:///usr/local/Caskroom/flutter/1.22.3/flutter/bin/cache/dart-sdk/lib/web_audio" />
-      <root url="file:///usr/local/Caskroom/flutter/1.22.3/flutter/bin/cache/dart-sdk/lib/web_gl" />
-      <root url="file:///usr/local/Caskroom/flutter/1.22.3/flutter/bin/cache/dart-sdk/lib/web_sql" />
+      <root url="file:///usr/local/Caskroom/flutter/2.2.2/flutter/bin/cache/dart-sdk/lib/async" />
+      <root url="file:///usr/local/Caskroom/flutter/2.2.2/flutter/bin/cache/dart-sdk/lib/cli" />
+      <root url="file:///usr/local/Caskroom/flutter/2.2.2/flutter/bin/cache/dart-sdk/lib/collection" />
+      <root url="file:///usr/local/Caskroom/flutter/2.2.2/flutter/bin/cache/dart-sdk/lib/convert" />
+      <root url="file:///usr/local/Caskroom/flutter/2.2.2/flutter/bin/cache/dart-sdk/lib/core" />
+      <root url="file:///usr/local/Caskroom/flutter/2.2.2/flutter/bin/cache/dart-sdk/lib/developer" />
+      <root url="file:///usr/local/Caskroom/flutter/2.2.2/flutter/bin/cache/dart-sdk/lib/ffi" />
+      <root url="file:///usr/local/Caskroom/flutter/2.2.2/flutter/bin/cache/dart-sdk/lib/html" />
+      <root url="file:///usr/local/Caskroom/flutter/2.2.2/flutter/bin/cache/dart-sdk/lib/indexed_db" />
+      <root url="file:///usr/local/Caskroom/flutter/2.2.2/flutter/bin/cache/dart-sdk/lib/io" />
+      <root url="file:///usr/local/Caskroom/flutter/2.2.2/flutter/bin/cache/dart-sdk/lib/isolate" />
+      <root url="file:///usr/local/Caskroom/flutter/2.2.2/flutter/bin/cache/dart-sdk/lib/js" />
+      <root url="file:///usr/local/Caskroom/flutter/2.2.2/flutter/bin/cache/dart-sdk/lib/js_util" />
+      <root url="file:///usr/local/Caskroom/flutter/2.2.2/flutter/bin/cache/dart-sdk/lib/math" />
+      <root url="file:///usr/local/Caskroom/flutter/2.2.2/flutter/bin/cache/dart-sdk/lib/mirrors" />
+      <root url="file:///usr/local/Caskroom/flutter/2.2.2/flutter/bin/cache/dart-sdk/lib/svg" />
+      <root url="file:///usr/local/Caskroom/flutter/2.2.2/flutter/bin/cache/dart-sdk/lib/typed_data" />
+      <root url="file:///usr/local/Caskroom/flutter/2.2.2/flutter/bin/cache/dart-sdk/lib/web_audio" />
+      <root url="file:///usr/local/Caskroom/flutter/2.2.2/flutter/bin/cache/dart-sdk/lib/web_gl" />
+      <root url="file:///usr/local/Caskroom/flutter/2.2.2/flutter/bin/cache/dart-sdk/lib/web_sql" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

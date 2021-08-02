@@ -1,3 +1,7 @@
+## [8.0.8]
+
+- Many issues fixed
+
 ## [8.0.7]
 
 - Added fadeDuration in FToast to set fade animation Duration

@@ -122,8 +122,9 @@ class FToast {
   }
 
   /// Take users Context and saves to avariable
-  init(BuildContext context) {
+  FToast init(BuildContext context) {
     _instance.context = context;
+    return _instance;
   }
 
   FToast._internal();
@@ -159,6 +160,7 @@ class FToast {
     _timer?.cancel();
     _timer = null;
     if (_entry != null) _entry!.remove();
+    _entry = null;
     _showOverlay();
   }
 
@@ -187,6 +189,8 @@ class FToast {
     ToastGravity? gravity,
     int fadeDuration = 350,
   }) {
+    if (context == null)
+      throw ("Error: Context is null, Please call init(context) before showing toast.");
     Widget newChild = _ToastStateFul(
         child, toastDuration ?? Duration(seconds: 2),
         fadeDuration: fadeDuration);

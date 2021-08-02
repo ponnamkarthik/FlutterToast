@@ -104,7 +104,7 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                 } else {
                     mToast.show()
                 }
-
+                resetToast();
 
                 result.success(true)
             }

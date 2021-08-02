@@ -1,3 +1,4 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fluttertoast_example/toast_context.dart';
 import 'package:fluttertoast_example/toast_no_context.dart';
 import 'package:flutter/material.dart';
