@@ -46,7 +46,7 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                     Toast.LENGTH_SHORT
                 }
 
-                if (bgcolor != null && Build.VERSION.SDK_INT < 30) {
+                if (bgcolor != null && Build.VERSION.SDK_INT <= 30) {
                     val layout = (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(R.layout.toast_custom, null)
                     val text = layout.findViewById<TextView>(R.id.text)
                     text.text = mMessage
