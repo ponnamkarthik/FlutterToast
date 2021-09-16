@@ -4,6 +4,7 @@ version '1.0-SNAPSHOT'
 buildscript {
     ext.kotlin_version = '1.3.50'
     repositories {
+        maven { url 'https://jitpack.io' }
         google()
         jcenter()
     }
@@ -16,6 +17,7 @@ buildscript {
 
 rootProject.allprojects {
     repositories {
+        maven { url 'https://jitpack.io' }
         google()
         jcenter()
     }
@@ -36,10 +38,14 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
 //    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "com.hjq:toast:8.2"
+    implementation "com.github.getActivity:ToastUtils:9.5"
 }

@@ -10,14 +10,14 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.TextView
 import android.widget.Toast
+import com.hjq.toast.ToastUtils
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
-import com.hjq.toast.ToastUtils
 
 internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
 
-    private lateinit var mToast: Toast
+//    private lateinit var mToast: Toast
 
     init {
         ToastUtils.init(when (context) {
@@ -70,32 +70,40 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
 //                    mToast = Toast(context)
 //                    mToast.setDuration(mDuration)
 //                    mToast.setView(layout)
-                    mToast = ToastUtils.getToast()
-                    mToast.duration = mDuration
-                    mToast.view = layout
+//                    mToast = ToastUtils.getToast()
+//                    mToast.duration = mDuration
+//                    mToast.view = layout
+                    ToastUtils.setView(R.layout.toast_custom)
+                    //        ToastUtils.getToast().setDuration(Toast.LENGTH_SHORT);
+                    ToastUtils.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL, 0, 200)
                 } else {
 //                    mToast = Toast.makeText(context, mMessage, mDuration)
-                    mToast = ToastUtils.getToast()
-                    mToast.setText(mMessage)
-                    mToast.duration = mDuration
+//                    mToast = ToastUtils.getToast()
+//                    mToast.setText(mMessage)
+//                    mToast.duration = mDuration
                 }
                 if (mGravity == Gravity.CENTER) {
-                    mToast.setGravity(mGravity, 0, 0)
+//                    mToast.setGravity(mGravity, 0, 0)
+                    ToastUtils.setGravity(mGravity, 0, 0)
                 } else if (mGravity == Gravity.TOP) {
-                    mToast.setGravity(mGravity, 0, 100)
+//                    mToast.setGravity(mGravity, 0, 100)
+                    ToastUtils.setGravity(mGravity, 0, 100)
                 } else {
-                    mToast.setGravity(mGravity, 0, 100)
+//                    mToast.setGravity(mGravity, 0, 100)
+                    ToastUtils.setGravity(mGravity, 0, 100)
                 }
                 if (context is Activity) {
-                    (context as Activity).runOnUiThread { mToast.show() }
+                    (context as Activity).runOnUiThread {
+                        ToastUtils.show(mMessage)
+                    }
                 } else {
-                    mToast.show()
+                    ToastUtils.show(mMessage)
                 }
                 result.success(true)
             }
             "cancel" -> {
-                if (mToast != null) {
-                    mToast.cancel()
+                if (ToastUtils.isInit()) {
+                    ToastUtils.cancel()
                 }
                 result.success(true)
             }
