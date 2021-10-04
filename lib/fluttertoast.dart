@@ -145,7 +145,7 @@ class FToast {
     _entry = _toastEntry.entry;
     if (context == null)
       throw ("Error: Context is null, Please call init(context) before showing toast.");
-    Overlay.of(context!)!.insert(_entry!);
+    Overlay.of(context!)?.insert(_entry!);
 
     _timer = Timer(_toastEntry.duration!, () {
       Future.delayed(Duration(milliseconds: 360), () {
