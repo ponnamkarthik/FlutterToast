@@ -1,3 +1,7 @@
+## [8.0.9]
+
+- Merged PRS #342 #353 #363 #346 and #370
+
 ## [8.0.8]
 
 - Many issues fixed
