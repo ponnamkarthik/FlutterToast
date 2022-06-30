@@ -116,8 +116,6 @@ class FToast {
 
   static final FToast _instance = FToast._internal();
 
-  static const int _default_fade_duration = 350;
-
   /// Prmary Constructor for FToast
   factory FToast() {
     return _instance;
@@ -150,8 +148,8 @@ class FToast {
       throw ("Error: Context is null, Please call init(context) before showing toast.");
     Overlay.of(context!)?.insert(_entry!);
 
-    _timer = Timer(_toastEntry.duration!, () {
-      _fadeTimer = Timer(_toastEntry.fadeDuration!, () {
+    _timer = Timer(_toastEntry.duration, () {
+      _fadeTimer = Timer(_toastEntry.fadeDuration, () {
         removeCustomToast();
       });
     });
@@ -188,20 +186,18 @@ class FToast {
   /// calls _showOverlay to display toast
   ///
   /// Paramenter [child] is requried
+  /// toastDuration default is 2 seconds
   /// fadeDuration default is 350 milliseconds
   void showToast({
     required Widget child,
     PositionedToastBuilder? positionedToastBuilder,
-    Duration? toastDuration,
+    Duration toastDuration = const Duration(seconds: 2),
     ToastGravity? gravity,
-    Duration? fadeDuration,
+    Duration fadeDuration = const Duration(milliseconds: 350),
   }) {
     if (context == null)
       throw ("Error: Context is null, Please call init(context) before showing toast.");
-    Widget newChild = _ToastStateFul(
-        child,
-        toastDuration ?? Duration(seconds: 2),
-        fadeDuration ?? Duration(milliseconds: _default_fade_duration));
+    Widget newChild = _ToastStateFul(child, toastDuration, fadeDuration);
 
     /// Check for keyboard open
     /// If open will ignore the gravity bottom and change it to center
@@ -216,12 +212,8 @@ class FToast {
         return positionedToastBuilder(context, newChild);
       return _getPostionWidgetBasedOnGravity(newChild, gravity);
     });
-
     _overlayQueue.add(_ToastEntry(
-        entry: newEntry,
-        duration: toastDuration ?? Duration(seconds: 2),
-        fadeDuration:
-            fadeDuration ?? Duration(milliseconds: _default_fade_duration)));
+        entry: newEntry, duration: toastDuration, fadeDuration: fadeDuration));
     if (_timer == null) _showOverlay();
   }
 
@@ -264,11 +256,15 @@ class FToast {
 /// each [OverlayEntry] and [Duration] for every toast user
 /// triggered
 class _ToastEntry {
-  final OverlayEntry? entry;
-  final Duration? duration;
-  final Duration? fadeDuration;
+  final OverlayEntry entry;
+  final Duration duration;
+  final Duration fadeDuration;
 
-  _ToastEntry({this.entry, this.duration, this.fadeDuration});
+  _ToastEntry({
+    required this.entry,
+    required this.duration,
+    required this.fadeDuration,
+  });
 }
 
 /// internal [StatefulWidget] which handles the show and hide
