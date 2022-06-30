@@ -116,6 +116,8 @@ class FToast {
 
   static final FToast _instance = FToast._internal();
 
+  static const int _default_fade_duration = 350;
+
   /// Prmary Constructor for FToast
   factory FToast() {
     return _instance;
@@ -132,6 +134,7 @@ class FToast {
   OverlayEntry? _entry;
   List<_ToastEntry> _overlayQueue = [];
   Timer? _timer;
+  Timer? _fadeTimer;
 
   /// Internal function which handles the adding
   /// the overlay to the screen
@@ -148,7 +151,7 @@ class FToast {
     Overlay.of(context!)?.insert(_entry!);
 
     _timer = Timer(_toastEntry.duration!, () {
-      Future.delayed(Duration(milliseconds: 360), () {
+      _fadeTimer = Timer(_toastEntry.fadeDuration!, () {
         removeCustomToast();
       });
     });
@@ -158,7 +161,9 @@ class FToast {
   /// call removeCustomToast to hide the toast immediately
   removeCustomToast() {
     _timer?.cancel();
+    _fadeTimer?.cancel();
     _timer = null;
+    _fadeTimer = null;
     if (_entry != null) _entry!.remove();
     _entry = null;
     _showOverlay();
@@ -171,7 +176,9 @@ class FToast {
   /// call removeCustomToast to hide the toast immediately
   removeQueuedCustomToasts() {
     _timer?.cancel();
+    _fadeTimer?.cancel();
     _timer = null;
+    _fadeTimer = null;
     _overlayQueue.clear();
     if (_entry != null) _entry!.remove();
     _entry = null;
@@ -187,13 +194,14 @@ class FToast {
     PositionedToastBuilder? positionedToastBuilder,
     Duration? toastDuration,
     ToastGravity? gravity,
-    int fadeDuration = 350,
+    Duration? fadeDuration,
   }) {
     if (context == null)
       throw ("Error: Context is null, Please call init(context) before showing toast.");
     Widget newChild = _ToastStateFul(
-        child, toastDuration ?? Duration(seconds: 2),
-        fadeDuration: fadeDuration);
+        child,
+        toastDuration ?? Duration(seconds: 2),
+        fadeDuration ?? Duration(milliseconds: _default_fade_duration));
 
     /// Check for keyboard open
     /// If open will ignore the gravity bottom and change it to center
@@ -210,7 +218,10 @@ class FToast {
     });
 
     _overlayQueue.add(_ToastEntry(
-        entry: newEntry, duration: toastDuration ?? Duration(seconds: 2)));
+        entry: newEntry,
+        duration: toastDuration ?? Duration(seconds: 2),
+        fadeDuration:
+            fadeDuration ?? Duration(milliseconds: _default_fade_duration)));
     if (_timer == null) _showOverlay();
   }
 
@@ -255,19 +266,20 @@ class FToast {
 class _ToastEntry {
   final OverlayEntry? entry;
   final Duration? duration;
+  final Duration? fadeDuration;
 
-  _ToastEntry({this.entry, this.duration});
+  _ToastEntry({this.entry, this.duration, this.fadeDuration});
 }
 
 /// internal [StatefulWidget] which handles the show and hide
 /// animations for [FToast]
 class _ToastStateFul extends StatefulWidget {
-  _ToastStateFul(this.child, this.duration, {Key? key, this.fadeDuration = 350})
+  _ToastStateFul(this.child, this.duration, this.fadeDuration, {Key? key})
       : super(key: key);
 
   final Widget child;
   final Duration duration;
-  final int fadeDuration;
+  final Duration fadeDuration;
 
   @override
   ToastStateFulState createState() => ToastStateFulState();
@@ -297,7 +309,7 @@ class ToastStateFulState extends State<_ToastStateFul>
   void initState() {
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: widget.fadeDuration),
+      duration: widget.fadeDuration,
     );
     _fadeAnimation =
         CurvedAnimation(parent: _animationController!, curve: Curves.easeIn);
