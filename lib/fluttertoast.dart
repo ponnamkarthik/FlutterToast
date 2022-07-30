@@ -1,6 +1,6 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 /// Toast Length
@@ -132,6 +132,7 @@ class FToast {
   OverlayEntry? _entry;
   List<_ToastEntry> _overlayQueue = [];
   Timer? _timer;
+  Timer? _fadeTimer;
 
   /// Internal function which handles the adding
   /// the overlay to the screen
@@ -147,8 +148,8 @@ class FToast {
       throw ("Error: Context is null, Please call init(context) before showing toast.");
     Overlay.of(context!)?.insert(_entry!);
 
-    _timer = Timer(_toastEntry.duration!, () {
-      Future.delayed(Duration(milliseconds: 360), () {
+    _timer = Timer(_toastEntry.duration, () {
+      _fadeTimer = Timer(_toastEntry.fadeDuration, () {
         removeCustomToast();
       });
     });
@@ -158,7 +159,9 @@ class FToast {
   /// call removeCustomToast to hide the toast immediately
   removeCustomToast() {
     _timer?.cancel();
+    _fadeTimer?.cancel();
     _timer = null;
+    _fadeTimer = null;
     if (_entry != null) _entry!.remove();
     _entry = null;
     _showOverlay();
@@ -171,7 +174,9 @@ class FToast {
   /// call removeCustomToast to hide the toast immediately
   removeQueuedCustomToasts() {
     _timer?.cancel();
+    _fadeTimer?.cancel();
     _timer = null;
+    _fadeTimer = null;
     _overlayQueue.clear();
     if (_entry != null) _entry!.remove();
     _entry = null;
@@ -181,19 +186,18 @@ class FToast {
   /// calls _showOverlay to display toast
   ///
   /// Paramenter [child] is requried
+  /// toastDuration default is 2 seconds
   /// fadeDuration default is 350 milliseconds
   void showToast({
     required Widget child,
     PositionedToastBuilder? positionedToastBuilder,
-    Duration? toastDuration,
+    Duration toastDuration = const Duration(seconds: 2),
     ToastGravity? gravity,
-    int fadeDuration = 350,
+    Duration fadeDuration = const Duration(milliseconds: 350),
   }) {
     if (context == null)
       throw ("Error: Context is null, Please call init(context) before showing toast.");
-    Widget newChild = _ToastStateFul(
-        child, toastDuration ?? Duration(seconds: 2),
-        fadeDuration: fadeDuration);
+    Widget newChild = _ToastStateFul(child, toastDuration, fadeDuration);
 
     /// Check for keyboard open
     /// If open will ignore the gravity bottom and change it to center
@@ -208,9 +212,8 @@ class FToast {
         return positionedToastBuilder(context, newChild);
       return _getPostionWidgetBasedOnGravity(newChild, gravity);
     });
-
     _overlayQueue.add(_ToastEntry(
-        entry: newEntry, duration: toastDuration ?? Duration(seconds: 2)));
+        entry: newEntry, duration: toastDuration, fadeDuration: fadeDuration));
     if (_timer == null) _showOverlay();
   }
 
@@ -253,21 +256,26 @@ class FToast {
 /// each [OverlayEntry] and [Duration] for every toast user
 /// triggered
 class _ToastEntry {
-  final OverlayEntry? entry;
-  final Duration? duration;
+  final OverlayEntry entry;
+  final Duration duration;
+  final Duration fadeDuration;
 
-  _ToastEntry({this.entry, this.duration});
+  _ToastEntry({
+    required this.entry,
+    required this.duration,
+    required this.fadeDuration,
+  });
 }
 
 /// internal [StatefulWidget] which handles the show and hide
 /// animations for [FToast]
 class _ToastStateFul extends StatefulWidget {
-  _ToastStateFul(this.child, this.duration, {Key? key, this.fadeDuration = 350})
+  _ToastStateFul(this.child, this.duration, this.fadeDuration, {Key? key})
       : super(key: key);
 
   final Widget child;
   final Duration duration;
-  final int fadeDuration;
+  final Duration fadeDuration;
 
   @override
   ToastStateFulState createState() => ToastStateFulState();
@@ -297,7 +305,7 @@ class ToastStateFulState extends State<_ToastStateFul>
   void initState() {
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: widget.fadeDuration),
+      duration: widget.fadeDuration,
     );
     _fadeAnimation =
         CurvedAnimation(parent: _animationController!, curve: Curves.easeIn);
