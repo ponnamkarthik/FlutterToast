@@ -91,10 +91,10 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                             mToast.setGravity(mGravity, 0, 0)
                         }
                         Gravity.TOP -> {
-                            mToast.setGravity(mGravity, 0, 100)
+                            mToast.setGravity(mGravity, 0, 110)
                         }
                         else -> {
-                            mToast.setGravity(mGravity, 0, 100)
+                            mToast.setGravity(mGravity, 0, 150)
                         }
                     }
                 }
