@@ -94,7 +94,7 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                             mToast.setGravity(mGravity, 0, 100)
                         }
                         else -> {
-                            mToast.setGravity(mGravity, 0, 300)
+                            mToast.setGravity(mGravity, 0, 250)
                         }
                     }
                 }
