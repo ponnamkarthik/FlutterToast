@@ -1,3 +1,8 @@
+## [8.1.0]
+
+- Many issues fixed
+- iOS M1 Chip Fix
+
 ## [8.0.9]
 
 - Merged PRS #342 #353 #363 #346 and #370

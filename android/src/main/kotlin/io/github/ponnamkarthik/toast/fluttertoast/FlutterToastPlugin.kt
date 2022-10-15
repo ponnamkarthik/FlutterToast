@@ -1,23 +1,17 @@
 package io.github.ponnamkarthik.toast.fluttertoast
 
 import android.content.Context
+import androidx.annotation.NonNull
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.BinaryMessenger
+import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry.Registrar
 
 /** FlutterToastPlugin */
 public class FlutterToastPlugin: FlutterPlugin {
 
-  private var channel : MethodChannel? = null
-
-  companion object {
-    @JvmStatic
-    fun registerWith(registrar: Registrar) {
-      val plugin = FlutterToastPlugin()
-      plugin.setupChannel(registrar.messenger(), registrar.context())
-    }
-  }
+  private var channel: MethodChannel? = null
 
   override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
     setupChannel(binding.binaryMessenger, binding.applicationContext)
@@ -27,7 +21,7 @@ public class FlutterToastPlugin: FlutterPlugin {
     teardownChannel();
   }
 
-  fun setupChannel(messenger: BinaryMessenger, context: Context) {
+  private fun setupChannel(messenger: BinaryMessenger, context: Context) {
     channel = MethodChannel(messenger, "PonnamKarthik/fluttertoast")
     val handler = MethodCallHandlerImpl(context)
     channel?.setMethodCallHandler(handler)
