@@ -25,7 +25,8 @@ enum ToastGravity {
   BOTTOM_RIGHT,
   CENTER_LEFT,
   CENTER_RIGHT,
-  SNACKBAR
+  SNACKBAR,
+  NONE
 }
 
 /// Plugin to show a toast message on screen
@@ -245,6 +246,8 @@ class FToast {
             left: 0,
             right: 0,
             child: child);
+      case ToastGravity.NONE:
+        return Positioned.fill(child: child);
       case ToastGravity.BOTTOM:
       default:
         return Positioned(bottom: 50.0, left: 24.0, right: 24.0, child: child);
