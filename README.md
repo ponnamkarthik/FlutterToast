@@ -200,9 +200,6 @@ fToast.removeQueuedCustomToasts();
 
 ...
 
-## Help needed for iOS 
-
-Looking for iOS Dev who can check out and fix the issues releated to iOS (I dont have a Mac and iOS)
 
 ## Buy Me a Coffee
 
