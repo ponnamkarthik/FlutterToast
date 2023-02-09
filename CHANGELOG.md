@@ -1,3 +1,8 @@
+## [8.1.3]
+
+- Merged #415 (improvements to provide safer usage) @AlexSeednov
+- Updated Readme.md
+
 ## [8.1.2]
 
 - Merged #405 #408

@@ -130,7 +130,7 @@ class _ToastContextState extends State<ToastContext> {
   void initState() {
     super.initState();
     fToast = FToast();
-    fToast.init(globalKey.currentState!.context);
+    fToast.init(navigatorKey.currentContext!);
   }
 
   @override

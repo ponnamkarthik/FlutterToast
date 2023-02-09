@@ -34,7 +34,7 @@ This one has limited features and no control over UI
 
 ```yaml
 # add this line to your dependencies
-fluttertoast: ^8.1.2
+fluttertoast: ^8.1.3
 ```
 
 ```dart
@@ -174,6 +174,22 @@ For more details check `example` project
 | child             | Widget (Not Null)(required)                                        |required    |  
 | toastDuration     | Duration (optional)                                                 |  |
 | gravity         | ToastGravity.*    |  |
+
+### Use NavigatorKey for Context(to access context globally)
+
+To use NavigatorKey for Context first define the `GlobalKey<NavigatorState>` at top level in your `main.dart` file
+
+```dart
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+```
+
+At the time of initializing the `FToast` we need to use context from globally defined `GlobalKey<NavigatorState>`
+
+```dart
+FToast fToast = FToast();
+fToast.init(yourNavKey.currentContext!);
+```
+
 ### To cancel all the toasts call  
   
 ```dart  
