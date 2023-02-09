@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -59,8 +59,8 @@ class Fluttertoast {
     Color? backgroundColor,
     Color? textColor,
     bool webShowClose = false,
-    webBgColor: "linear-gradient(to right, #00b09b, #96c93d)",
-    webPosition: "right",
+    webBgColor = "linear-gradient(to right, #00b09b, #96c93d)",
+    webPosition = "right",
   }) async {
     String toast = "short";
     if (toastLength == Toast.LENGTH_LONG) {
@@ -143,11 +143,41 @@ class FToast {
       _entry = null;
       return;
     }
+    if (context == null) {
+      /// Need to clear queue
+      removeQueuedCustomToasts();
+      throw ("Error: Context is null, Please call init(context) before showing toast.");
+    }
+
+    /// To prevent exception "Looking up a deactivated widget's ancestor is unsafe."
+    /// which can be thrown if context was unmounted (e.g. screen with given context was popped)
+    if (context?.mounted != true) {
+      if (kDebugMode) {
+        print(
+            'FToast: Context was unmuted, can not show ${_overlayQueue.length} toast.');
+      }
+
+      /// Need to clear queue
+      removeQueuedCustomToasts();
+      return; // Or maybe thrown error too
+    }
+
+    var _overlay = Overlay.maybeOf(context!);
+    if (_overlay == null) {
+      /// Need to clear queue
+      removeQueuedCustomToasts();
+      throw ("""Error: Overlay is null. 
+      Please don't use top of the widget tree context (such as Navigator or MaterialApp) or 
+      create overlay manually in MaterialApp builder.
+      More information 
+        - https://github.com/ponnamkarthik/FlutterToast/issues/393
+        - https://github.com/ponnamkarthik/FlutterToast/issues/234""");
+    }
+
+    /// Create entry only after all checks
     _ToastEntry _toastEntry = _overlayQueue.removeAt(0);
     _entry = _toastEntry.entry;
-    if (context == null)
-      throw ("Error: Context is null, Please call init(context) before showing toast.");
-    Overlay.of(context!)?.insert(_entry!);
+    _overlay.insert(_entry!);
 
     _timer = Timer(_toastEntry.duration, () {
       _fadeTimer = Timer(_toastEntry.fadeDuration, () {
@@ -163,7 +193,7 @@ class FToast {
     _fadeTimer?.cancel();
     _timer = null;
     _fadeTimer = null;
-    if (_entry != null) _entry!.remove();
+    _entry?.remove();
     _entry = null;
     _showOverlay();
   }
@@ -179,7 +209,7 @@ class FToast {
     _timer = null;
     _fadeTimer = null;
     _overlayQueue.clear();
-    if (_entry != null) _entry!.remove();
+    _entry?.remove();
     _entry = null;
   }
 
