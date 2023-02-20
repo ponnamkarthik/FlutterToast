@@ -1,3 +1,7 @@
+## [8.1.4]
+
+- Merged #419 (added environment restriction in pubspec)
+
 ## [8.1.3]
 
 - Merged #415 (improvements to provide safer usage) @AlexSeednov
