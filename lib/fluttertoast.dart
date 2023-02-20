@@ -161,8 +161,18 @@ class FToast {
       removeQueuedCustomToasts();
       return; // Or maybe thrown error too
     }
-
-    var _overlay = Overlay.maybeOf(context!);
+    var _overlay;
+    try {
+      var _overlay = Overlay.of(context!);
+    } catch (err) {
+      removeQueuedCustomToasts();
+      throw ("""Error: Overlay is null. 
+      Please don't use top of the widget tree context (such as Navigator or MaterialApp) or 
+      create overlay manually in MaterialApp builder.
+      More information 
+        - https://github.com/ponnamkarthik/FlutterToast/issues/393
+        - https://github.com/ponnamkarthik/FlutterToast/issues/234""");
+    }
     if (_overlay == null) {
       /// Need to clear queue
       removeQueuedCustomToasts();
@@ -282,6 +292,39 @@ class FToast {
       default:
         return Positioned(bottom: 50.0, left: 24.0, right: 24.0, child: child);
     }
+  }
+}
+
+// ignore: non_constant_identifier_names
+TransitionBuilder FToastBuilder() {
+  return (context, child) {
+    return _FToastHolder(
+      child: child!,
+    );
+  };
+}
+
+class _FToastHolder extends StatelessWidget {
+  const _FToastHolder({Key? key, required this.child}) : super(key: key);
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final Overlay overlay = Overlay(
+      initialEntries: <OverlayEntry>[
+        OverlayEntry(
+          builder: (BuildContext ctx) {
+            return child;
+          },
+        ),
+      ],
+    );
+
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: overlay,
+    );
   }
 }
 

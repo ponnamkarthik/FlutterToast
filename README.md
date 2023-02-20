@@ -113,7 +113,17 @@ Create a file named `toast_custom.xml` in your project `app/res/layout` folder a
 ```
 
 ## Toast with BuildContext (All Platforms)
-  
+
+Update your `MaterialApp` with `builder` like below for the use of Context globally check doc section Use NavigatorKey for Context(to access context globally)
+
+```dart
+MaterialApp(
+    builder: FToastBuilder(),
+    home: MyApp(),
+    navigatorKey: navigatorKey,
+),
+```
+
 ```dart 
 FToast fToast;
 
@@ -121,6 +131,7 @@ FToast fToast;
 void initState() {
     super.initState();
     fToast = FToast();
+    // if you want to use context from globally instead of content we need to pass navigatorKey.currentContext!
     fToast.init(context);
 }
 

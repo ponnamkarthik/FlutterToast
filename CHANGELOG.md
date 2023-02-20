@@ -1,3 +1,7 @@
+## [8.2.0]
+
+- Updated the flow for Toast with Context
+
 ## [8.1.4]
 
 - Merged #419 (added environment restriction in pubspec)
