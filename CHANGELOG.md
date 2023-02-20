@@ -1,3 +1,7 @@
+## [8.2.1]
+
+- Removed `context.mounted`
+
 ## [8.2.0]
 
 - Updated the flow for Toast with Context

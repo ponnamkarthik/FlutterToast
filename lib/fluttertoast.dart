@@ -151,16 +151,17 @@ class FToast {
 
     /// To prevent exception "Looking up a deactivated widget's ancestor is unsafe."
     /// which can be thrown if context was unmounted (e.g. screen with given context was popped)
-    if (context?.mounted != true) {
-      if (kDebugMode) {
-        print(
-            'FToast: Context was unmuted, can not show ${_overlayQueue.length} toast.');
-      }
+    /// TODO: revert this change when envoirment will be Flutter >= 3.7.0
+    // if (context?.mounted != true) {
+    //   if (kDebugMode) {
+    //     print(
+    //         'FToast: Context was unmuted, can not show ${_overlayQueue.length} toast.');
+    //   }
 
-      /// Need to clear queue
-      removeQueuedCustomToasts();
-      return; // Or maybe thrown error too
-    }
+    //   /// Need to clear queue
+    //   removeQueuedCustomToasts();
+    //   return; // Or maybe thrown error too
+    // }
     var _overlay;
     try {
       _overlay = Overlay.of(context!);
@@ -295,6 +296,8 @@ class FToast {
   }
 }
 
+/// Simple builder method to create a [TransitionBuilder]
+/// and for the use in MaterialApp builder method
 // ignore: non_constant_identifier_names
 TransitionBuilder FToastBuilder() {
   return (context, child) {
@@ -304,6 +307,10 @@ TransitionBuilder FToastBuilder() {
   };
 }
 
+/// Simple StatelessWidget which holds the child
+/// and creates an [Overlay] to display the toast
+/// which returns the Directionality widget with [TextDirection.ltr]
+/// and [Overlay] widget
 class _FToastHolder extends StatelessWidget {
   const _FToastHolder({Key? key, required this.child}) : super(key: key);
 
