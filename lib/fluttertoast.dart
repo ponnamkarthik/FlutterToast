@@ -163,7 +163,7 @@ class FToast {
     }
     var _overlay;
     try {
-      var _overlay = Overlay.of(context!);
+      _overlay = Overlay.of(context!);
     } catch (err) {
       removeQueuedCustomToasts();
       throw ("""Error: Overlay is null. 
