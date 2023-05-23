@@ -28,6 +28,7 @@ jobs:
         distribution: 'zulu'
         java-version: '11'
     steps:
+    - uses: actions/checkout@v3
     - uses: subosito/flutter-action@v2
       with:
         channel: 'stable'
