@@ -5,21 +5,17 @@ import android.content.Context
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.os.Build
-import android.os.Handler
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.View
-import android.view.WindowInsets
-import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import kotlin.Exception
 
-internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
+internal class MethodCallHandlerImpl(private var context: Context) : MethodCallHandler {
 
     private var mToast: Toast? = null
 
@@ -50,12 +46,14 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                     val text = layout.findViewById<TextView>(R.id.text)
                     text.text = mMessage
 
-                    val gradientDrawable: Drawable = if (Build.VERSION.SDK_INT >= 21) {
+                    val gradientDrawable: Drawable? = if (Build.VERSION.SDK_INT >= 21) {
                         context.getDrawable(R.drawable.corner)!!
                     } else {
-                        context.resources.getDrawable(R.drawable.corner)
+                       // context.resources.getDrawable(R.drawable.corner)
+                        ContextCompat.getDrawable(context, R.drawable.corner)
                     }
-                    gradientDrawable.setColorFilter(bgcolor.toInt(), PorterDuff.Mode.SRC_IN)
+                    gradientDrawable!!.setColorFilter(bgcolor.toInt(), PorterDuff.Mode.SRC_IN)
+
                     text.background = gradientDrawable
                     if (textSize != null) {
                         text.textSize = textSize.toFloat()
@@ -71,13 +69,14 @@ internal class MethodCallHandlerImpl(var context: Context) : MethodCallHandler {
                     if (Build.VERSION.SDK_INT <= 31) {
                         try {
                             val textView: TextView = mToast?.view!!.findViewById(android.R.id.message)
+
                             if (textSize != null) {
                                 textView.textSize = textSize.toFloat()
                             }
                             if (textcolor != null) {
                                 textView.setTextColor(textcolor.toInt())
                             }
-                        } catch (e: Exception) {
+                        } catch (_: Exception) {
 
                         }
                     }
