@@ -1,3 +1,7 @@
+## [8.2.2]
+
+- Adjustments for flutter >=3.10
+
 ## [8.2.1]
 
 - Removed `context.mounted`
