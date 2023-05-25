@@ -179,10 +179,10 @@ _showToast() {
 Now Call `_showToast()`
 
 For more details check `example` project
-  
-| property        | description                                                        | default    |  
-| --------------- | ------------------------------------------------------------------ |------------|  
-| child             | Widget (Not Null)(required)                                        |required    |  
+
+| property        | description                                                        | default    |
+| --------------- | ------------------------------------------------------------------ |------------|
+| child             | Widget (Not Null)(required)                                        |required    |
 | toastDuration     | Duration (optional)                                                 |  |
 | gravity         | ToastGravity.*    |  |
 
