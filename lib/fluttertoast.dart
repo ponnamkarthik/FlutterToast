@@ -38,7 +38,6 @@ class Fluttertoast {
   /// Parameter [msg] is required and all remaining are optional
   static Future<bool?> showToast({
     required String msg,
-    bool ignorePointer = false,
     Toast? toastLength,
     int timeInSecForIosWeb = 1,
     double? fontSize,
@@ -223,9 +222,19 @@ class FToast {
     ToastGravity? gravity,
     Duration fadeDuration = const Duration(milliseconds: 350),
     bool ignorePointer = false,
+    bool isDismissable = false,
   }) {
     if (context == null) throw ("Error: Context is null, Please call init(context) before showing toast.");
-    Widget newChild = _ToastStateFul(child, toastDuration, fadeDuration, ignorePointer);
+    Widget newChild = _ToastStateFul(
+        child,
+        toastDuration,
+        fadeDuration,
+        ignorePointer,
+        !isDismissable
+            ? null
+            : () {
+                removeCustomToast();
+              });
 
     /// Check for keyboard open
     /// If open will ignore the gravity bottom and change it to center
@@ -332,12 +341,13 @@ class _ToastEntry {
 /// internal [StatefulWidget] which handles the show and hide
 /// animations for [FToast]
 class _ToastStateFul extends StatefulWidget {
-  _ToastStateFul(this.child, this.duration, this.fadeDuration, this.ignorePointer, {Key? key}) : super(key: key);
+  _ToastStateFul(this.child, this.duration, this.fadeDuration, this.ignorePointer, this.onDismiss, {Key? key}) : super(key: key);
 
   final Widget child;
   final Duration duration;
   final Duration fadeDuration;
   final bool ignorePointer;
+  final VoidCallback? onDismiss;
 
   @override
   ToastStateFulState createState() => ToastStateFulState();
@@ -393,14 +403,18 @@ class ToastStateFulState extends State<_ToastStateFul> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
-    return IgnorePointer(
-      ignoring: widget.ignorePointer,
-      child: FadeTransition(
-        opacity: _fadeAnimation as Animation<double>,
-        child: Center(
-          child: Material(
-            color: Colors.transparent,
-            child: widget.child,
+    return GestureDetector(
+      onTap: widget.onDismiss == null ? null : () => widget.onDismiss!(),
+      behavior: HitTestBehavior.translucent,
+      child: IgnorePointer(
+        ignoring: widget.ignorePointer,
+        child: FadeTransition(
+          opacity: _fadeAnimation as Animation<double>,
+          child: Center(
+            child: Material(
+              color: Colors.transparent,
+              child: widget.child,
+            ),
           ),
         ),
       ),
