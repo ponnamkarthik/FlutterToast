@@ -14,26 +14,13 @@ enum Toast {
 
 /// ToastGravity
 /// Used to define the position of the Toast on the screen
-enum ToastGravity {
-  TOP,
-  BOTTOM,
-  CENTER,
-  TOP_LEFT,
-  TOP_RIGHT,
-  BOTTOM_LEFT,
-  BOTTOM_RIGHT,
-  CENTER_LEFT,
-  CENTER_RIGHT,
-  SNACKBAR,
-  NONE
-}
+enum ToastGravity { TOP, BOTTOM, CENTER, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, CENTER_LEFT, CENTER_RIGHT, SNACKBAR, NONE }
 
 /// Plugin to show a toast message on screen
 /// Only for android, ios and Web platforms
 class Fluttertoast {
   /// [MethodChannel] used to communicate with the platform side.
-  static const MethodChannel _channel =
-      const MethodChannel('PonnamKarthik/fluttertoast');
+  static const MethodChannel _channel = const MethodChannel('PonnamKarthik/fluttertoast');
 
   /// Let say you have an active show
   /// Use this method to hide the toast immediately
@@ -51,6 +38,7 @@ class Fluttertoast {
   /// Parameter [msg] is required and all remaining are optional
   static Future<bool?> showToast({
     required String msg,
+    bool ignorePointer = false,
     Toast? toastLength,
     int timeInSecForIosWeb = 1,
     double? fontSize,
@@ -103,8 +91,7 @@ class Fluttertoast {
 }
 
 /// Signature for a function to buildCustom Toast
-typedef PositionedToastBuilder = Widget Function(
-    BuildContext context, Widget child);
+typedef PositionedToastBuilder = Widget Function(BuildContext context, Widget child);
 
 /// Runs on dart side this has no interaction with the Native Side
 /// Works with all platforms just in two lines of code
@@ -235,10 +222,10 @@ class FToast {
     Duration toastDuration = const Duration(seconds: 2),
     ToastGravity? gravity,
     Duration fadeDuration = const Duration(milliseconds: 350),
+    bool ignorePointer = false,
   }) {
-    if (context == null)
-      throw ("Error: Context is null, Please call init(context) before showing toast.");
-    Widget newChild = _ToastStateFul(child, toastDuration, fadeDuration);
+    if (context == null) throw ("Error: Context is null, Please call init(context) before showing toast.");
+    Widget newChild = _ToastStateFul(child, toastDuration, fadeDuration, ignorePointer);
 
     /// Check for keyboard open
     /// If open will ignore the gravity bottom and change it to center
@@ -249,12 +236,10 @@ class FToast {
     }
 
     OverlayEntry newEntry = OverlayEntry(builder: (context) {
-      if (positionedToastBuilder != null)
-        return positionedToastBuilder(context, newChild);
+      if (positionedToastBuilder != null) return positionedToastBuilder(context, newChild);
       return _getPostionWidgetBasedOnGravity(newChild, gravity);
     });
-    _overlayQueue.add(_ToastEntry(
-        entry: newEntry, duration: toastDuration, fadeDuration: fadeDuration));
+    _overlayQueue.add(_ToastEntry(entry: newEntry, duration: toastDuration, fadeDuration: fadeDuration));
     if (_timer == null) _showOverlay();
   }
 
@@ -270,8 +255,7 @@ class FToast {
       case ToastGravity.TOP_RIGHT:
         return Positioned(top: 100.0, right: 24.0, child: child);
       case ToastGravity.CENTER:
-        return Positioned(
-            top: 50.0, bottom: 50.0, left: 24.0, right: 24.0, child: child);
+        return Positioned(top: 50.0, bottom: 50.0, left: 24.0, right: 24.0, child: child);
       case ToastGravity.CENTER_LEFT:
         return Positioned(top: 50.0, bottom: 50.0, left: 24.0, child: child);
       case ToastGravity.CENTER_RIGHT:
@@ -281,11 +265,7 @@ class FToast {
       case ToastGravity.BOTTOM_RIGHT:
         return Positioned(bottom: 50.0, right: 24.0, child: child);
       case ToastGravity.SNACKBAR:
-        return Positioned(
-            bottom: MediaQuery.of(context!).viewInsets.bottom,
-            left: 0,
-            right: 0,
-            child: child);
+        return Positioned(bottom: MediaQuery.of(context!).viewInsets.bottom, left: 0, right: 0, child: child);
       case ToastGravity.NONE:
         return Positioned.fill(child: child);
       case ToastGravity.BOTTOM:
@@ -352,20 +332,19 @@ class _ToastEntry {
 /// internal [StatefulWidget] which handles the show and hide
 /// animations for [FToast]
 class _ToastStateFul extends StatefulWidget {
-  _ToastStateFul(this.child, this.duration, this.fadeDuration, {Key? key})
-      : super(key: key);
+  _ToastStateFul(this.child, this.duration, this.fadeDuration, this.ignorePointer, {Key? key}) : super(key: key);
 
   final Widget child;
   final Duration duration;
   final Duration fadeDuration;
+  final bool ignorePointer;
 
   @override
   ToastStateFulState createState() => ToastStateFulState();
 }
 
 /// State for [_ToastStateFul]
-class ToastStateFulState extends State<_ToastStateFul>
-    with SingleTickerProviderStateMixin {
+class ToastStateFulState extends State<_ToastStateFul> with SingleTickerProviderStateMixin {
   /// Start the showing animations for the toast
   showIt() {
     _animationController!.forward();
@@ -389,8 +368,7 @@ class ToastStateFulState extends State<_ToastStateFul>
       vsync: this,
       duration: widget.fadeDuration,
     );
-    _fadeAnimation =
-        CurvedAnimation(parent: _animationController!, curve: Curves.easeIn);
+    _fadeAnimation = CurvedAnimation(parent: _animationController!, curve: Curves.easeIn);
     super.initState();
 
     showIt();
@@ -415,12 +393,15 @@ class ToastStateFulState extends State<_ToastStateFul>
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _fadeAnimation as Animation<double>,
-      child: Center(
-        child: Material(
-          color: Colors.transparent,
-          child: widget.child,
+    return IgnorePointer(
+      ignoring: widget.ignorePointer,
+      child: FadeTransition(
+        opacity: _fadeAnimation as Animation<double>,
+        child: Center(
+          child: Material(
+            color: Colors.transparent,
+            child: widget.child,
+          ),
         ),
       ),
     );
