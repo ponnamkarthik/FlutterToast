@@ -25,29 +25,31 @@ class _MyAppState extends State<MyApp> {
       appBar: AppBar(
         title: Text("Toast"),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => ToastNoContext(),
-              ));
-            },
-            child: Text("Flutter Toast No Context"),
-          ),
-          SizedBox(
-            height: 24.0,
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => ToastContext(),
-              ));
-            },
-            child: Text("Flutter Toast Context"),
-          ),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ToastNoContext(),
+                ));
+              },
+              child: Text("Flutter Toast No Context"),
+            ),
+            SizedBox(
+              height: 24.0,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ToastContext(),
+                ));
+              },
+              child: Text("Flutter Toast Context"),
+            ),
+          ],
+        ),
       ),
     );
   }
