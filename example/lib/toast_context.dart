@@ -139,60 +139,62 @@ class _ToastContextState extends State<ToastContext> {
       appBar: AppBar(
         title: Text("Custom Toasts"),
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 24.0,
-          ),
-          ElevatedButton(
-            child: Text("Show Custom Toast"),
-            onPressed: () {
-              _showToast();
-            },
-          ),
-          ElevatedButton(
-            child: Text("Show Custom Toast via PositionedToastBuilder"),
-            onPressed: () {
-              _showBuilderToast();
-            },
-          ),
-          SizedBox(
-            height: 24.0,
-          ),
-          ElevatedButton(
-            child: Text("Custom Toast With Close Button"),
-            onPressed: () {
-              _showToastCancel();
-            },
-          ),
-          SizedBox(
-            height: 24.0,
-          ),
-          ElevatedButton(
-            child: Text("Queue Toasts"),
-            onPressed: () {
-              _queueToasts();
-            },
-          ),
-          SizedBox(
-            height: 24.0,
-          ),
-          ElevatedButton(
-            child: Text("Cancel Toast"),
-            onPressed: () {
-              _removeToast();
-            },
-          ),
-          SizedBox(
-            height: 24.0,
-          ),
-          ElevatedButton(
-            child: Text("Remove Queued Toasts"),
-            onPressed: () {
-              _removeAllQueuedToasts();
-            },
-          ),
-        ],
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 24.0,
+            ),
+            ElevatedButton(
+              child: Text("Show Custom Toast"),
+              onPressed: () {
+                _showToast();
+              },
+            ),
+            ElevatedButton(
+              child: Text("Show Custom Toast via PositionedToastBuilder"),
+              onPressed: () {
+                _showBuilderToast();
+              },
+            ),
+            SizedBox(
+              height: 24.0,
+            ),
+            ElevatedButton(
+              child: Text("Custom Toast With Close Button"),
+              onPressed: () {
+                _showToastCancel();
+              },
+            ),
+            SizedBox(
+              height: 24.0,
+            ),
+            ElevatedButton(
+              child: Text("Queue Toasts"),
+              onPressed: () {
+                _queueToasts();
+              },
+            ),
+            SizedBox(
+              height: 24.0,
+            ),
+            ElevatedButton(
+              child: Text("Cancel Toast"),
+              onPressed: () {
+                _removeToast();
+              },
+            ),
+            SizedBox(
+              height: 24.0,
+            ),
+            ElevatedButton(
+              child: Text("Remove Queued Toasts"),
+              onPressed: () {
+                _removeAllQueuedToasts();
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
