@@ -40,14 +40,15 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 22
+         if (project.android.hasProperty('namespace')) {
+        namespace 'io.github.ponnamkarthik.toast.fluttertoast'
+    }
     }
     lintOptions {
         disable 'InvalidPackage'
     }
-    if (project.android.hasProperty('namespace')) {
-        namespace 'io.github.ponnamkarthik.toast.fluttertoast'
-    }
+   
 }
 
 dependencies {
