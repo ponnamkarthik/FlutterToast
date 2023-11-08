@@ -1,3 +1,7 @@
+## [8.2.3]
+
+- Merged PR #466 (fixes issue in android)
+
 ## [8.2.2]
 
 - Adjustments for flutter >=3.10
