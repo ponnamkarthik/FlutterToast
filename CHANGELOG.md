@@ -1,3 +1,7 @@
+## [8.2.4]
+
+- Reverted the minSDK 22 which broke many apps - Sorry everyone
+
 ## [8.2.3]
 
 - Merged PR #466 (fixes issue in android)
