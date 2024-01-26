@@ -17,6 +17,5 @@ Toast Library for FLutter
   s.dependency 'Flutter'
   s.dependency 'Toast'
   s.pod_target_xcconfig = {'VALID_ARCHS' => 'x86_64 armv7 arm64', 'DEFINES_MODULE' => 'YES'}
-  s.swift_version = '5.0'
   s.resource_bundles = {'fluttertoast_privacy' => ['Resources/PrivacyInfo.xcprivacy']}
 end
