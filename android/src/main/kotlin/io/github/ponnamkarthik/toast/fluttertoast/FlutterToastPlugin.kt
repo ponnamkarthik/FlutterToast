@@ -13,22 +13,22 @@ public class FlutterToastPlugin: FlutterPlugin {
 
   private var channel: MethodChannel? = null
 
-  override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-    setupChannel(binding.binaryMessenger, binding.applicationContext)
+  override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding,) {
+    setupChannel(binding.binaryMessenger, binding.applicationContext,)
   }
 
-  override fun onDetachedFromEngine(p0: FlutterPlugin.FlutterPluginBinding) {
+  override fun onDetachedFromEngine(p0: FlutterPlugin.FlutterPluginBinding,) {
     teardownChannel();
   }
 
-  private fun setupChannel(messenger: BinaryMessenger, context: Context) {
-    channel = MethodChannel(messenger, "PonnamKarthik/fluttertoast")
-    val handler = MethodCallHandlerImpl(context)
-    channel?.setMethodCallHandler(handler)
+  private fun setupChannel(messenger: BinaryMessenger, context: Context,) {
+    channel = MethodChannel(messenger, "PonnamKarthik/fluttertoast",)
+    val handler = MethodCallHandlerImpl(context,)
+    channel?.setMethodCallHandler(handler,)
   }
 
   private fun teardownChannel() {
-    channel?.setMethodCallHandler(null)
+    channel?.setMethodCallHandler(null,)
     channel = null
   }
 
