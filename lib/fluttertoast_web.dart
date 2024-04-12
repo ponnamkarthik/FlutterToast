@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:html' as html;
-import 'dart:ui' as ui;
+import 'dart:ui_web' as ui;
 import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
@@ -14,8 +14,7 @@ class FluttertoastWebPlugin {
 
   /// Registers [MethodChannel] used to communicate with the platform side.
   static void registerWith(Registrar registrar) {
-    final MethodChannel channel = MethodChannel(
-        'PonnamKarthik/fluttertoast', const StandardMethodCodec(), registrar);
+    final MethodChannel channel = MethodChannel('PonnamKarthik/fluttertoast', const StandardMethodCodec(), registrar);
     final FluttertoastWebPlugin instance = FluttertoastWebPlugin();
     channel.setMethodCallHandler(instance.handleMethodCall);
   }
@@ -45,25 +44,15 @@ class FluttertoastWebPlugin {
 
     String position = args['webPosition'] ?? 'right';
 
-    String bgColor =
-        args['webBgColor'] ?? "linear-gradient(to right, #00b09b, #96c93d)";
+    String bgColor = args['webBgColor'] ?? "linear-gradient(to right, #00b09b, #96c93d)";
 
     int? textColor = args['textcolor'];
 
-    int time = args['time'] == null
-        ? 3000
-        : (int.parse(args['time'].toString()) * 1000);
+    int time = args['time'] == null ? 3000 : (int.parse(args['time'].toString()) * 1000);
 
     bool showClose = args['webShowClose'] ?? false;
 
-    addHtmlToast(
-        msg: msg,
-        gravity: gravity,
-        position: position,
-        bgcolor: bgColor,
-        showClose: showClose,
-        time: time,
-        textColor: textColor);
+    addHtmlToast(msg: msg, gravity: gravity, position: position, bgcolor: bgColor, showClose: showClose, time: time, textColor: textColor);
   }
 
   /// [injectCssAndJSLibraries] which add the JS and CSS files into DOM
@@ -72,7 +61,7 @@ class FluttertoastWebPlugin {
     final List<html.HtmlElement> tags = <html.HtmlElement>[];
 
     // ignore: undefined_prefixed_name
-    final cssUrl = ui.webOnlyAssetManager.getAssetUrl(
+    final cssUrl = ui.assetManager.getAssetUrl(
       'packages/fluttertoast/assets/toastify.css',
     );
     final html.LinkElement css = html.LinkElement()
@@ -82,7 +71,7 @@ class FluttertoastWebPlugin {
     tags.add(css);
 
     // ignore: undefined_prefixed_name
-    final jsUrl = ui.webOnlyAssetManager.getAssetUrl(
+    final jsUrl = ui.assetManager.getAssetUrl(
       'packages/fluttertoast/assets/toastify.js',
     );
     final html.ScriptElement script = html.ScriptElement()
