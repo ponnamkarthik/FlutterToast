@@ -42,7 +42,7 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 33
         if (project.android.hasProperty('namespace')) {
             namespace 'io.github.ponnamkarthik.toast.fluttertoast'
