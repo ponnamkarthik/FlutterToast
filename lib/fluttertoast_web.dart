@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:html' as html;
-import 'dart:ui' as ui;
+import 'dart:ui_web' as ui;
 import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
@@ -71,8 +71,7 @@ class FluttertoastWebPlugin {
     final List<Future<void>> loading = <Future<void>>[];
     final List<html.HtmlElement> tags = <html.HtmlElement>[];
 
-    // ignore: undefined_prefixed_name
-    final cssUrl = ui.webOnlyAssetManager.getAssetUrl(
+    final cssUrl = ui.assetManager.getAssetUrl(
       'packages/fluttertoast/assets/toastify.css',
     );
     final html.LinkElement css = html.LinkElement()
@@ -80,9 +79,8 @@ class FluttertoastWebPlugin {
       ..attributes = {"rel": "stylesheet"}
       ..href = cssUrl;
     tags.add(css);
-
-    // ignore: undefined_prefixed_name
-    final jsUrl = ui.webOnlyAssetManager.getAssetUrl(
+    
+    final jsUrl = ui.assetManager.getAssetUrl(
       'packages/fluttertoast/assets/toastify.js',
     );
     final html.ScriptElement script = html.ScriptElement()
