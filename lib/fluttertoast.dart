@@ -138,7 +138,7 @@ class FToast {
   /// the overlay to the screen
   ///
   _showOverlay() {
-    if (_overlayQueue.length == 0) {
+    if (_overlayQueue.isEmpty) {
       _entry = null;
       return;
     }
@@ -161,20 +161,10 @@ class FToast {
     //   removeQueuedCustomToasts();
     //   return; // Or maybe thrown error too
     // }
-    var _overlay;
+    OverlayState? _overlay;
     try {
       _overlay = Overlay.of(context!);
     } catch (err) {
-      removeQueuedCustomToasts();
-      throw ("""Error: Overlay is null. 
-      Please don't use top of the widget tree context (such as Navigator or MaterialApp) or 
-      create overlay manually in MaterialApp builder.
-      More information 
-        - https://github.com/ponnamkarthik/FlutterToast/issues/393
-        - https://github.com/ponnamkarthik/FlutterToast/issues/234""");
-    }
-    if (_overlay == null) {
-      /// Need to clear queue
       removeQueuedCustomToasts();
       throw ("""Error: Overlay is null. 
       Please don't use top of the widget tree context (such as Navigator or MaterialApp) or 
