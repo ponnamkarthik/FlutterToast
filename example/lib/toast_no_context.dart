@@ -27,7 +27,7 @@ class _ToastNoContextState extends State<ToastNoContext> {
 
   void showColoredToast() {
     Fluttertoast.showToast(
-        msg: "This is Colored Toast with android duration of 5 Sec",
+        msg: "This is Colored Toast with android of short",
         toastLength: Toast.LENGTH_SHORT,
         backgroundColor: Colors.red,
         textColor: Colors.white);
