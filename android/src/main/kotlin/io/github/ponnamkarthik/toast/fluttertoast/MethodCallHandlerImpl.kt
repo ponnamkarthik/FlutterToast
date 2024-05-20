@@ -18,7 +18,6 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.view.FlutterMain
 import java.io.File
 
-
 internal class MethodCallHandlerImpl(private var context: Context) : MethodCallHandler {
 
     private var mToast: Toast? = null
@@ -51,7 +50,6 @@ internal class MethodCallHandlerImpl(private var context: Context) : MethodCallH
                     val text = layout.findViewById<TextView>(R.id.text,)
                     text.text = mMessage
 
-
                     val gradientDrawable: Drawable? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         context.getDrawable(R.drawable.corner)!!
                     } else {
@@ -80,7 +78,7 @@ internal class MethodCallHandlerImpl(private var context: Context) : MethodCallH
                 } else {
                     mToast = Toast.makeText(context, mMessage, mDuration)
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-                        val textView: TextView = mToast.view!!.findViewById(android.R.id.message)
+                        val textView: TextView = mToast?.view!!.findViewById(android.R.id.message)
                         if (fontSize != null) {
                             textView.textSize = fontSize.toFloat()
                         }
