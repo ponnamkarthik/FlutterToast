@@ -1,3 +1,7 @@
+## [8.2.6]
+
+- Merged PR #507 - Migrating dart:html to package:web thanks to @a-h-mzd for PR
+
 ## [8.2.5]
 
 - Merged multiple PRs #492 #490 #489 #480 - Thanks to all contributors
