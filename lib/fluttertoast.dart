@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -309,8 +310,6 @@ TransitionBuilder FToastBuilder() {
 
 /// Simple StatelessWidget which holds the child
 /// and creates an [Overlay] to display the toast
-/// which returns the Directionality widget with [TextDirection.ltr]
-/// and [Overlay] widget
 class _FToastHolder extends StatelessWidget {
   const _FToastHolder({Key? key, required this.child}) : super(key: key);
 
@@ -318,7 +317,7 @@ class _FToastHolder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Overlay overlay = Overlay(
+    return Overlay(
       initialEntries: <OverlayEntry>[
         OverlayEntry(
           builder: (BuildContext ctx) {
@@ -326,11 +325,6 @@ class _FToastHolder extends StatelessWidget {
           },
         ),
       ],
-    );
-
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: overlay,
     );
   }
 }
