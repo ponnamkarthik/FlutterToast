@@ -13,7 +13,8 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  web: ^0.5.1
+  web: ^1.0.0
+  html: ^0.15.4
 
 flutter:
   plugin:
