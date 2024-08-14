@@ -1,4 +1,4 @@
-## [8.2.7]
+## [8.2.8]
 
 - Merged multiple PRs thanks for your contributions
 
