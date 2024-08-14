@@ -20,10 +20,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/fluttertoast/ios"
 
 SPEC CHECKSUMS:
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  fluttertoast: fafc4fa4d01a6a9e4f772ecd190ffa525e9e2d9c
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  fluttertoast: e9a18c7be5413da53898f660530c56f35edfba9c
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
 
-PODFILE CHECKSUM: ea5e8c7953b563c2c2a9d3d48380b8f7c3d1cbcd
+PODFILE CHECKSUM: 196b22cfac078643b05547cc40c0d80279b4874b
 
-COCOAPODS: 1.12.0
+COCOAPODS: 1.13.0
