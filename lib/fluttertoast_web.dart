@@ -125,7 +125,7 @@ class FluttertoastWebPlugin {
     }
     final web.HTMLScriptElement scriptText = web.HTMLScriptElement()
       ..id = "toast-content"
-      ..innerHTML = content.toJS;
+      ..innerHTML = content.toJS.toString();
     web.document.body!.append(scriptText);
     if (textColor != null) {
       web.Element toast = web.document.querySelector('.toastify')!;
