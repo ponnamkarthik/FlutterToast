@@ -34,7 +34,7 @@ This one has limited features and no control over UI
 
 ```yaml
 # add this line to your dependencies
-fluttertoast: ^8.2.6
+fluttertoast: ^8.2.8
 ```
 
 ```dart
@@ -64,6 +64,7 @@ Fluttertoast.showToast(
 | backgroundColor         | Colors.red                                                         |null   |
 | textcolor       | Colors.white                                                       |null    |
 | fontSize        | 16.0 (float)                                                       | null      |
+| fontAsset       | Path to a font file in the Flutter app assets folder, e.g. 'assets/path/to/some-font.ttf' (String) | null      |
 | webShowClose    | false (bool)                                                       | false      |
 | webBgColor      | String (hex Color)                                                 | linear-gradient(to right, #00b09b, #96c93d) |
 | webPosition     | String (`left`, `center` or `right`)                                | right     |
