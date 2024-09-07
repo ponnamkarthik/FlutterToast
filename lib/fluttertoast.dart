@@ -3,6 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+/// Signature for a function that defines custom position mapping for a toast
+///
+/// [child] is the toast widget to be positioned.
+/// [gravity] is the gravity option for the toast which can be used to determine the position.
+/// The function should return a [Widget] that defines the position of the toast.
+/// If the position is not handled by the custom logic, return `null` to fall back to default logic.
+typedef ToastPositionMapping = Widget? Function(Widget child, ToastGravity? gravity);
+
 /// Toast Length
 /// Only for Android Platform
 enum Toast {
@@ -233,6 +241,7 @@ class FToast {
     Duration fadeDuration = const Duration(milliseconds: 350),
     bool ignorePointer = false,
     bool isDismissable = false,
+    ToastPositionMapping? customPositionMapping,
   }) {
     if (context == null)
       throw ("Error: Context is null, Please call init(context) before showing toast.");
@@ -258,6 +267,15 @@ class FToast {
     OverlayEntry newEntry = OverlayEntry(builder: (context) {
       if (positionedToastBuilder != null)
         return positionedToastBuilder(context, newChild);
+      // Use custom mapping logic to fall back to the default mapping if it is not defined or returns null
+      if (customPositionMapping != null) {
+        Widget? customPosition = customPositionMapping(newChild, gravity);
+        if (customPosition != null) {
+          return customPosition;
+        }
+      }
+
+      // Use the default mapping logic
       return _getPostionWidgetBasedOnGravity(newChild, gravity);
     });
     _overlayQueue.add(_ToastEntry(
