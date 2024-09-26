@@ -233,6 +233,7 @@ class FToast {
     Duration fadeDuration = const Duration(milliseconds: 350),
     bool ignorePointer = false,
     bool isDismissable = false,
+    double marginTop = 100,
   }) {
     if (context == null)
       throw ("Error: Context is null, Please call init(context) before showing toast.");
@@ -258,7 +259,7 @@ class FToast {
     OverlayEntry newEntry = OverlayEntry(builder: (context) {
       if (positionedToastBuilder != null)
         return positionedToastBuilder(context, newChild);
-      return _getPostionWidgetBasedOnGravity(newChild, gravity);
+      return _getPostionWidgetBasedOnGravity(newChild, gravity, marginTop);
     });
     _overlayQueue.add(_ToastEntry(
         entry: newEntry, duration: toastDuration, fadeDuration: fadeDuration));
@@ -268,14 +269,14 @@ class FToast {
   /// _getPostionWidgetBasedOnGravity generates [Positioned] [Widget]
   /// based on the gravity  [ToastGravity] provided by the user in
   /// [showToast]
-  _getPostionWidgetBasedOnGravity(Widget child, ToastGravity? gravity) {
+  _getPostionWidgetBasedOnGravity(Widget child, ToastGravity? gravity, double marginTop) {
     switch (gravity) {
       case ToastGravity.TOP:
         return Positioned(top: 100.0, left: 24.0, right: 24.0, child: child);
       case ToastGravity.TOP_LEFT:
-        return Positioned(top: 100.0, left: 24.0, child: child);
+        return Positioned(top: marginTop, left: 24.0, child: child);
       case ToastGravity.TOP_RIGHT:
-        return Positioned(top: 100.0, right: 24.0, child: child);
+        return Positioned(top: marginTop, right: 24.0, child: child);
       case ToastGravity.CENTER:
         return Positioned(
             top: 50.0, bottom: 50.0, left: 24.0, right: 24.0, child: child);
