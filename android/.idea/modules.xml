@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/FlutterToast.iml" filepath="$PROJECT_DIR$/.idea/modules/FlutterToast.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FlutterToast.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/FlutterToast.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FlutterToast.main.iml" filepath="$PROJECT_DIR$/.idea/modules/FlutterToast.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FlutterToast.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/FlutterToast.unitTest.iml" />
     </modules>
   </component>
 </project>
