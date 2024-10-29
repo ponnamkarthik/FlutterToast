@@ -1,3 +1,7 @@
+## [8.2.9]
+
+- Removes references to Flutter v1 android embedding classes.
+
 ## [8.2.8]
 
 - Merged multiple PRs thanks for your contributions
