@@ -12,11 +12,10 @@ import android.view.LayoutInflater
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import io.flutter.FlutterInjector
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
-import io.flutter.view.FlutterMain
-import java.io.File
 
 internal class MethodCallHandlerImpl(private var context: Context) : MethodCallHandler {
 
@@ -71,7 +70,7 @@ internal class MethodCallHandlerImpl(private var context: Context) : MethodCallH
 
                     if (fontAsset != null) {
                         val assetManager: AssetManager = context.assets
-                        val key = FlutterMain.getLookupKeyForAsset(fontAsset)
+                        val key = FlutterInjector.instance().flutterLoader().getLookupKeyForAsset(fontAsset)
                         text.typeface = Typeface.createFromAsset(assetManager, key);
                     }
                     mToast?.view = layout
@@ -87,7 +86,7 @@ internal class MethodCallHandlerImpl(private var context: Context) : MethodCallH
                         }
                         if (fontAsset != null) {
                             val assetManager: AssetManager = context.assets
-                            val key = FlutterMain.getLookupKeyForAsset(fontAsset)
+                            val key = FlutterInjector.instance().flutterLoader().getLookupKeyForAsset(fontAsset)
                             textView.typeface = Typeface.createFromAsset(assetManager, key);
                         }
                     }
