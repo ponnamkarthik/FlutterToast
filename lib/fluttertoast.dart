@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,7 +10,8 @@ import 'package:flutter/services.dart';
 /// [gravity] is the gravity option for the toast which can be used to determine the position.
 /// The function should return a [Widget] that defines the position of the toast.
 /// If the position is not handled by the custom logic, return `null` to fall back to default logic.
-typedef ToastPositionMapping = Widget? Function(Widget child, ToastGravity? gravity);
+typedef ToastPositionMapping = Widget? Function(
+    Widget child, ToastGravity? gravity);
 
 /// Toast Length
 /// Only for Android Platform
@@ -88,11 +90,10 @@ class Fluttertoast {
       gravityToast = "bottom";
     }
 
-//lines from 78 to 97 have been changed in order to solve issue #328
-    if (backgroundColor == null) {
+    if (backgroundColor == null && Platform.isIOS) {
       backgroundColor = Colors.black;
     }
-    if (textColor == null) {
+    if (textColor == null && Platform.isIOS) {
       textColor = Colors.white;
     }
     final Map<String, dynamic> params = <String, dynamic>{
@@ -100,10 +101,10 @@ class Fluttertoast {
       'length': toast,
       'time': timeInSecForIosWeb,
       'gravity': gravityToast,
-      'bgcolor': backgroundColor.value,
-      'iosBgcolor': backgroundColor.value,
-      'textcolor': textColor.value,
-      'iosTextcolor': textColor.value,
+      'bgcolor': backgroundColor?.value,
+      'iosBgcolor': backgroundColor?.value,
+      'textcolor': textColor?.value,
+      'iosTextcolor': textColor?.value,
       'fontSize': fontSize,
       'fontAsset': fontAsset,
       'webShowClose': webShowClose,
@@ -118,7 +119,7 @@ class Fluttertoast {
 
 /// Signature for a function to buildCustom Toast
 typedef PositionedToastBuilder = Widget Function(
-    BuildContext context, Widget child);
+    BuildContext context, Widget child, ToastGravity? gravity);
 
 /// Runs on dart side this has no interaction with the Native Side
 /// Works with all platforms just in two lines of code
@@ -240,8 +241,7 @@ class FToast {
     ToastGravity? gravity,
     Duration fadeDuration = const Duration(milliseconds: 350),
     bool ignorePointer = false,
-    bool isDismissable = false,
-    ToastPositionMapping? customPositionMapping,
+    bool isDismissible = false,
   }) {
     if (context == null)
       throw ("Error: Context is null, Please call init(context) before showing toast.");
@@ -250,7 +250,7 @@ class FToast {
         toastDuration,
         fadeDuration,
         ignorePointer,
-        !isDismissable
+        !isDismissible
             ? null
             : () {
                 removeCustomToast();
@@ -266,27 +266,19 @@ class FToast {
 
     OverlayEntry newEntry = OverlayEntry(builder: (context) {
       if (positionedToastBuilder != null)
-        return positionedToastBuilder(context, newChild);
-      // Use custom mapping logic to fall back to the default mapping if it is not defined or returns null
-      if (customPositionMapping != null) {
-        Widget? customPosition = customPositionMapping(newChild, gravity);
-        if (customPosition != null) {
-          return customPosition;
-        }
-      }
+        return positionedToastBuilder(context, newChild, gravity);
 
-      // Use the default mapping logic
-      return _getPostionWidgetBasedOnGravity(newChild, gravity);
+      return _getPositionWidgetBasedOnGravity(newChild, gravity);
     });
     _overlayQueue.add(_ToastEntry(
         entry: newEntry, duration: toastDuration, fadeDuration: fadeDuration));
     if (_timer == null) _showOverlay();
   }
 
-  /// _getPostionWidgetBasedOnGravity generates [Positioned] [Widget]
+  /// _getPositionWidgetBasedOnGravity generates [Positioned] [Widget]
   /// based on the gravity  [ToastGravity] provided by the user in
   /// [showToast]
-  _getPostionWidgetBasedOnGravity(Widget child, ToastGravity? gravity) {
+  _getPositionWidgetBasedOnGravity(Widget child, ToastGravity? gravity) {
     switch (gravity) {
       case ToastGravity.TOP:
         return Positioned(top: 100.0, left: 24.0, right: 24.0, child: child);

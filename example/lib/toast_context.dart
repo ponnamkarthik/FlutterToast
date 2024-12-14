@@ -36,38 +36,12 @@ class _ToastContextState extends State<ToastContext> {
     );
   }
 
-  _showCustomPositionMappingToast() {
-    final customPositionMapping = (child, gravity) {
-      switch (gravity) {
-        case ToastGravity.TOP:
-          return Positioned(top: 150.0, left: 24.0, right: 24.0, child: child);
-        case ToastGravity.BOTTOM:
-          return Positioned(
-              bottom: 200, left: 24.0, right: 24.0, child: child);
-        default:
-          return null;
-      }
-    };
-    fToast.showToast(
-      child: Text("This is the custom ToastGravity.BOTTOM"),
-        gravity: ToastGravity.BOTTOM,
-        toastDuration: Duration(seconds: 2),
-        customPositionMapping: customPositionMapping,
-    );
-
-    fToast.showToast(
-      child: Text("This is the default ToastGravity.BOTTOM"),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 2),
-    );
-  }
-
   _showBuilderToast() {
     fToast.showToast(
         child: toast,
         gravity: ToastGravity.BOTTOM,
         toastDuration: Duration(seconds: 2),
-        positionedToastBuilder: (context, child) {
+        positionedToastBuilder: (context, child, gravity) {
           return Positioned(
             child: child,
             top: 16.0,
@@ -182,15 +156,6 @@ class _ToastContextState extends State<ToastContext> {
               child: Text("Show Custom Toast via PositionedToastBuilder"),
               onPressed: () {
                 _showBuilderToast();
-              },
-            ),
-            SizedBox(
-              height: 24.0,
-            ),
-            ElevatedButton(
-              child: Text("Show Custom Toast via CustomPositionMapping"),
-              onPressed: () {
-                _showCustomPositionMappingToast();
               },
             ),
             SizedBox(

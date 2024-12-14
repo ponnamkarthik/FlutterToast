@@ -1,5 +1,4 @@
-
-# [fluttertoast](https://pub.dev/packages/fluttertoast)  
+# [fluttertoast](https://pub.dev/packages/fluttertoast)
 
 Toast Library for Flutter
 
@@ -17,11 +16,10 @@ Now this toast library supports two kinds of toast messages one which requires `
 
 This one has limited features and no control over UI
 
-
 ## Toast Which requires BuildContext
 
-> Supported Platforms  
->  
+> Supported Platforms
+>
 > - ALL
 
 1. Full Control of the Toast
@@ -29,12 +27,11 @@ This one has limited features and no control over UI
 3. Remove a toast
 4. Clear the queue
 
-
 ## How to Use
 
 ```yaml
 # add this line to your dependencies
-fluttertoast: ^8.2.8
+fluttertoast: ^8.2.10
 ```
 
 ```dart
@@ -55,19 +52,19 @@ Fluttertoast.showToast(
     );
 ```
 
-| property        | description                                                        | default    |
-| --------------- | ------------------------------------------------------------------ |------------|
-| msg             | String (Not Null)(required)                                        |required    |
-| toastLength     | Toast.LENGTH_SHORT or Toast.LENGTH_LONG (optional)                 |Toast.LENGTH_SHORT  |
-| gravity         | ToastGravity.TOP (or) ToastGravity.CENTER (or) ToastGravity.BOTTOM (Web Only supports top, bottom) | ToastGravity.BOTTOM    |
-| timeInSecForIosWeb | int (for ios & web)                                                 | 1  (sec)     |
-| backgroundColor         | Colors.red                                                         |null   |
-| textcolor       | Colors.white                                                       |null    |
-| fontSize        | 16.0 (float)                                                       | null      |
-| fontAsset       | Path to a font file in the Flutter app assets folder, e.g. 'assets/path/to/some-font.ttf' (String) | null      |
-| webShowClose    | false (bool)                                                       | false      |
-| webBgColor      | String (hex Color)                                                 | linear-gradient(to right, #00b09b, #96c93d) |
-| webPosition     | String (`left`, `center` or `right`)                                | right     |
+| property           | description                                                                                        | default                                     |
+| ------------------ | -------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| msg                | String (Not Null)(required)                                                                        | required                                    |
+| toastLength        | Toast.LENGTH_SHORT or Toast.LENGTH_LONG (optional)                                                 | Toast.LENGTH_SHORT                          |
+| gravity            | ToastGravity.TOP (or) ToastGravity.CENTER (or) ToastGravity.BOTTOM (Web Only supports top, bottom) | ToastGravity.BOTTOM                         |
+| timeInSecForIosWeb | int (for ios & web)                                                                                | 1 (sec)                                     |
+| backgroundColor    | Colors.red                                                                                         | null                                        |
+| textcolor          | Colors.white                                                                                       | null                                        |
+| fontSize           | 16.0 (float)                                                                                       | null                                        |
+| fontAsset          | Path to a font file in the Flutter app assets folder, e.g. 'assets/path/to/some-font.ttf' (String) | null                                        |
+| webShowClose       | false (bool)                                                                                       | false                                       |
+| webBgColor         | String (hex Color)                                                                                 | linear-gradient(to right, #00b09b, #96c93d) |
+| webPosition        | String (`left`, `center` or `right`)                                                               | right                                       |
 
 ### To cancel all the toasts call
 
@@ -79,9 +76,7 @@ Fluttertoast.cancel()
 
 <img src="https://raw.githubusercontent.com/ponnamkarthik/FlutterToast/master/screenshot/toast_deprecated_setview.png" height="200px" />
 
-
-> Custom Toast will not work on android 11 and above, it will only use *msg* and *toastLength* remaining all properties are ignored
-
+> Custom Toast will not work on android 11 and above, it will only use _msg_ and _toastLength_ remaining all properties are ignored
 
 ### Custom Toast For Android
 
@@ -125,7 +120,7 @@ MaterialApp(
 ),
 ```
 
-```dart 
+```dart
 FToast fToast;
 
 @override
@@ -161,7 +156,7 @@ _showToast() {
         gravity: ToastGravity.BOTTOM,
         toastDuration: Duration(seconds: 2),
     );
-    
+
     // Custom Toast Position
     fToast.showToast(
         child: toast,
@@ -175,17 +170,21 @@ _showToast() {
         });
 }
 
-```  
+```
 
 Now Call `_showToast()`
 
 For more details check `example` project
 
-| property        | description                                                        | default    |
-| --------------- | ------------------------------------------------------------------ |------------|
-| child             | Widget (Not Null)(required)                                        |required    |
-| toastDuration     | Duration (optional)                                                 |  |
-| gravity         | ToastGravity.*    |  |
+| property               | description                 | default                     |
+| ---------------------- | --------------------------- | --------------------------- |
+| child                  | Widget (Not Null)(required) | required                    |
+| toastDuration          | Duration (optional)         |                             |
+| gravity                | ToastGravity.\*             |                             |
+| positionedToastBuilder | PositionedToastBuilder      |                             |
+| fadeDuration           | Duration                    | Duration(milliseconds: 350) |
+| ignorePointer          | boolean                     | false                       |
+| isDismissible          | boolean                     | false                       |
 
 ### Use NavigatorKey for Context(to access context globally)
 
@@ -202,15 +201,15 @@ FToast fToast = FToast();
 fToast.init(yourNavKey.currentContext!);
 ```
 
-### To cancel all the toasts call  
-  
-```dart  
+### To cancel all the toasts call
+
+```dart
 // To remove present shwoing toast
 fToast.removeCustomToast()
 
 // To clear the queue
 fToast.removeQueuedCustomToasts();
-```  
+```
 
 ## Preview Images (No BuildContext)
 
@@ -220,14 +219,12 @@ fToast.removeQueuedCustomToasts();
 <img src="https://raw.githubusercontent.com/ponnamkarthik/FlutterToast/master/screenshot/4.png" width="320px" />
 
 ## Preview Images (BuildContext)
-  
-<img src="https://raw.githubusercontent.com/ponnamkarthik/FlutterToast/master/screenshot/11.jpg" width="320px" />
 
+<img src="https://raw.githubusercontent.com/ponnamkarthik/FlutterToast/master/screenshot/11.jpg" width="320px" />
 
 ## If you need any features suggest
 
 ...
-
 
 ## Buy Me a Coffee
 
