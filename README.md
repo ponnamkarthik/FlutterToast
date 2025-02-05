@@ -31,7 +31,7 @@ This one has limited features and no control over UI
 
 ```yaml
 # add this line to your dependencies
-fluttertoast: ^8.2.10
+fluttertoast: ^8.2.11
 ```
 
 ```dart

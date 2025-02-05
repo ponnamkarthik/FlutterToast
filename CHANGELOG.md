@@ -1,3 +1,7 @@
+## [8.2.11]
+
+- iOS Privacy manifest fix
+
 ## [8.2.10]
 
 - Support for latest flutter version (3.27.0)
