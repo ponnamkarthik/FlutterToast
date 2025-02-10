@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -90,10 +91,10 @@ class Fluttertoast {
       gravityToast = "bottom";
     }
 
-    if (backgroundColor == null && Platform.isIOS) {
+    if (backgroundColor == null && !kIsWeb && Platform.isIOS) {
       backgroundColor = Colors.black;
     }
-    if (textColor == null && Platform.isIOS) {
+    if (textColor == null && !kIsWeb && Platform.isIOS) {
       textColor = Colors.white;
     }
     final Map<String, dynamic> params = <String, dynamic>{
