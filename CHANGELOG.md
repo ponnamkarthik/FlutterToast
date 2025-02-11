@@ -1,3 +1,7 @@
+## [8.2.12]
+
+- Merged PR #549 - Fix web support by adding !kIsWeb check to Platform check
+
 ## [8.2.11]
 
 - iOS Privacy manifest fix
