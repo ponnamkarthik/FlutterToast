@@ -1,4 +1,4 @@
-group 'com.example.FlutterToast'
+group 'io.github.ponnamkarthik.toast.fluttertoast'
 version '1.0-SNAPSHOT'
 
 buildscript {
@@ -26,6 +26,9 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.cloudwebrtc.webrtc'
+    }
     compileSdkVersion 33
 
     compileOptions {
@@ -44,9 +47,6 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 33
-        if (project.android.hasProperty('namespace')) {
-            namespace 'io.github.ponnamkarthik.toast.fluttertoast'
-        }
     }
 
     lintOptions {
