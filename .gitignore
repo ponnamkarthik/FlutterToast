@@ -1,8 +1,34 @@
-.DS_Store
+# Flutter/Dart/Pub related
 .dart_tool/
-.idea
 .packages
+.pub-cache/
 .pub/
-
 build/
+
+# Android
+**/android/**/gradle-wrapper.jar
+**/android/.gradle/
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/.idea/
+
+# iOS
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral/
+**/ios/.generated/
+
+# VS Code
+.vscode/
+
+# IntelliJ / Android Studio
+*.iml
 .idea/
+
+# Misc
+*.log
