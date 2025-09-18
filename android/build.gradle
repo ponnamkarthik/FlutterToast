@@ -1,4 +1,4 @@
-group 'com.example.FlutterToast'
+group 'io.github.ponnamkarthik.toast.fluttertoast'
 version '1.0-SNAPSHOT'
 
 buildscript {
