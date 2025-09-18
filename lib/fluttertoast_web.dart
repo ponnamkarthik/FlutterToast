@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:js_interop';
-import 'package:web/web.dart' as web;
 import 'dart:ui_web' as ui;
+
 import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:web/web.dart' as web;
 
 /// Plugin Class to show a toast message on screen for web
 class FluttertoastWebPlugin {
@@ -86,7 +87,7 @@ class FluttertoastWebPlugin {
     );
     final web.HTMLScriptElement script = web.HTMLScriptElement()
       ..async = true
-      // ..defer = true
+    // ..defer = true
       ..src = jsUrl;
     loading.add(script.onLoad.first);
     tags.add(script);
@@ -101,12 +102,12 @@ class FluttertoastWebPlugin {
   /// make toast visible on web
   addHtmlToast(
       {String msg = "",
-      String? gravity = "top",
-      String position = "right",
-      String bgcolor = "linear-gradient(to right, #00b09b, #96c93d)",
-      int time = 3000,
-      bool showClose = false,
-      int? textColor}) {
+        String? gravity = "top",
+        String position = "right",
+        String bgcolor = "linear-gradient(to right, #00b09b, #96c93d)",
+        int time = 3000,
+        bool showClose = false,
+        int? textColor}) {
     String m = msg.replaceAll("'", "\\'").replaceAll("\n", "<br />");
     web.Element? ele = web.document.querySelector("#toast-content");
     String content = """
