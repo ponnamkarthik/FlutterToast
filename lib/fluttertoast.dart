@@ -47,10 +47,14 @@ class Fluttertoast {
   static const MethodChannel _channel =
       const MethodChannel('PonnamKarthik/fluttertoast');
 
+  /// Boolean to track if a toast is currently being shown
+  static bool isCurrentlyShowingToast = false;
+
   /// Let say you have an active show
   /// Use this method to hide the toast immediately
   static Future<bool?> cancel() async {
     bool? res = await _channel.invokeMethod("cancel");
+    isCurrentlyShowingToast = false;  // Update variable
     return res;
   }
 
@@ -113,7 +117,15 @@ class Fluttertoast {
       'webPosition': webPosition
     };
 
+    isCurrentlyShowingToast = true;  // Update variable
+
     bool? res = await _channel.invokeMethod('showToast', params);
+
+    // Assuming the platform will invoke 'cancel' method after showing toast
+    Future.delayed(Duration(seconds: timeInSecForIosWeb), () {
+      isCurrentlyShowingToast = false;
+    });
+
     return res;
   }
 }
@@ -156,6 +168,7 @@ class FToast {
   _showOverlay() {
     if (_overlayQueue.isEmpty) {
       _entry = null;
+      Fluttertoast.isCurrentlyShowingToast = false;  // Update variable
       return;
     }
     if (context == null) {
@@ -199,6 +212,8 @@ class FToast {
         removeCustomToast();
       });
     });
+
+    Fluttertoast.isCurrentlyShowingToast = true;  // Update variable
   }
 
   /// If any active toast present
@@ -226,6 +241,7 @@ class FToast {
     _overlayQueue.clear();
     _entry?.remove();
     _entry = null;
+    Fluttertoast.isCurrentlyShowingToast = false;  // Update variable
   }
 
   /// showToast accepts all the required paramenters and prepares the child
