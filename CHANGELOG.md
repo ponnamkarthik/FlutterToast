@@ -1,3 +1,8 @@
+## [8.2.13]
+
+- Merged PR #565 - Support added for AGP 8.13.0 Thanks @suhail-121
+- Merged PRs #564 #558 #513
+
 ## [8.2.12]
 
 - Merged PR #549 - Fix web support by adding !kIsWeb check to Platform check
