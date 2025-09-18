@@ -164,19 +164,18 @@ class FToast {
       throw ("Error: Context is null, Please call init(context) before showing toast.");
     }
 
-    /// To prevent exception "Looking up a deactivated widget's ancestor is unsafe."
-    /// which can be thrown if context was unmounted (e.g. screen with given context was popped)
-    /// TODO: revert this change when envoirment will be Flutter >= 3.7.0
-    // if (context?.mounted != true) {
-    //   if (kDebugMode) {
-    //     print(
-    //         'FToast: Context was unmuted, can not show ${_overlayQueue.length} toast.');
-    //   }
+    // To prevent exception "Looking up a deactivated widget's ancestor is unsafe."
+    // which can be thrown if context was unmounted (e.g. screen with given context was popped)
+    if (context?.mounted != true) {
+      if (kDebugMode) {
+        print(
+            'FToast: Context was unmuted, can not show ${_overlayQueue.length} toast.');
+      }
 
-    //   /// Need to clear queue
-    //   removeQueuedCustomToasts();
-    //   return; // Or maybe thrown error too
-    // }
+      // We should also clear the queue
+      removeQueuedCustomToasts();
+      return;
+    }
     OverlayState? _overlay;
     try {
       _overlay = Overlay.of(context!);
