@@ -2,14 +2,14 @@ group 'io.github.ponnamkarthik.toast.fluttertoast'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.7.0'
+    ext.kotlin_version = '2.1.20'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.3'
+        classpath 'com.android.tools.build:gradle:8.13.0'
         //noinspection GradleDependency
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
@@ -26,18 +26,15 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    if (project.android.hasProperty("namespace")) {
-        namespace 'com.cloudwebrtc.webrtc'
-    }
-    compileSdkVersion 33
+    compileSdkVersion 36
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = "17"
     }
 
     sourceSets {
@@ -46,7 +43,10 @@ android {
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 33
+        targetSdkVersion 36
+        if (project.android.hasProperty('namespace')) {
+            namespace 'io.github.ponnamkarthik.toast.fluttertoast'
+        }
     }
 
     lintOptions {
