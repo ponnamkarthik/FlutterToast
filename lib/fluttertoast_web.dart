@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:js_interop';
-import 'package:html/parser.dart';
-import 'package:web/web.dart' as web;
 import 'dart:ui_web' as ui;
+
 import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:web/web.dart' as web;
 
 /// Plugin Class to show a toast message on screen for web
 class FluttertoastWebPlugin {
