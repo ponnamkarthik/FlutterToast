@@ -76,7 +76,6 @@ internal class MethodCallHandlerImpl(private var context: Context) : MethodCallH
                     }
                     mToast?.view = layout
                 } else {
-                    Log.d("KARTHIK", "showToast: $bgcolor $textcolor $fontSize $fontAsset")
                     mToast = Toast.makeText(context, mMessage, mDuration)
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
                         val textView: TextView = mToast?.view!!.findViewById(android.R.id.message)
@@ -94,19 +93,23 @@ internal class MethodCallHandlerImpl(private var context: Context) : MethodCallH
                     }
                 }
 
-                try {
-                    when (mGravity) {
-                        Gravity.CENTER -> {
-                            mToast?.setGravity(mGravity, 0, 0,)
+                // Only set gravity on custom toasts (with background color)
+                // setGravity() on text toasts causes warnings in Android API 30+
+                if (bgcolor != null) {
+                    try {
+                        when (mGravity) {
+                            Gravity.CENTER -> {
+                                mToast?.setGravity(mGravity, 0, 0,)
+                            }
+                            Gravity.TOP -> {
+                                mToast?.setGravity(mGravity, 0, 100,)
+                            }
+                            else -> {
+                                mToast?.setGravity(mGravity, 0, 100,)
+                            }
                         }
-                        Gravity.TOP -> {
-                            mToast?.setGravity(mGravity, 0, 100,)
-                        }
-                        else -> {
-                            mToast?.setGravity(mGravity, 0, 100,)
-                        }
-                    }
-                } catch (e: Exception,) { }
+                    } catch (e: Exception,) { }
+                }
 
                 if (context is Activity) {
                     (context as Activity).runOnUiThread { mToast?.show() }
