@@ -15,7 +15,6 @@ Toast Library for FLutter
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'Toast'
   s.pod_target_xcconfig = {'DEFINES_MODULE' => 'YES'}
   s.resource_bundles = {'fluttertoast_privacy' => ['Resources/PrivacyInfo.xcprivacy']}
 end

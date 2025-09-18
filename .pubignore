@@ -1,0 +1,13 @@
+# Exclude IDE and system files from package
+.idea/
+.vscode/
+*.iml
+
+# Exclude test artifacts (if not meant for users)
+test_driver/
+integration_test/
+coverage/
+
+# Exclude build outputs
+build/
+.dart_tool/

@@ -2,18 +2,21 @@ package io.github.ponnamkarthik.toast.fluttertoast
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.AssetManager
 import android.graphics.PorterDuff
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.TextView
 import android.widget.Toast
+import android.util.Log
 import androidx.core.content.ContextCompat
+import io.flutter.FlutterInjector
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
-import kotlin.Exception
 
 internal class MethodCallHandlerImpl(private var context: Context) : MethodCallHandler {
 
@@ -22,12 +25,13 @@ internal class MethodCallHandlerImpl(private var context: Context) : MethodCallH
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result,) {
         when (call.method) {
             "showToast" -> {
-                val mMessage = call.argument<Any>("msg",).toString()
-                val length = call.argument<Any>("length",).toString()
-                val gravity = call.argument<Any>("gravity",).toString()
-                val bgcolor = call.argument<Number>("bgcolor",)
-                val textcolor = call.argument<Number>("textcolor",)
-                val textSize = call.argument<Number>("fontSize",)
+                val mMessage = call.argument<Any>("msg").toString()
+                val length = call.argument<Any>("length").toString()
+                val gravity = call.argument<Any>("gravity").toString()
+                val bgcolor = call.argument<Number>("bgcolor")
+                val textcolor = call.argument<Number>("textcolor")
+                val fontSize = call.argument<Number>("fontSize")
+                val fontAsset = call.argument<String>("fontAsset")
 
                 val mGravity: Int = when (gravity) {
                     "top" -> Gravity.TOP
@@ -55,8 +59,8 @@ internal class MethodCallHandlerImpl(private var context: Context) : MethodCallH
                     gradientDrawable!!.setColorFilter(bgcolor.toInt(), PorterDuff.Mode.SRC_IN)
                     text.background = gradientDrawable
 
-                    if (textSize != null) {
-                        text.textSize = textSize.toFloat()
+                    if (fontSize != null) {
+                        text.textSize = fontSize.toFloat()
                     }
                     if (textcolor != null) {
                         text.setTextColor(textcolor.toInt())
@@ -64,34 +68,49 @@ internal class MethodCallHandlerImpl(private var context: Context) : MethodCallH
 
                     mToast = Toast(context,)
                     mToast?.duration = mDuration
+
+                    if (fontAsset != null) {
+                        val assetManager: AssetManager = context.assets
+                        val key = FlutterInjector.instance().flutterLoader().getLookupKeyForAsset(fontAsset)
+                        text.typeface = Typeface.createFromAsset(assetManager, key);
+                    }
                     mToast?.view = layout
                 } else {
-                    try {
-                        mToast = Toast.makeText(context, mMessage, mDuration,)
-                        val textView: TextView = mToast?.view!!.findViewById(android.R.id.message,)
-                        if (textSize != null) {
-                            textView.textSize = textSize.toFloat()
+                    mToast = Toast.makeText(context, mMessage, mDuration)
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                        val textView: TextView = mToast?.view!!.findViewById(android.R.id.message)
+                        if (fontSize != null) {
+                            textView.textSize = fontSize.toFloat()
                         }
                         if (textcolor != null) {
                             textView.setTextColor(textcolor.toInt())
                         }
+                        if (fontAsset != null) {
+                            val assetManager: AssetManager = context.assets
+                            val key = FlutterInjector.instance().flutterLoader().getLookupKeyForAsset(fontAsset)
+                            textView.typeface = Typeface.createFromAsset(assetManager, key);
+                        }
+                    }
+                }
+
+                // Only set gravity on custom toasts (with background color)
+                // setGravity() on text toasts causes warnings in Android API 30+
+                if (bgcolor != null) {
+                    try {
+                        when (mGravity) {
+                            Gravity.CENTER -> {
+                                mToast?.setGravity(mGravity, 0, 0,)
+                            }
+                            Gravity.TOP -> {
+                                mToast?.setGravity(mGravity, 0, 100,)
+                            }
+                            else -> {
+                                mToast?.setGravity(mGravity, 0, 100,)
+                            }
+                        }
                     } catch (e: Exception,) { }
                 }
 
-                try {
-                    when (mGravity) {
-                        Gravity.CENTER -> {
-                            mToast?.setGravity(mGravity, 0, 0,)
-                        }
-                        Gravity.TOP -> {
-                            mToast?.setGravity(mGravity, 0, 100,)
-                        }
-                        else -> {
-                            mToast?.setGravity(mGravity, 0, 100,)
-                        }
-                    }
-                } catch (e: Exception,) { }
-                
                 if (context is Activity) {
                     (context as Activity).runOnUiThread { mToast?.show() }
                 } else {

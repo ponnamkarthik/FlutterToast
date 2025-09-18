@@ -1,6 +1,18 @@
 import 'dart:async';
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+/// Signature for a function that defines custom position mapping for a toast
+///
+/// [child] is the toast widget to be positioned.
+/// [gravity] is the gravity option for the toast which can be used to determine the position.
+/// The function should return a [Widget] that defines the position of the toast.
+/// If the position is not handled by the custom logic, return `null` to fall back to default logic.
+typedef ToastPositionMapping = Widget? Function(
+    Widget child, ToastGravity? gravity);
 
 /// Toast Length
 /// Only for Android Platform
@@ -35,25 +47,33 @@ class Fluttertoast {
   static const MethodChannel _channel =
       const MethodChannel('PonnamKarthik/fluttertoast');
 
+  /// Boolean to track if a toast is currently being shown
+  static bool isCurrentlyShowingToast = false;
+
   /// Let say you have an active show
   /// Use this method to hide the toast immediately
   static Future<bool?> cancel() async {
     bool? res = await _channel.invokeMethod("cancel");
+    isCurrentlyShowingToast = false;  // Update variable
     return res;
   }
 
-  /// Summons the platform's showToast which will display the message
+  /// Show the [msg] via native platform's toast.
   ///
-  /// Wraps the platform's native Toast for android.
-  /// Wraps the Plugin https://github.com/scalessec/Toast for iOS
-  /// Wraps the https://github.com/apvarun/toastify-js for Web
+  /// On Android uses Toast.
+  /// On iOS uses https://github.com/scalessec/Toast plugin.
+  /// On web uses https://github.com/apvarun/toastify-js library.
   ///
-  /// Parameter [msg] is required and all remaining are optional
+  /// Parameter [msg] is required and all remaining are optional.
+  ///
+  /// The [fontAsset] is the path to your Flutter asset to use in toast.
+  /// If not specified platform's default font will be used.
   static Future<bool?> showToast({
     required String msg,
     Toast? toastLength,
     int timeInSecForIosWeb = 1,
     double? fontSize,
+    String? fontAsset,
     ToastGravity? gravity,
     Color? backgroundColor,
     Color? textColor,
@@ -75,11 +95,10 @@ class Fluttertoast {
       gravityToast = "bottom";
     }
 
-//lines from 78 to 97 have been changed in order to solve issue #328
-    if (backgroundColor == null) {
+    if (backgroundColor == null && !kIsWeb && Platform.isIOS) {
       backgroundColor = Colors.black;
     }
-    if (textColor == null) {
+    if (textColor == null && !kIsWeb && Platform.isIOS) {
       textColor = Colors.white;
     }
     final Map<String, dynamic> params = <String, dynamic>{
@@ -87,24 +106,33 @@ class Fluttertoast {
       'length': toast,
       'time': timeInSecForIosWeb,
       'gravity': gravityToast,
-      'bgcolor': backgroundColor.value,
-      'iosBgcolor': backgroundColor.value,
-      'textcolor': textColor.value,
-      'iosTextcolor': textColor.value,
+      'bgcolor': backgroundColor?.value,
+      'iosBgcolor': backgroundColor?.value,
+      'textcolor': textColor?.value,
+      'iosTextcolor': textColor?.value,
       'fontSize': fontSize,
+      'fontAsset': fontAsset,
       'webShowClose': webShowClose,
       'webBgColor': webBgColor,
       'webPosition': webPosition
     };
 
+    isCurrentlyShowingToast = true;  // Update variable
+
     bool? res = await _channel.invokeMethod('showToast', params);
+
+    // Assuming the platform will invoke 'cancel' method after showing toast
+    Future.delayed(Duration(seconds: timeInSecForIosWeb), () {
+      isCurrentlyShowingToast = false;
+    });
+
     return res;
   }
 }
 
 /// Signature for a function to buildCustom Toast
 typedef PositionedToastBuilder = Widget Function(
-    BuildContext context, Widget child);
+    BuildContext context, Widget child, ToastGravity? gravity);
 
 /// Runs on dart side this has no interaction with the Native Side
 /// Works with all platforms just in two lines of code
@@ -140,6 +168,7 @@ class FToast {
   _showOverlay() {
     if (_overlayQueue.isEmpty) {
       _entry = null;
+      Fluttertoast.isCurrentlyShowingToast = false;  // Update variable
       return;
     }
     if (context == null) {
@@ -148,19 +177,18 @@ class FToast {
       throw ("Error: Context is null, Please call init(context) before showing toast.");
     }
 
-    /// To prevent exception "Looking up a deactivated widget's ancestor is unsafe."
-    /// which can be thrown if context was unmounted (e.g. screen with given context was popped)
-    /// TODO: revert this change when envoirment will be Flutter >= 3.7.0
-    // if (context?.mounted != true) {
-    //   if (kDebugMode) {
-    //     print(
-    //         'FToast: Context was unmuted, can not show ${_overlayQueue.length} toast.');
-    //   }
+    // To prevent exception "Looking up a deactivated widget's ancestor is unsafe."
+    // which can be thrown if context was unmounted (e.g. screen with given context was popped)
+    if (context?.mounted != true) {
+      if (kDebugMode) {
+        print(
+            'FToast: Context was unmuted, can not show ${_overlayQueue.length} toast.');
+      }
 
-    //   /// Need to clear queue
-    //   removeQueuedCustomToasts();
-    //   return; // Or maybe thrown error too
-    // }
+      // We should also clear the queue
+      removeQueuedCustomToasts();
+      return;
+    }
     OverlayState? _overlay;
     try {
       _overlay = Overlay.of(context!);
@@ -184,6 +212,8 @@ class FToast {
         removeCustomToast();
       });
     });
+
+    Fluttertoast.isCurrentlyShowingToast = true;  // Update variable
   }
 
   /// If any active toast present
@@ -211,6 +241,7 @@ class FToast {
     _overlayQueue.clear();
     _entry?.remove();
     _entry = null;
+    Fluttertoast.isCurrentlyShowingToast = false;  // Update variable
   }
 
   /// showToast accepts all the required paramenters and prepares the child
@@ -226,7 +257,7 @@ class FToast {
     ToastGravity? gravity,
     Duration fadeDuration = const Duration(milliseconds: 350),
     bool ignorePointer = false,
-    bool isDismissable = false,
+    bool isDismissible = false,
   }) {
     if (context == null)
       throw ("Error: Context is null, Please call init(context) before showing toast.");
@@ -235,7 +266,7 @@ class FToast {
         toastDuration,
         fadeDuration,
         ignorePointer,
-        !isDismissable
+        !isDismissible
             ? null
             : () {
                 removeCustomToast();
@@ -251,18 +282,19 @@ class FToast {
 
     OverlayEntry newEntry = OverlayEntry(builder: (context) {
       if (positionedToastBuilder != null)
-        return positionedToastBuilder(context, newChild);
-      return _getPostionWidgetBasedOnGravity(newChild, gravity);
+        return positionedToastBuilder(context, newChild, gravity);
+
+      return _getPositionWidgetBasedOnGravity(newChild, gravity);
     });
     _overlayQueue.add(_ToastEntry(
         entry: newEntry, duration: toastDuration, fadeDuration: fadeDuration));
     if (_timer == null) _showOverlay();
   }
 
-  /// _getPostionWidgetBasedOnGravity generates [Positioned] [Widget]
+  /// _getPositionWidgetBasedOnGravity generates [Positioned] [Widget]
   /// based on the gravity  [ToastGravity] provided by the user in
   /// [showToast]
-  _getPostionWidgetBasedOnGravity(Widget child, ToastGravity? gravity) {
+  _getPositionWidgetBasedOnGravity(Widget child, ToastGravity? gravity) {
     switch (gravity) {
       case ToastGravity.TOP:
         return Positioned(top: 100.0, left: 24.0, right: 24.0, child: child);
@@ -309,8 +341,6 @@ TransitionBuilder FToastBuilder() {
 
 /// Simple StatelessWidget which holds the child
 /// and creates an [Overlay] to display the toast
-/// which returns the Directionality widget with [TextDirection.ltr]
-/// and [Overlay] widget
 class _FToastHolder extends StatelessWidget {
   const _FToastHolder({Key? key, required this.child}) : super(key: key);
 
@@ -318,7 +348,7 @@ class _FToastHolder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Overlay overlay = Overlay(
+    return Overlay(
       initialEntries: <OverlayEntry>[
         OverlayEntry(
           builder: (BuildContext ctx) {
@@ -326,11 +356,6 @@ class _FToastHolder extends StatelessWidget {
           },
         ),
       ],
-    );
-
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: overlay,
     );
   }
 }
