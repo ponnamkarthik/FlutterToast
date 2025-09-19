@@ -32,3 +32,4 @@ build/
 
 # Misc
 *.log
+pubspec.lock
