@@ -1,7 +1,19 @@
-## [8.2.13]
+## [9.0.0]
+🚀 Breaking Release
+- Re-introduced the AGP 8.13.0 support from `8.2.13` as an intentional breaking change.
+- Includes changes from PRs #565, #564, #558, and #513.
+- Please review the migration guide before upgrading.
 
-- Merged PR #565 - Support added for AGP 8.13.0 Thanks @suhail-121
-- Merged PRs #564 #558 #513
+## [8.2.14]
+🔧 Stable Patch Release
+- Reverted `8.2.13` changes to restore the behavior from `8.2.12`.
+- Safe to use for all users on `^8.2.x`.
+
+## [8.2.13]
+⚠️ **Unintended Breaking Release**
+- Introduced AGP 8.13.0 support (PR #565) and merged PRs #564, #558, #513.
+- This version was incorrectly published as a patch bump but included breaking changes.
+- **Do not use this version** — please upgrade to `8.2.14` (stable) or `9.0.0` (breaking).
 
 ## [8.2.12]
 
