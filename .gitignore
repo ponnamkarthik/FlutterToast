@@ -4,6 +4,7 @@
 .pub-cache/
 .pub/
 build/
+.idea/
 
 # Android
 **/android/**/gradle-wrapper.jar

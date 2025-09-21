@@ -11,3 +11,6 @@ coverage/
 # Exclude build outputs
 build/
 .dart_tool/
+# .pubignore
+.idea/
+android/.idea/
