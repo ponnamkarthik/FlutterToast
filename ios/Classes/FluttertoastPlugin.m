@@ -1,5 +1,9 @@
 #import "FluttertoastPlugin.h"
+#if __has_include(<Toast/UIView+Toast.h>)
+#import <Toast/UIView+Toast.h>
+#else
 #import "UIView+Toast.h"
+#endif
 
 static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
 
@@ -125,18 +129,55 @@ static NSString *const CHANNEL_NAME = @"PonnamKarthik/fluttertoast";
 }
 
 #pragma mark - read the key window
-
+//- (UIWindow *)_readKeyWindow {
+//    NSArray *windows = UIApplication.sharedApplication.windows;
+//    if (self.isKeyboardVisible) {
+//        return windows.lastObject;
+//    }
+//    for (UIWindow *window in windows) {
+//        if (window.isKeyWindow) {
+//            return window;
+//        }
+//    }
+//    return nil;
+//}
 - (UIWindow *)_readKeyWindow {
     NSArray *windows = UIApplication.sharedApplication.windows;
-    if (self.isKeyboardVisible) {
-        return windows.lastObject;
-    }
+    
+    // 优先查找 keyWindow
     for (UIWindow *window in windows) {
-        if (window.isKeyWindow) {
+        if (window.isKeyWindow && ![self _isKeyboardWindow:window]) {
             return window;
         }
     }
-    return nil;
+    
+    // 如果没有 keyWindow，查找第一个非键盘 window
+    for (UIWindow *window in windows) {
+        if (![self _isKeyboardWindow:window]) {
+            return window;
+        }
+    }
+    
+    return windows.firstObject;
+}
+
+- (BOOL)_isKeyboardWindow:(UIWindow *)window {
+    if (window == nil) return NO;
+    
+    NSString *className = NSStringFromClass([window class]);
+    // 检查是否是键盘相关的 window
+    if ([className containsString:@"Keyboard"] ||
+        [className containsString:@"UIRemoteKeyboardWindow"] ||
+        [className containsString:@"UITextEffectsWindow"]) {
+        return YES;
+    }
+    
+    // 键盘 window 通常层级高且没有 rootViewController
+    if (window.windowLevel > UIWindowLevelNormal && window.rootViewController == nil) {
+        return YES;
+    }
+    
+    return NO;
 }
 
 @end
