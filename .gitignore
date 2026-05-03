@@ -33,3 +33,7 @@ build/
 
 # Misc
 *.log
+
+# SPM
+.build/
+.swiftpm/
