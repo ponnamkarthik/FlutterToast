@@ -12,9 +12,9 @@ Toast Library for FLutter
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Karthik Ponnam' => 'ponnamkarthik3@gmail.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
-  s.public_header_files = 'Classes/**/*.h'
+  s.source_files = 'fluttertoast/Sources/fluttertoast/**/*.{h,m}'
+  s.public_header_files = 'fluttertoast/Sources/fluttertoast/include/**/*.h'
   s.dependency 'Flutter'
   s.pod_target_xcconfig = {'DEFINES_MODULE' => 'YES'}
-  s.resource_bundles = {'fluttertoast_privacy' => ['Resources/PrivacyInfo.xcprivacy']}
+  s.resource_bundles = {'fluttertoast_privacy' => ['fluttertoast/Sources/fluttertoast/PrivacyInfo.xcprivacy']}
 end
