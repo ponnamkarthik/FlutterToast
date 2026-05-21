@@ -1,3 +1,6 @@
+## [9.1.0]
+- Migrated ios to SPM
+
 ## [9.0.0]
 🚀 Breaking Release
 - Re-introduced the AGP 8.13.0 support from `8.2.13` as an intentional breaking change.
