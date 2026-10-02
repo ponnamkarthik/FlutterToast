@@ -1,3 +1,6 @@
+## [10.0.2]
+- Removed `targetSdk` from the Android library so consuming apps control their own target SDK (#587).
+
 ## [10.0.1]
 - Migrated Android Gradle build scripts to Kotlin DSL.
 - Avoided the deprecated activity indicator style on iOS 13 and later (#582).
