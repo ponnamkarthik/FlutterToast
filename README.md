@@ -72,6 +72,14 @@ Fluttertoast.showToast(
 Fluttertoast.cancel()
 ```
 
+### Note Android Proguard
+
+If you are using proguard in your app, you must add the following rules to your `proguard-rules.pro` file. Otherwise, toasts will not be visible in a release build.
+
+```
+-keep class io.github.ponnamkarthik.toast.** { *; }
+```
+
 ### Note Android
 
 <img src="https://raw.githubusercontent.com/ponnamkarthik/FlutterToast/master/screenshot/toast_deprecated_setview.png" height="200px" />

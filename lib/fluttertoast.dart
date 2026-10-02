@@ -54,8 +54,13 @@ class Fluttertoast {
   /// Let say you have an active show
   /// Use this method to hide the toast immediately
   static Future<bool?> cancel() async {
-    bool? res = await _channel.invokeMethod("cancel");
-    isCurrentlyShowingToast = false; // Update variable
+    bool? res;
+    try {
+      res = await _channel.invokeMethod("cancel");
+    } on MissingPluginException {
+      // Ignore MissingPluginException for unsupported platforms like Windows
+    }
+    isCurrentlyShowingToast = false;  // Update variable
     return res;
   }
 
@@ -120,7 +125,12 @@ class Fluttertoast {
 
     isCurrentlyShowingToast = true; // Update variable
 
-    bool? res = await _channel.invokeMethod('showToast', params);
+    bool? res;
+    try {
+      res = await _channel.invokeMethod('showToast', params);
+    } on MissingPluginException {
+      // Ignore MissingPluginException for unsupported platforms like Windows
+    }
 
     // Assuming the platform will invoke 'cancel' method after showing toast
     Future.delayed(Duration(seconds: timeInSecForIosWeb), () {
