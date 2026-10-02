@@ -1,3 +1,8 @@
+## [10.0.1]
+- Migrated Android Gradle build scripts to Kotlin DSL.
+- Avoided the deprecated activity indicator style on iOS 13 and later (#582).
+- Corrected Dart API documentation typos and formatting (#586).
+
 ## [10.0.0]
 - Migrated Android plugin and example app to built-in Kotlin compiler options.
 - Updated minimum supported SDK versions to Flutter 3.44 and Dart 3.12.

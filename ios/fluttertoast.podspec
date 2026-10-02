@@ -4,6 +4,7 @@
 Pod::Spec.new do |s|
   s.name             = 'fluttertoast'
   s.version          = '0.0.2'
+  s.platform         = :ios, '13.0'
   s.summary          = 'Toast Library for Flutter'
   s.description      = <<-DESC
 Toast Library for FLutter
