@@ -1,3 +1,6 @@
+## [10.0.3]
+- Removed the Kotlin Gradle plugin from the Android build script (#592).
+
 ## [10.0.2]
 - Removed `targetSdk` from the Android library so consuming apps control their own target SDK (#587).
 
