@@ -1,4 +1,5 @@
 ## [10.0.3]
+- Migrated to use `material_ui` package
 - Removed the Kotlin Gradle plugin from the Android build script (#592).
 
 ## [10.0.2]
